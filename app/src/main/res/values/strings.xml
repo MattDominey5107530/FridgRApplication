@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FridgR</string>
+    <string name="menu_profile">My Profile</string>
+    <string name="menu_favourites">Favourites</string>
+    <string name="menu_fridge">Fridge</string>
+    <string name="menu_recipesearch">Recipe Search</string>
+    <string name="menu_settings">Settings</string>
 </resources>
