@@ -1,6 +1,7 @@
 package com.example.fridgr
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
+    /**
+     * Handles the changing between fragments from the BottomNavigationView
+     */
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_profile -> {
@@ -55,12 +59,16 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+    /**
+     * Helper function for mOnNavigationItemSelectedListener to change the fragment
+     */
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
 }
 
 

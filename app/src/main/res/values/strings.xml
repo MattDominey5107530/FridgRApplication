@@ -5,4 +5,10 @@
     <string name="menu_fridge">Fridge</string>
     <string name="menu_recipesearch">Recipe Search</string>
     <string name="menu_settings">Settings</string>
+
+    <string name="login_login">Login</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_register">Register</string>
+    <string name="login_forgottenpassword">Forgot password?</string>
 </resources>
