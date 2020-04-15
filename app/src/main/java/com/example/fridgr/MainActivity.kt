@@ -1,8 +1,6 @@
 package com.example.fridgr
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -66,7 +64,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
+        transaction.replace(R.id.mainContainer, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

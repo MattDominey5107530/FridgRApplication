@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/recipeComponentContainer"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:orientation="vertical"
@@ -25,7 +25,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:scaleType="fitCenter"
-        android:tint="@color/design_default_color_error"
         app:layout_constraintStart_toEndOf="@+id/imgRecipePicture"
         app:layout_constraintTop_toTopOf="@+id/imgRecipePicture"
         app:srcCompat="@drawable/ic_favourite" />

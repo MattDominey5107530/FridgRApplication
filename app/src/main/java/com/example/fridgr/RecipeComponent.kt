@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 
 class RecipeComponent @JvmOverloads constructor(
     context: Context,
@@ -16,9 +17,11 @@ class RecipeComponent @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyle) {
 
     private var recipeImageView: ImageView
-    private var favouriteButton: ImageButton
+    private var favouriteButton: ImageView
     private var recipeTextView: TextView
     private var recipeInfoTextView: TextView
+
+    private var isRecipeFavourite: Boolean = false
 
     init {
         LayoutInflater.from(context).inflate(R.layout.recipe_component, this, true)
@@ -28,23 +31,41 @@ class RecipeComponent @JvmOverloads constructor(
         favouriteButton = findViewById(R.id.imgFavourite)
         recipeTextView = findViewById(R.id.txvRecipeName)
         recipeInfoTextView = findViewById(R.id.txvRecipeInfo)
+
+        favouriteButton.setOnClickListener{ onClickFavourite() }
+
     }
 
-    fun setImageBitmap(bitmap: Bitmap) { recipeImageView.setImageBitmap(bitmap) }
+    fun setImageBitmap(resourceId: Int) { recipeImageView.setImageResource(resourceId) }
 
     fun setFavouriteState(isFavourite: Boolean) {
         //TODO: set the image of the favourite button according to whether it should be 'checked' or not
+    }
+
+    private fun onClickFavourite() {
+        isRecipeFavourite = !isRecipeFavourite
+        favouriteButton.apply {
+            if (isRecipeFavourite) {
+                setImageResource(R.drawable.ic_black_heart)
+                setColorFilter(ContextCompat.getColor(context, R.color.design_default_color_error))
+            } else {
+                setImageResource(R.drawable.ic_favourite)
+                colorFilter = null
+            }
+
+        }
+
     }
 
     fun setRecipeName(recipeName: String) { recipeTextView.text = recipeName }
 
     fun setRecipeInfo(recipeInfo: String) { recipeInfoTextView.text = recipeInfo }
 
-    fun setRecipe(recipeName: String, recipeInfo: String, isFavourite: Boolean, recipeBitmap: Bitmap) {
+    fun setRecipe(recipeName: String, recipeInfo: String, isFavourite: Boolean, recipeResourceId: Int) {
         setRecipeName(recipeName)
         setRecipeInfo(recipeInfo)
         setFavouriteState(isFavourite)
-        setImageBitmap(recipeBitmap)
+        setImageBitmap(recipeResourceId)
     }
 
 }
