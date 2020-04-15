@@ -1,6 +1,7 @@
 package com.example.fridgr
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -49,10 +50,11 @@ class MainActivity : AppCompatActivity() {
                 openFragment(recipeSearchFragment)
                 return@OnNavigationItemSelectedListener true
             }
+            //TODO: Remove after creating and testing all GUI elements
             R.id.navigation_settings -> {
-                toolbar.title = "Settings"
-                val settingsFragment = SettingsFragment.newInstance()
-                openFragment(settingsFragment)
+                toolbar.title = "Testing"
+                val testFragment = LoginFragment.newInstance()
+                openFragment(testFragment)
                 return@OnNavigationItemSelectedListener true
             }
         }

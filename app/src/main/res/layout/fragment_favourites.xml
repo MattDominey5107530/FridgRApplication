@@ -4,16 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".FavouritesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="FavouritesFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@color/colorAccent"
+        android:ems="10"
+        android:hint="Search favourites"
+        android:imeOptions="actionSearch"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:columnCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="Button"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="Button"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill_horizontal" />
+    </androidx.gridlayout.widget.GridLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

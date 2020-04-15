@@ -4,16 +4,347 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/imgProfilePicture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/profile_acc_profilepicture" />
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ProfileFragment"
+        android:id="@+id/txvName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgProfilePicture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgProfilePicture"
+        app:layout_constraintTop_toTopOf="@+id/imgProfilePicture" />
+
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imgProfilePicture">
+
+        <!-- TODO: Add attributes to change in the profile -->
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/txvDietaryRequirements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_dietaryrequirements"
+                android:textSize="30sp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_vegetarian"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_pescatarian"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_paleo"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_vegan"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_redmeatfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_porkfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_fishfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_kosher"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_glutenfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_wheatfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_dairyfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_eggfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_shellfishfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_crustaceanfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_soyfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_mustardfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_lupinefree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_kidneyfriendly"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dr_attr19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dr_ketofriendly"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <TextView
+                android:id="@+id/txvDietaryPreferences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_dietarypreferences"
+                android:textSize="30sp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_balanced"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_lowpotassium"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_lowsugar"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_nosugar"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_nooiladded"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_highfibre"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_highprotein"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_lowcarb"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_lowfat"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_lowsodium"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+            <CheckBox
+                android:id="@+id/chb_dp_attr11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/profile_dp_fodmapfree"
+                android:textSize="24sp"
+                android:layout_margin="7dp" />
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

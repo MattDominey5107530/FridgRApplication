@@ -34,9 +34,7 @@ class LoginFragment: Fragment() {
         val forgottenPasswordButton: Button = v.findViewById(R.id.btnForgottenPassword)
         forgottenPasswordButton.setOnClickListener { onClickForgottenPasswordButton() }
 
-        /**
-         * Get reference to the EditTexts for username and password
-         */
+        //Get reference to the EditTexts for username and password
         usernameEditText = v.findViewById(R.id.edtUsername)
         passwordEditText = v.findViewById(R.id.edtPassword)
 
