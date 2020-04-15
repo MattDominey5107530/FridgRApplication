@@ -45,5 +45,10 @@
     <string name="profile_dp_lowfat">Low fat</string>
     <string name="profile_dp_lowsodium">Low sodium</string>
     <string name="profile_dp_fodmapfree">FODMAP free</string>
-    <!-- <string name="profile_"></string> -->
+
+    <string name="favourites_searchfavourites">Search favourites</string>
+    <string name="favourites_filter">Filter</string>
+    <string name="favourites_sort">Sort</string>
+
+
 </resources>

@@ -97,7 +97,6 @@ class ProfileFragment : Fragment() {
         for (i in 0..10) {
             if (dpCheckBoxes[i].isChecked) checkedAttributes.add(dietAttrs[i])
         }
-        Log.v("X", checkedAttributes.toString())
         return checkedAttributes
     }
 
