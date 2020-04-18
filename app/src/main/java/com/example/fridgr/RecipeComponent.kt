@@ -42,21 +42,6 @@ class RecipeComponent @JvmOverloads constructor(
         //TODO: set the image of the favourite button according to whether it should be 'checked' or not
     }
 
-    private fun onClickFavourite() {
-        isRecipeFavourite = !isRecipeFavourite
-        favouriteButton.apply {
-            if (isRecipeFavourite) {
-                setImageResource(R.drawable.ic_black_heart)
-                setColorFilter(ContextCompat.getColor(context, R.color.design_default_color_error))
-            } else {
-                setImageResource(R.drawable.ic_favourite)
-                colorFilter = null
-            }
-
-        }
-
-    }
-
     fun setRecipeName(recipeName: String) { recipeTextView.text = recipeName }
 
     fun setRecipeInfo(recipeInfo: String) { recipeInfoTextView.text = recipeInfo }
@@ -68,4 +53,20 @@ class RecipeComponent @JvmOverloads constructor(
         setImageBitmap(recipeResourceId)
     }
 
+    /**
+     * Handles the visual & functionality of 'favouriting' a recipe
+     */
+    private fun onClickFavourite() {
+        isRecipeFavourite = !isRecipeFavourite
+        favouriteButton.apply {
+            if (isRecipeFavourite) {
+                setImageResource(R.drawable.ic_black_heart)
+                setColorFilter(ContextCompat.getColor(context, R.color.design_default_color_error))
+            } else {
+                setImageResource(R.drawable.ic_favourite)
+                colorFilter = null
+            }
+        }
+        //TODO: Add functionality to actually ADD the recipe to your favourites
+    }
 }
