@@ -17,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        //Preload the fridge tab into the view and set the navigation bar to show that you're on that page
+        toolbar.title = "Fridge"
+        val fridgeFragment = FridgeFragment.newInstance()
+        openFragment(fridgeFragment)
+        bottomNavigation.selectedItemId = R.id.navigation_fridge
     }
 
     /**

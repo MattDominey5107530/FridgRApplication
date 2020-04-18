@@ -39,7 +39,7 @@ class FavouritesFragment : Fragment() {
         filterButton.setOnClickListener { onClickFilter() }
         sortButton.setOnClickListener { onClickSort() }
 
-        //TODO: populate the favouritesRecipeContainer with recipes from the users favourites
+        //TODO: populate the favouritesRecipeContainer with recipes from the local users favourites
 
         return v
     }

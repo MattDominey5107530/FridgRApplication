@@ -74,6 +74,7 @@ class ProfileFragment : Fragment() {
         dpCheckBoxes = tempDpArrayList
 
         //TODO: Add edit button for name and profile picture (perhaps use Google profile picture as default if we allow them to login via Google)
+        //TODO: Populate fields with values from file
 
         return v
     }
