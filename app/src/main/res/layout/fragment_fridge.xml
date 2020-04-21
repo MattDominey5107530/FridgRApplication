@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".FridgeFragment">
 
     <FrameLayout
@@ -22,7 +23,7 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSearch"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="4dp"
@@ -31,7 +32,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:background="@color/colorPrimary"
-        android:text="Search!"
+        android:text="@string/fridge_search"
         android:textAllCaps="false"
         android:textSize="48dp"
         app:layout_constraintBottom_toBottomOf="parent"

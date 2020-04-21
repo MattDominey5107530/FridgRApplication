@@ -50,5 +50,7 @@
     <string name="favourites_filter">Filter</string>
     <string name="favourites_sort">Sort</string>
 
+    <string name="fridge_searchforingredients">Search for ingredients</string>
+    <string name="fridge_search">Search</string>
 
 </resources>

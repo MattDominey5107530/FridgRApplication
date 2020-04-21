@@ -10,12 +10,13 @@
     <EditText
         android:id="@+id/edtIngredientSearch"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:ems="10"
+        android:hint="@string/fridge_searchforingredients"
         android:imeOptions="actionSearch"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +32,7 @@
             android:id="@+id/lnlSubcatIconContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
@@ -42,11 +44,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
-        <LinearLayout
-            android:id="@+id/lnlIngredientIconContainer"
+        <GridLayout
+            android:id="@+id/gdlIngredientIconContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:layout_margin="5dp"
+            android:rowCount="3" />
     </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/btnIngredientList"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/circular_button_checked"
+        android:text="0"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edtIngredientSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

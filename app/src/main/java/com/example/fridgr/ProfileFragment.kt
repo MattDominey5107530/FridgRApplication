@@ -10,6 +10,7 @@ import android.widget.CheckBox
 
 class ProfileFragment : Fragment() {
 
+    //TODO: Put this into an xml list instead of in-code
     val healthAttrs = arrayOf(
         "vegetarian",
         "pecatarian",
