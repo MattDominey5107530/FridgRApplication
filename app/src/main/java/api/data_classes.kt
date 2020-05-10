@@ -32,10 +32,16 @@ data class Recipe(val id: Int,
                   val nutritionList: List<Nutrition>,
                   val image: Bitmap)
 
+/**
+ * Recipe class which includes extra information returned when searching by ingredient.
+ */
 data class IngredientSearchRecipe(val recipe: Recipe,
                                   val missedIngredients: List<Ingredient>,
                                   val usedIngredients: List<Ingredient>,
                                   val unusedIngredients: List<Ingredient>)
 
+/**
+ * Recipe class which includes the steps involved in actually creating the dish.
+ */
 data class RecipeMethod(val recipe: Recipe,
                         val stepList: List<String>)
