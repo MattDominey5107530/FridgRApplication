@@ -51,10 +51,10 @@ interface ISpoonacularAPIHandler {
      *      E.g. user text = "App"
      *          returns = List("Apple", "Apple sauce", ...)
      */
-    fun getAutocompletedIngredientStringList(
+    fun getAutocompletedIngredientList(
         ingredientSearchText: String,
         intolerances: List<Intolerance>
-    ): List<String>
+    ): List<Ingredient>
 
     /**
      * (Docs: https://spoonacular.com/food-api/docs#Autocomplete-Recipe-Search)
@@ -63,9 +63,9 @@ interface ISpoonacularAPIHandler {
      *      E.g. user text = "chick"
      *          returns = List("Chicken", "Chicken BBQ", "Chicken BLT", "Chicken Pie", ...)
      */
-    fun getAutocompletedIngredientStringList(
+    fun getAutocompletedRecipeList(
         recipeSearchText: String
-    ): List<String>
+    ): List<Recipe>
 
     /**
      * (Docs: https://spoonacular.com/food-api/docs#Get-Similar-Recipes)
