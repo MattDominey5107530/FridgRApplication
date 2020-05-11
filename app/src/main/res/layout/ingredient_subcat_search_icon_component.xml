@@ -4,7 +4,7 @@
     android:id="@+id/cnlIngredientSubcatSearchIconComponent"
     android:layout_width="80dp"
     android:layout_height="80dp"
-    tools:context=".IngredientSubcatSearchIconComponent">
+    tools:context=".ingredient_search_component.IngredientSearchIconComponent">
 
     <ImageView
         android:id="@+id/imgIcon"

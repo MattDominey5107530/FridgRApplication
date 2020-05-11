@@ -1,20 +1,18 @@
 package com.example.fridgr
 
 import android.annotation.TargetApi
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.getSystemService
+import com.example.fridgr.ingredient_search_component.IngredientSearchComponent
 
 class FridgeFragment : Fragment() {
 
-    private lateinit var ingredientSubcatSearchComponent: IngredientSubcatSearchComponent
+    private lateinit var ingredientSubcatSearchComponent: IngredientSearchComponent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +22,8 @@ class FridgeFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_fridge, container, false)
 
         //Creates the subcat search component and adds it to the specified frame layout
-        ingredientSubcatSearchComponent = IngredientSubcatSearchComponent(v.context)
+        ingredientSubcatSearchComponent =
+            IngredientSearchComponent(v.context)
         v.findViewById<FrameLayout>(R.id.frlIngredientSubcatSearcher).addView(ingredientSubcatSearchComponent)
         initialiseIngredientSubcatSearchComponent()
 

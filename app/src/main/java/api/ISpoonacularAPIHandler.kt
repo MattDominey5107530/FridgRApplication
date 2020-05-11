@@ -47,7 +47,8 @@ interface ISpoonacularAPIHandler {
     /**
      * (Docs: https://spoonacular.com/food-api/docs#Autocomplete-Ingredient-Search)
      * Will take the string text the user has typed in order to find an ingredient and
-     *  return a list, of sensible length (e.g. 6), of ingredients which act as an autocomplete.
+     *  return a list, of sensible length (e.g. 30), of ingredients which will be shown in a
+     *  grid for the user to pick from.
      *      E.g. user text = "App"
      *          returns = List("Apple", "Apple sauce", ...)
      */
