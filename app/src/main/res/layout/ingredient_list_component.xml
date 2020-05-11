@@ -6,6 +6,17 @@
     android:layout_height="50dp"
     android:background="@color/background">
 
+    <ImageView
+        android:id="@+id/imvIngredientIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/background" />
+
     <TextView
         android:id="@+id/txvIngredientName"
         android:layout_width="wrap_content"
@@ -14,7 +25,7 @@
         android:layout_marginLeft="8dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imvIngredientIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton

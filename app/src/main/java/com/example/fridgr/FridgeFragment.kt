@@ -1,18 +1,21 @@
 package com.example.fridgr
 
 import android.annotation.TargetApi
+import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
+import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import api.Ingredient
 import com.example.fridgr.ingredient_search_component.IngredientSearchComponent
 
 class FridgeFragment : Fragment() {
 
-    private lateinit var ingredientSubcatSearchComponent: IngredientSearchComponent
+    private lateinit var ingredientSearchComponent: IngredientSearchComponent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,49 +25,27 @@ class FridgeFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_fridge, container, false)
 
         //Creates the subcat search component and adds it to the specified frame layout
-        ingredientSubcatSearchComponent =
+        ingredientSearchComponent =
             IngredientSearchComponent(v.context)
-        v.findViewById<FrameLayout>(R.id.frlIngredientSubcatSearcher).addView(ingredientSubcatSearchComponent)
-        initialiseIngredientSubcatSearchComponent()
+        v.findViewById<FrameLayout>(R.id.frlIngredientSubcatSearcher)
+            .addView(ingredientSearchComponent)
 
         //onClick listeners
         v.findViewById<Button>(R.id.btnSearch).setOnClickListener { onClickSearch() }
-        v.findViewById<Button>(R.id.btnIngredientList).setOnClickListener { onClickIngredientList() }
+        v.findViewById<Button>(R.id.btnIngredientList)
+            .setOnClickListener { onClickIngredientList() }
+
+        v.findViewById<EditText>(R.id.edtIngredientSearch)
+            .setOnEditorActionListener { _, id: Int, _ ->
+                if (id == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyboard()
+                    true
+                } else {
+                    false
+                }
+            }
 
         return v
-    }
-
-    private fun initialiseIngredientSubcatSearchComponent() {
-        //TODO: initialise the class with actual subcategories and ingredients
-        ingredientSubcatSearchComponent.addSubcat("Fruit", R.drawable.ic_fruit)
-        ingredientSubcatSearchComponent.addIngredient("Fruit", "Apple", R.drawable.ic_fruit)
-        ingredientSubcatSearchComponent.addIngredient("Fruit", "Banana", R.drawable.ic_fruit)
-        ingredientSubcatSearchComponent.addSubcat("Dairy", R.drawable.ic_dairy)
-
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Milk", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cream", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Yoghurt", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cheese", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Milk", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cream", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Yoghurt", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cheese", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Milk", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cream", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Yoghurt", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cheese", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Milk", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cream", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Yoghurt", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cheese", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Milk", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cream", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Yoghurt", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cheese", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Milk", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cream", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Yoghurt", R.drawable.ic_dairy)
-        ingredientSubcatSearchComponent.addIngredient("Dairy", "Cheese", R.drawable.ic_dairy)
     }
 
     private fun onClickSearch() {
@@ -81,12 +62,13 @@ class FridgeFragment : Fragment() {
         fun newInstance(): FridgeFragment = FridgeFragment()
     }
 
+    //TODO: should definitely be a class
     private fun showIngredientListPopup() {
         // Initialize a new layout inflater instance
         val inflater: LayoutInflater = LayoutInflater.from(this.context)
 
         // Inflate a custom view using layout inflater
-        val v = inflater.inflate(R.layout.popupwindow_recipe_list, null)
+        val v = inflater.inflate(R.layout.popupwindow_ingredient_list, null)
 
         // Initialize a new instance of popup window
         val popupWindow = PopupWindow(
@@ -98,33 +80,62 @@ class FridgeFragment : Fragment() {
         @TargetApi(21)
         popupWindow.elevation = 10.0F
 
+        class CheckedIngredientAdapter(val myDataset: ArrayList<Ingredient>) :
+            RecyclerView.Adapter<CheckedIngredientAdapter.IngredientIconViewHolder>() {
+
+            inner class IngredientIconViewHolder(val ingredientComponent: View) :
+                RecyclerView.ViewHolder(ingredientComponent)
+
+            //Create the view
+            override fun onCreateViewHolder(
+                parent: ViewGroup,
+                viewType: Int
+            ): IngredientIconViewHolder {
+
+                val ingredientComponent = inflater.inflate(R.layout.ingredient_list_component, null)
+
+                return IngredientIconViewHolder(ingredientComponent)
+            }
+
+            //Populate the view
+            override fun onBindViewHolder(holder: IngredientIconViewHolder, position: Int) {
+                with(holder.ingredientComponent) {
+                    findViewById<ImageView>(R.id.imvIngredientIcon)
+                        .setImageBitmap(myDataset[position].image)
+                    findViewById<TextView>(R.id.txvIngredientName)
+                        .text = myDataset[position].name
+                    findViewById<ImageButton>(R.id.btnDeleteIngredient)
+                        .setOnClickListener {
+                            myDataset.remove(myDataset[position])
+                            notifyDataSetChanged()
+                        }
+                }
+            }
+
+            // Return the size of your dataset
+            override fun getItemCount() = myDataset.size
+        }
+
         val closeButton: ImageButton = v.findViewById(R.id.btnCloseIngredientList)
-        val ingredientListLinearLayout: LinearLayout = v.findViewById(R.id.lnlIngredientList)
+        val recyclerViewAdapter =
+            CheckedIngredientAdapter(ingredientSearchComponent.checkedIngredients)
+        val ingredientListRecyclerView: RecyclerView =
+            v.findViewById<RecyclerView>(R.id.rcvIngredientContainer).apply {
+                setHasFixedSize(true)
+                adapter = recyclerViewAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
 
         closeButton.setOnClickListener {
             // Dismiss the popup window
             popupWindow.dismiss()
         }
 
-        for (checkedIngredient in ingredientSubcatSearchComponent.checkedIngredientList) {
-            val checkedIngredientListComponent = inflater.inflate(R.layout.recipe_list_component, null)
-            with (checkedIngredientListComponent) {
-                findViewById<ImageButton>(R.id.btnDeleteIngredient).setOnClickListener { ingredientListLinearLayout.removeView(this) }
-                findViewById<TextView>(R.id.txvIngredientName).text = checkedIngredient
-            }
-            ingredientListLinearLayout.addView(checkedIngredientListComponent)
-        }
-
-
         //Handle closing of the PopupWindow if a click lands outside of the PopupWindow
-        with (popupWindow) {
+        with(popupWindow) {
             setOnDismissListener {
-                val newCheckedIngredients = ArrayList<String>()
-                for (i in 0 until ingredientListLinearLayout.childCount) {
-                    val x = ingredientListLinearLayout.getChildAt(i).findViewById<TextView>(R.id.txvIngredientName).text
-                    newCheckedIngredients.add(x.toString())
-                }
-                ingredientSubcatSearchComponent.updateCheckedIngredients(newCheckedIngredients)
+                val newCheckedIngredients = recyclerViewAdapter.myDataset
+                ingredientSearchComponent.updateCheckedIngredients(newCheckedIngredients)
             }
             isOutsideTouchable = true
             isFocusable = true
