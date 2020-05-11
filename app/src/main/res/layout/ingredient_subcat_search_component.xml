@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".IngredientSubcatSearchComponent">
+    tools:context=".ingredient_search_component.IngredientSearchComponent">
 
     <EditText
         android:id="@+id/edtIngredientSearch"
@@ -36,21 +36,14 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
-    <HorizontalScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvIngredientIconContainer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_height="match_constraint"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
-
-        <GridLayout
-            android:id="@+id/gdlIngredientIconContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:rowCount="3" />
-    </HorizontalScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
     <Button
         android:id="@+id/btnIngredientList"
