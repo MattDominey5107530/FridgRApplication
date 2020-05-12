@@ -22,7 +22,15 @@ data class Nutrition(val name: String,
 data class Ingredient(val id: Int,
                       val name: String,
                       val aisle: Aisle,
-                      val image: Bitmap)
+                      val image: Bitmap) {
+    override fun equals(other: Any?): Boolean {
+        return if (other is Ingredient) {
+            this.id == other.id
+        } else {
+            super.equals(other)
+        }
+    }
+}
 
 /**
  * Recipe class which maps to how recipes are returned when simply searching for recipes.

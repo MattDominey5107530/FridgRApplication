@@ -46,4 +46,8 @@ class IngredientSearchIcon @JvmOverloads constructor(
             }
         }
     }
+
+    fun onClick() {
+        setCheckedState(!isChecked)
+    }
 }

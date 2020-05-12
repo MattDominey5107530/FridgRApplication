@@ -26,15 +26,11 @@ class SubcatSearchIcon @JvmOverloads constructor(
     }
 
     fun setProperties(subcatLabel: String,
-                      subcatImageResource: Int,
-                      uncheckAllSubcatIcons: () -> (Unit)) {
+                      subcatImageResource: Int) {
         setIconProperties(
             ResourcesCompat.getDrawable(context.resources, subcatImageResource, null)!!,
             subcatLabel,
             iconPadding)
-
-        //Un-checks the other subcat icons so that only 1 is selected at once and then selects this one
-        this.setOnClickListener { uncheckAllSubcatIcons.invoke(); setCheckedState(!this.isChecked) }
     }
 
     fun setCheckedState(checkedState: Boolean) {
@@ -46,5 +42,9 @@ class SubcatSearchIcon @JvmOverloads constructor(
                 setBackgroundResource(R.drawable.circular_button_unchecked)
             }
         }
+    }
+
+    fun onClick() {
+        setCheckedState(!this.isChecked)
     }
 }

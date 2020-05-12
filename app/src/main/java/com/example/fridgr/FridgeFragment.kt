@@ -16,6 +16,7 @@ import com.example.fridgr.ingredient_search_component.IngredientSearchComponent
 class FridgeFragment : Fragment() {
 
     private lateinit var ingredientSearchComponent: IngredientSearchComponent
+    private lateinit var fragmentView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +63,7 @@ class FridgeFragment : Fragment() {
         fun newInstance(): FridgeFragment = FridgeFragment()
     }
 
-    //TODO: should definitely be a class
+    //TODO: should definitely be a separate class
     private fun showIngredientListPopup() {
         // Initialize a new layout inflater instance
         val inflater: LayoutInflater = LayoutInflater.from(this.context)
@@ -80,6 +81,10 @@ class FridgeFragment : Fragment() {
         @TargetApi(21)
         popupWindow.elevation = 10.0F
 
+        val closeButton: ImageButton = v.findViewById(R.id.btnCloseIngredientList)
+
+        val ingredientListRecyclerView: RecyclerView = v.findViewById(R.id.rcvIngredientContainer)
+
         class CheckedIngredientAdapter(val myDataset: ArrayList<Ingredient>) :
             RecyclerView.Adapter<CheckedIngredientAdapter.IngredientIconViewHolder>() {
 
@@ -92,7 +97,7 @@ class FridgeFragment : Fragment() {
                 viewType: Int
             ): IngredientIconViewHolder {
 
-                val ingredientComponent = inflater.inflate(R.layout.ingredient_list_component, null)
+                val ingredientComponent = inflater.inflate(R.layout.ingredient_list_component, ingredientListRecyclerView, false)
 
                 return IngredientIconViewHolder(ingredientComponent)
             }
@@ -116,11 +121,8 @@ class FridgeFragment : Fragment() {
             override fun getItemCount() = myDataset.size
         }
 
-        val closeButton: ImageButton = v.findViewById(R.id.btnCloseIngredientList)
-        val recyclerViewAdapter =
-            CheckedIngredientAdapter(ingredientSearchComponent.checkedIngredients)
-        val ingredientListRecyclerView: RecyclerView =
-            v.findViewById<RecyclerView>(R.id.rcvIngredientContainer).apply {
+        val recyclerViewAdapter = CheckedIngredientAdapter(ingredientSearchComponent.checkedIngredients)
+        ingredientListRecyclerView.apply {
                 setHasFixedSize(true)
                 adapter = recyclerViewAdapter
                 layoutManager = LinearLayoutManager(context)

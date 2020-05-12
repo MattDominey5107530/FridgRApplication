@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import api.Aisle
 import api.Ingredient
+import api.getAisleFromAisleString
 import com.example.fridgr.R
 
 class IngredientSearchComponent(
@@ -37,15 +38,19 @@ class IngredientSearchComponent(
     private var ingredientIconLayoutManager: GridLayoutManager
     private var ingredientIconAdapter: IngredientIconAdapter
 
+    private var currentSubcatIndex: Int = 0
+    private var ingredients = listOf<Ingredient>()
     var checkedIngredients = arrayListOf<Ingredient>()
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.ingredient_subcat_search_component, this, true)
+        LayoutInflater.from(context)
+            .inflate(R.layout.ingredient_subcat_search_component, this, true)
 
         ingredientSearchEditText = findViewById(R.id.edtIngredientSearch)
         ingredientListButton = findViewById(R.id.btnIngredientList)
 
-        subcatIconLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        subcatIconLayoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         subcatIconAdapter = SubcatIconAdapter(arrayListOf())
         subcatIconRecyclerView = findViewById<RecyclerView>(R.id.rcvSubcatIconContainer).apply {
             setHasFixedSize(true)
@@ -53,54 +58,70 @@ class IngredientSearchComponent(
             adapter = subcatIconAdapter
         }
 
-        ingredientIconLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.HORIZONTAL, false)
+        ingredientIconLayoutManager =
+            GridLayoutManager(context, 3, LinearLayoutManager.HORIZONTAL, false)
         ingredientIconAdapter = IngredientIconAdapter(arrayListOf())
-        ingredientIconRecyclerView = findViewById<RecyclerView>(R.id.rcvIngredientIconContainer).apply {
-            setHasFixedSize(true)
-            layoutManager = ingredientIconLayoutManager
-            adapter = ingredientIconAdapter
-        }
+        ingredientIconRecyclerView =
+            findViewById<RecyclerView>(R.id.rcvIngredientIconContainer).apply {
+                setHasFixedSize(true)
+                layoutManager = ingredientIconLayoutManager
+                adapter = ingredientIconAdapter
+            }
 
         ingredientSearchEditText.addTextChangedListener(object : TextWatcher {
             //Redundant but necessary functions to satisfy abstractTextWatcher
-            override fun afterTextChanged(p0: Editable?) { }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { onChangeSearchText(p0.toString()) }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                onChangeSearchText(p0.toString())
+            }
         })
     }
 
     inner class IngredientIconAdapter(var myDataset: List<Ingredient>) :
         RecyclerView.Adapter<IngredientIconAdapter.IngredientIconViewHolder>() {
 
-        inner class IngredientIconViewHolder(val ingredientIcon: IngredientSearchIcon) : RecyclerView.ViewHolder(ingredientIcon)
+        inner class IngredientIconViewHolder(val ingredientIcon: IngredientSearchIcon) :
+            RecyclerView.ViewHolder(ingredientIcon)
 
         //Create the icon
-        override fun onCreateViewHolder(parent: ViewGroup,
-                                        viewType: Int): IngredientIconViewHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): IngredientIconViewHolder {
 
             return IngredientIconViewHolder(IngredientSearchIcon(context))
         }
 
-        //Populate the icon
+        //Populate the ingredient icon
         override fun onBindViewHolder(holder: IngredientIconViewHolder, position: Int) {
-            with (holder.ingredientIcon) {
+            with(holder.ingredientIcon) {
+                //Set the fields of the icon (text, icon etc.)
                 setProperties(myDataset[position])
+
+                //Make sure it's checked if it's currently in the check ingredients list
+                if (myDataset[position] in checkedIngredients) {
+                    setCheckedState(true)
+                } else {
+                    setCheckedState(false)
+                }
+
+                //onClick toggle's the ingredient's checked state and adds/removes it from the
+                // checked ingredients list. Also update the number on the ingredient list button
                 setOnClickListener {
-                    //Toggle the ingredient's checked state
-                    setCheckedState(!isChecked)
-                    //Add or remove it from the list depending on whether it is now checked
+                    onClick()
                     if (isChecked) {
                         checkedIngredients.add(myDataset[position])
                     } else {
                         checkedIngredients.remove(myDataset[position])
                     }
+                    updateIngredientListButtonText()
                 }
             }
-            //set checked state according to checked ingredient list
         }
 
-        // Return the size of your dataset
         override fun getItemCount() = myDataset.size
     }
 
@@ -109,19 +130,47 @@ class IngredientSearchComponent(
     inner class SubcatIconAdapter(var myDataset: List<Subcat>) :
         RecyclerView.Adapter<SubcatIconAdapter.SubcatIconViewHolder>() {
 
-        inner class SubcatIconViewHolder(val subcatIcon: SubcatSearchIcon) : RecyclerView.ViewHolder(subcatIcon)
+        inner class SubcatIconViewHolder(val subcatIcon: SubcatSearchIcon) :
+            RecyclerView.ViewHolder(subcatIcon)
 
         //Create the icon
-        override fun onCreateViewHolder(parent: ViewGroup,
-                                        viewType: Int): SubcatIconViewHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): SubcatIconViewHolder {
 
             return SubcatIconViewHolder(SubcatSearchIcon(context))
         }
 
         //Populate the icon
         override fun onBindViewHolder(holder: SubcatIconViewHolder, position: Int) {
-            with (myDataset[position]) {
-                holder.subcatIcon.setProperties(subcatLabel, subcatImageResource, ::uncheckAllSubcatIcons)
+            with(holder.subcatIcon) {
+                setProperties(
+                    myDataset[position].subcatLabel,
+                    myDataset[position].subcatImageResource
+                )
+
+                if (currentSubcatIndex == position) {
+                    setCheckedState(true)
+                }
+
+                setOnClickListener {
+                    uncheckAllSubcatIcons()
+                    onClick()
+                    currentSubcatIndex = position
+                    ingredientIconAdapter.myDataset =
+                        if (currentSubcatIndex == 0) {
+                            //If 'relevant', then just show all the ingredients returned by the search
+                            ingredients
+                        } else {
+                            //Only show ingredients from that aisle
+                            val aisle: Aisle = getAisleFromAisleString(myDataset[position].subcatLabel)
+                            ingredients.filter {
+                                it.aisle == aisle
+                            }
+                        }
+                    ingredientIconAdapter.notifyDataSetChanged()
+                }
             }
         }
 
@@ -131,15 +180,19 @@ class IngredientSearchComponent(
 
 
     fun setIngredients(ingredientList: List<Ingredient>) {
-        with (ingredientIconAdapter) {
-            myDataset = ingredientList
+        currentSubcatIndex = 0
+        with(ingredientIconAdapter) {
+            ingredients = ingredientList
+            myDataset = ingredients
             notifyDataSetChanged()
         }
     }
 
     private fun setSubcategories(subcatList: List<Subcat>) {
-        with (subcatIconAdapter) {
-            myDataset = subcatList
+        with(subcatIconAdapter) {
+            val newSubcatList = subcatList.toMutableList()
+            newSubcatList.add(0, Subcat("Relevant", R.drawable.ic_black_heart))
+            myDataset = newSubcatList.toList()
             notifyDataSetChanged()
         }
     }
@@ -151,29 +204,37 @@ class IngredientSearchComponent(
         ingredientListButton.text = checkedIngredients.size.toString()
     }
 
+    fun updateIngredientListButtonText() {
+        ingredientListButton.text = checkedIngredients.size.toString()
+    }
 
     private fun onChangeSearchText(text: String) {
-        //TODO: display search icon in subcat and search for ingredients and set those ingredients in the ingredient gridview (setIngredientIcons())
-        //TODO: also, if there is search text, then show search icon if not then don't (setSearchVisibility())
-        //text is ingredientSearchEditText.text
-        //Gets triggered after every change to the search text
-
-        Log.v("X", "Type event")
-        //TODO: TEMP Testing
+        //TODO: Request autocompleted ingredients from the API to display in this control
+        // asyncronously, maybe add buffering animation while it loads in
+        // IDEA: save quota by waiting a short time before asking for autocomplete for the control
 
         val tempIngredientList = listOf(
-            Ingredient(1, "Apple", Aisle.PRODUCE, Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)),
-            Ingredient(2, "Banana", Aisle.PRODUCE, Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888))
+            Ingredient(
+                1,
+                "Apple",
+                Aisle.PRODUCE,
+                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+            ),
+            Ingredient(
+                2,
+                "Banana",
+                Aisle.MEAT,
+                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+            )
         )
 
         val tempSubcatList = listOf(
-            Subcat("Produce", R.drawable.ic_vegetables)
+            Subcat("Produce", R.drawable.ic_vegetables),
+            Subcat("Meat", R.drawable.ic_meat)
         )
 
         setIngredients(tempIngredientList)
         setSubcategories(tempSubcatList)
-
-
     }
 
     private fun addIngredientToCheckedList(ingredient: Ingredient) {
@@ -182,7 +243,7 @@ class IngredientSearchComponent(
 
     private fun uncheckAllSubcatIcons() {
         for (i in 1..subcatIconRecyclerView.childCount) {
-            val child = subcatIconRecyclerView.getChildAt(i-1) as SubcatSearchIcon
+            val child = subcatIconRecyclerView.getChildAt(i - 1) as SubcatSearchIcon
             child.setCheckedState(false)
         }
     }
