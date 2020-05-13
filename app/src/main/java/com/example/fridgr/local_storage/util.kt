@@ -6,9 +6,7 @@ import api.Diet
 import api.Intolerance
 import api.Recipe
 import java.io.BufferedReader
-import java.io.File
 import java.io.InputStreamReader
-import java.net.BindException
 
 data class UserPreferences(
     val intolerances: List<Intolerance>,
@@ -22,9 +20,6 @@ const val profilePictureFilename = "profile_picture.jpg"
 fun isUserLoggedIn(context: Context): Boolean {
     val userPreferencesFile = context.getFileStreamPath(userPreferencesFileName)
     val deviceTokenFile = context.getFileStreamPath(userTokenFileName)
-
-    val Aexists = userPreferencesFile.exists()
-    val Bexists = deviceTokenFile.exists()
 
     return userPreferencesFile.exists() && deviceTokenFile.exists()
 }
