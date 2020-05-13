@@ -1,21 +1,29 @@
 package com.example.fridgr
 
-import android.annotation.TargetApi
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import api.Ingredient
 import com.example.fridgr.ingredient_search_component.IngredientSearchComponent
 import com.example.fridgr.popups.AbstractPopup
 import com.example.fridgr.popups.IngredientListPopup
 
 class FridgeFragment : Fragment() {
+
+    //KFunction to switch between fragments
+    private lateinit var switchToFragment: (Fragment, Fragment) -> Unit
+    private var myParentFragment: Fragment? = null
+
+    companion object {
+        fun newInstance(switchToFragment: (Fragment, Fragment) -> Unit,
+                        parentFragment: Fragment? = null): FridgeFragment =
+            FridgeFragment().apply {
+                this.switchToFragment = switchToFragment
+                this.myParentFragment = parentFragment
+            }
+    }
+
 
     private lateinit var ingredientSearchComponent: IngredientSearchComponent
 
@@ -52,17 +60,19 @@ class FridgeFragment : Fragment() {
 
     private fun onClickSearch() {
         //TODO: getIngredientList from component; search for recipes through API and switch to recipesearch fragment (fragment to display the results of your search)
+        val recipeSearchFrag = RecipeSearchFragment.newInstance(switchToFragment, this) //parse recipes, and whether there should be a back button
+        switchToFragment.invoke(this, recipeSearchFrag)
     }
 
     private fun onClickIngredientList() {
-        //TODO: if theres no ingredients checked then dont show popupwindow!
+        if (ingredientSearchComponent.checkedIngredients.size > 0) {
+            showIngredientListPopup()
+        } else {
+            Toast.makeText(context, "Pick some ingredients first!", Toast.LENGTH_SHORT).show()
+        }
 
-        showIngredientListPopup()
     }
 
-    companion object {
-        fun newInstance(): FridgeFragment = FridgeFragment()
-    }
 
     private fun onDismissIngredientListPopup(abstractPopup: AbstractPopup) {
         val ingredientListPopup = abstractPopup as IngredientListPopup

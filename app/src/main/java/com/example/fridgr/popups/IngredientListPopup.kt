@@ -29,8 +29,7 @@ class IngredientListPopup(
         view.findViewById(R.id.btnCloseIngredientList)
     private val ingredientListRecyclerView: RecyclerView =
         view.findViewById(R.id.rcvIngredientContainer)
-
-    private lateinit var recyclerViewAdapter: CheckedIngredientAdapter
+    private val recyclerViewAdapter: CheckedIngredientAdapter
 
     init {
         recyclerViewAdapter = CheckedIngredientAdapter(checkedIngredientList)

@@ -13,6 +13,19 @@ import android.widget.EditText
 
 class FavouritesFragment : Fragment() {
 
+    //KFunction to switch between fragments
+    private lateinit var switchToFragment: (Fragment, Fragment) -> Unit
+    private var myParentFragment: Fragment? = null
+
+    companion object {
+        fun newInstance(switchToFragment: (Fragment, Fragment) -> Unit,
+                        parentFragment: Fragment? = null): FavouritesFragment =
+            FavouritesFragment().apply {
+                this.switchToFragment = switchToFragment
+                this.myParentFragment = parentFragment
+            }
+    }
+
     lateinit var recipeSearchEditText: EditText
     lateinit var filterButton: Button
     lateinit var sortButton: Button
@@ -50,14 +63,14 @@ class FavouritesFragment : Fragment() {
 
     fun onClickSort() {
         //TODO: add functionality of sorting the list
+        // potentially a popup window with sorting criteria
+        // potentially a small window underneath button with different sorting methods, e.g.
+        // A-Z name, ingredient number?,
+        // Also, do we really need this?
     }
 
     fun onClickFilter() {
         //TODO: add functionality of filtering the list
-    }
-
-
-    companion object {
-        fun newInstance(): FavouritesFragment = FavouritesFragment()
+        // potentially a popup window with filtering criteria
     }
 }

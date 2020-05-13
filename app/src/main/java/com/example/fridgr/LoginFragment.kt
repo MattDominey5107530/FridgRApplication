@@ -8,11 +8,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import api.Diet
+import api.Intolerance
+import com.example.fridgr.local_storage.UserPreferences
+import com.example.fridgr.local_storage.writeUserPreferences
+import com.example.fridgr.local_storage.writeUserToken
 
 class LoginFragment: Fragment() {
 
-    lateinit var usernameEditText: EditText
-    lateinit var passwordEditText: EditText
+    //KFunction to switch between fragments
+    private lateinit var switchToFragment: (Fragment, Fragment) -> Unit
+    private var myParentFragment: Fragment? = null
+
+    companion object {
+        fun newInstance(switchToFragment: (Fragment, Fragment) -> Unit,
+                        parentFragment: Fragment? = null): LoginFragment =
+            LoginFragment().apply {
+                this.switchToFragment = switchToFragment
+                this.myParentFragment = parentFragment
+            }
+    }
+
+    private lateinit var usernameEditText: EditText
+    private lateinit var passwordEditText: EditText
 
     /**
      * Fragment instantiation
@@ -41,28 +60,47 @@ class LoginFragment: Fragment() {
         return v
     }
 
-    companion object {
-        fun newInstance(): LoginFragment = LoginFragment()
-    }
-
-
     /**
      * Button press functions
      */
     private fun onClickLoginButton() {
-        TODO("not implemented")
+        val username = usernameEditText.text.toString()
+        val password = passwordEditText.text.toString()
+        if (username != "") {
+            if (password != "") {
+                //val userToken: String? = userDatabaseHandler.authenticate() TODO: add once database handler has been created
+                val userToken = "ABCDEF12345"
+                if (userToken != null) {
+                    writeUserToken(context!!, userToken)
+                    //val userPreferences = userDatabaseHandler.getUserPreferences(userToken)
+                    val userPreferences = UserPreferences(listOf(Intolerance.EGG, Intolerance.GRAIN), Diet.VEGAN)
+                    if (userPreferences != null) {
+                        writeUserPreferences(context!!, userPreferences)
+                    }
+                } else {
+                    Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(context, "Password required.", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(context, "Username required.", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun onClickRegisterButton() {
-        TODO("not implemented")
+        //TODO: switch to register fragment
     }
 
     private fun onClickForgottenPasswordButton() {
-        TODO("not implemented")
+        //TODO: Implement with the full app; needs some infrastructure
+        // e.g. a mail server to send forgotten password links etc.
     }
 
     /**
      * GUI function TODO("not implemented")
      */
+    //TODO: add link to database handler interface to login
 
 }
