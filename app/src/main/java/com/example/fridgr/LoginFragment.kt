@@ -72,7 +72,7 @@ class LoginFragment: Fragment() {
                 val userToken = "ABCDEF12345"
                 if (userToken != null) {
                     writeUserToken(context!!, userToken)
-                    //val userPreferences = userDatabaseHandler.getUserPreferences(userToken)
+                    //val userPreferences = userDatabaseHandler.getUserPreferences(userToken) TODO: add once database handler has been created
                     val userPreferences = UserPreferences(listOf(Intolerance.EGG, Intolerance.GRAIN), Diet.VEGAN)
                     if (userPreferences != null) {
                         writeUserPreferences(context!!, userPreferences)
@@ -86,7 +86,6 @@ class LoginFragment: Fragment() {
         } else {
             Toast.makeText(context, "Username required.", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun onClickRegisterButton() {
