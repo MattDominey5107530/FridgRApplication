@@ -147,37 +147,37 @@ class IngredientSearchComponent(
                 val backgroundId = when (myDataset[position].subcatLabel) {
                     "Relevant" -> R.drawable.relevant_button
                     Aisle.BAKING.name -> R.drawable.baking_button
-                        Aisle.HEALTH_FOODS.name -> R.drawable.baking_button //TODO
-                        Aisle.SPICES_AND_SEASONINGS.name -> R.drawable.spices_button
-                        Aisle.PASTA_AND_RICE.name -> R.drawable.rice_pasta_button
-                        Aisle.BAKERY.name -> R.drawable.baking_button
-                        Aisle.REFRIGERATED.name -> R.drawable.baking_button //TODO
-                        Aisle.CANNED_AND_JARRED.name -> R.drawable.baking_button//TODO
-                        Aisle.FROZEN.name -> R.drawable.baking_button//TODO
-                        Aisle.BUTTERS_JAMS.name -> R.drawable.butter_jam_button
-                        Aisle.OIL_VINEGAR.name -> R.drawable.oil_vinegar_button
-                        Aisle.CONDIMENTS.name -> R.drawable.baking_button//TODO
-                        Aisle.SAVORY_SNACKS.name -> R.drawable.savory_snacks_button
-                        Aisle.EGGS_DAIRY.name -> R.drawable.dairy_button
-                        Aisle.ETHNIC_FOODS.name -> R.drawable.baking_button//TODO
-                        Aisle.TEA_AND_COFFEE.name -> R.drawable.tea_coffee_button
-                        Aisle.MEAT.name -> R.drawable.meat_button
-                        Aisle.GOURMET.name -> R.drawable.baking_button//TODO
-                        Aisle.SWEET_SNACKS.name -> R.drawable.sweet_snacks_button
-                        Aisle.GLUTEN_FREE.name -> R.drawable.baking_button//TODO
-                        Aisle.ALCOHOLIC_BEVERAGES.name -> R.drawable.alcoholic_beverages_button
-                        Aisle.CEREAL.name -> R.drawable.cereal_button
-                        Aisle.NUTS.name -> R.drawable.nuts_button
-                        Aisle.BEVERAGES.name -> R.drawable.beverages_button
-                        Aisle.PRODUCE.name -> R.drawable.baking_button//TODO
-                        Aisle.HOMEMADE.name -> R.drawable.baking_button//TODO
-                        Aisle.SEAFOOD.name -> R.drawable.seafood_button
-                        Aisle.CHEESE.name -> R.drawable.cheese_button
-                        Aisle.DRIED_FRUITS.name -> R.drawable.baking_button//TODO
-                        Aisle.ONLINE.name -> R.drawable.baking_button//TODO
-                        Aisle.GRILLING_SUPPLIES.name -> R.drawable.baking_button//TODO
-                        Aisle.BREAD.name -> R.drawable.bread__button
-                        else -> R.drawable.baking_button //TODO
+                    Aisle.HEALTH_FOODS.name -> R.drawable.baking_button //TODO
+                    Aisle.SPICES_AND_SEASONINGS.name -> R.drawable.spices_button
+                    Aisle.PASTA_AND_RICE.name -> R.drawable.rice_pasta_button
+                    Aisle.BAKERY.name -> R.drawable.baking_button
+                    Aisle.REFRIGERATED.name -> R.drawable.baking_button //TODO
+                    Aisle.CANNED_AND_JARRED.name -> R.drawable.baking_button//TODO
+                    Aisle.FROZEN.name -> R.drawable.baking_button//TODO
+                    Aisle.BUTTERS_JAMS.name -> R.drawable.butter_jam_button
+                    Aisle.OIL_VINEGAR.name -> R.drawable.oil_vinegar_button
+                    Aisle.CONDIMENTS.name -> R.drawable.baking_button//TODO
+                    Aisle.SAVORY_SNACKS.name -> R.drawable.savory_snacks_button
+                    Aisle.EGGS_DAIRY.name -> R.drawable.dairy_button
+                    Aisle.ETHNIC_FOODS.name -> R.drawable.baking_button//TODO
+                    Aisle.TEA_AND_COFFEE.name -> R.drawable.tea_coffee_button
+                    Aisle.MEAT.name -> R.drawable.meat_button
+                    Aisle.GOURMET.name -> R.drawable.baking_button//TODO
+                    Aisle.SWEET_SNACKS.name -> R.drawable.sweet_snacks_button
+                    Aisle.GLUTEN_FREE.name -> R.drawable.baking_button//TODO
+                    Aisle.ALCOHOLIC_BEVERAGES.name -> R.drawable.alcoholic_beverages_button
+                    Aisle.CEREAL.name -> R.drawable.cereal_button
+                    Aisle.NUTS.name -> R.drawable.nuts_button
+                    Aisle.BEVERAGES.name -> R.drawable.beverages_button
+                    Aisle.PRODUCE.name -> R.drawable.baking_button//TODO
+                    Aisle.HOMEMADE.name -> R.drawable.baking_button//TODO
+                    Aisle.SEAFOOD.name -> R.drawable.seafood_button
+                    Aisle.CHEESE.name -> R.drawable.cheese_button
+                    Aisle.DRIED_FRUITS.name -> R.drawable.baking_button//TODO
+                    Aisle.ONLINE.name -> R.drawable.baking_button//TODO
+                    Aisle.GRILLING_SUPPLIES.name -> R.drawable.baking_button//TODO
+                    Aisle.BREAD.name -> R.drawable.bread__button
+                    else -> R.drawable.baking_button //TODO
                 }
                 background = ContextCompat.getDrawable(context, backgroundId)
                 val density = context.resources.displayMetrics.density
@@ -199,7 +199,8 @@ class IngredientSearchComponent(
                             ingredients
                         } else {
                             //Only show ingredients from that aisle
-                            val aisle: Aisle = getAisleFromAisleString(myDataset[position].subcatLabel)
+                            val aisle: Aisle =
+                                getAisleFromAisleString(myDataset[position].subcatLabel)
                             ingredients.filter { ingredient ->
                                 ingredient.aisle == aisle
                             }

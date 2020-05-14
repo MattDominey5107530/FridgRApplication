@@ -31,7 +31,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        val v: View = inflater.inflate(R.layout.fragment_register, container, false)
 
 
 

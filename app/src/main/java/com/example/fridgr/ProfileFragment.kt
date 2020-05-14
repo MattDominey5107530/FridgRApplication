@@ -1,5 +1,6 @@
 package com.example.fridgr
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
+import androidx.core.graphics.drawable.toDrawable
 import api.Diet
 import api.Intolerance
-import com.example.fridgr.local_storage.UserPreferences
-import com.example.fridgr.local_storage.getUserPreferences
-import com.example.fridgr.local_storage.isUserLoggedIn
-import com.example.fridgr.local_storage.writeUserPreferences
+import com.example.fridgr.local_storage.*
 
 class ProfileFragment : Fragment() {
 
@@ -21,8 +21,10 @@ class ProfileFragment : Fragment() {
     private var myParentFragment: Fragment? = null
 
     companion object {
-        fun newInstance(switchToFragment: (Fragment, Fragment) -> Unit,
-                        parentFragment: Fragment? = null): ProfileFragment =
+        fun newInstance(
+            switchToFragment: (Fragment, Fragment) -> Unit,
+            parentFragment: Fragment? = null
+        ): ProfileFragment =
             ProfileFragment().apply {
                 this.switchToFragment = switchToFragment
                 this.myParentFragment = parentFragment
@@ -31,6 +33,7 @@ class ProfileFragment : Fragment() {
 
     private val intoleranceCheckBoxes = ArrayList<CheckBox>()
     private val dietCheckBoxes = ArrayList<CheckBox>()
+    private lateinit var profilePictureImageView: ImageView
 
     /**
      * Fragment instantiation
@@ -42,36 +45,44 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val v: View = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        if (isUserLoggedIn(context!!)){
-            //Gets the user preferences from
-            val userPreferences: UserPreferences? = getUserPreferences(context!!)
-            if (userPreferences != null) {
-                //Get reference to checkboxes to check state
-                for (i in 0 until 12) {
-                    intoleranceCheckBoxes.add(v.findViewById(resources.getIdentifier("chb_intolerance$i", "id", "com.example.fridgr")) as CheckBox)
-                    with (intoleranceCheckBoxes[i]) {
-                        setOnClickListener { onClickCheckBox() }
-                        if (Intolerance.values()[i] in userPreferences.intolerances) {
-                            this.isChecked = true
-                        }
-                    }
-                }
-                for (i in 0 until 10) {
-                    dietCheckBoxes.add(v.findViewById(resources.getIdentifier("chb_diet$i", "id", "com.example.fridgr")) as CheckBox)
-                    with (dietCheckBoxes[i]) {
-                        setOnClickListener {
-                            //Unchecks all other diet checkboxes then checks this one sothat there is only ever 1 diet selected.
-                            val chbIsChecked = this.isChecked
-                            uncheckAllDietCheckBoxes()
-                            this.isChecked = chbIsChecked
-                            onClickCheckBox()
-                        }
-                        if (Diet.values()[i] == userPreferences.diet) {
-                            this.isChecked = true
-                        }
-                    }
+        //Get reference to all components
+        profilePictureImageView = v.findViewById(R.id.imvProfilePicture)
+        for (i in 0 until 12) {
+            intoleranceCheckBoxes.add(
+                v.findViewById(
+                    resources.getIdentifier(
+                        "chb_intolerance$i",
+                        "id",
+                        "com.example.fridgr"
+                    )
+                ) as CheckBox
+            )
+            with(intoleranceCheckBoxes[i]) {
+                setOnClickListener { onClickCheckBox() }
+            }
+        }
+        for (i in 0 until 10) {
+            dietCheckBoxes.add(
+                v.findViewById(
+                    resources.getIdentifier(
+                        "chb_diet$i",
+                        "id",
+                        "com.example.fridgr"
+                    )
+                ) as CheckBox
+            )
+            with(dietCheckBoxes[i]) {
+                setOnClickListener {
+                    //Unchecks all other diet checkboxes then checks this one so that there is only ever 1 diet selected.
+                    val chbIsChecked = this.isChecked
+                    uncheckAllDietCheckBoxes()
+                    this.isChecked = chbIsChecked
+                    onClickCheckBox()
                 }
             }
+        }
+        if (isUserLoggedIn(context!!)) {
+            populateFields()
         } else {
             //Show loginFragment
             val loginFragment = LoginFragment.newInstance(switchToFragment, this)
@@ -79,11 +90,34 @@ class ProfileFragment : Fragment() {
         }
 
 
-
-
         //TODO: Add edit button for name and profile picture (perhaps use Google profile picture as default if we allow them to login via Google)
 
         return v
+    }
+
+    fun populateFields() {
+        if (isUserLoggedIn(context!!)) {
+            //Gets the user preferences from
+            val userPreferences: UserPreferences? = getUserPreferences(context!!)
+            if (userPreferences != null) {
+                for (i in 0 until 12) {
+                    if (Intolerance.values()[i] in userPreferences.intolerances) {
+                        intoleranceCheckBoxes[i].isChecked = true
+                    }
+                }
+                for (i in 0 until 10) {
+                    if (Diet.values()[i] == userPreferences.diet) {
+                        dietCheckBoxes[i].isChecked = true
+                    }
+                }
+            }
+            //Get the profile picture, if there is one
+            val profilePicture = getProfilePicture(context!!)
+            if (profilePicture != null) {
+                val profilePictureDrawable = BitmapDrawable(context!!.resources, profilePicture)
+                profilePictureImageView.background = profilePictureDrawable
+            }
+        }
     }
 
     private fun uncheckAllDietCheckBoxes() {

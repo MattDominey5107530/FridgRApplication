@@ -77,6 +77,9 @@ class LoginFragment: Fragment() {
                     if (userPreferences != null) {
                         writeUserPreferences(context!!, userPreferences)
                     }
+                    hideKeyboard()
+                    (myParentFragment!! as ProfileFragment).populateFields()
+                    switchToFragment(this, myParentFragment!!)
                 } else {
                     Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()
                 }
@@ -89,17 +92,13 @@ class LoginFragment: Fragment() {
     }
 
     private fun onClickRegisterButton() {
-        //TODO: switch to register fragment
+        val registerFragment = RegisterFragment.newInstance(switchToFragment, this)
+        hideKeyboard()
+        switchToFragment(this, registerFragment)
     }
 
     private fun onClickForgottenPasswordButton() {
         //TODO: Implement with the full app; needs some infrastructure
         // e.g. a mail server to send forgotten password links etc.
     }
-
-    /**
-     * GUI function TODO("not implemented")
-     */
-    //TODO: add link to database handler interface to login
-
 }

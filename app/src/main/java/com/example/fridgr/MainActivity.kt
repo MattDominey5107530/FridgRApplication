@@ -4,12 +4,17 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.fridgr.local_storage.deleteFiles
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //TODO: temp
+        deleteFiles(applicationContext)
+
         setContentView(R.layout.activity_main)
 
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
@@ -78,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             transaction.show(newFragment)
         } else {
             transaction.add(R.id.mainContainer, newFragment)
+            transaction.show(newFragment)
         }
         transaction.commit()
     }
