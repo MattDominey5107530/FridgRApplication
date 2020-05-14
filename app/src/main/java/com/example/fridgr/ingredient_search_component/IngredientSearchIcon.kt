@@ -16,7 +16,7 @@ class IngredientSearchIcon @JvmOverloads constructor(
     defStyle: Int = 0
 ): SearchIcon(context, attrs, defStyle) {
 
-    private val iconPadding = 5
+    private val iconPadding = 1
 
     init {
         LayoutInflater.from(context).inflate(R.layout.ingredient_subcat_search_icon_component, this, true)
