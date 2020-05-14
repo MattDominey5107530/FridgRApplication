@@ -8,11 +8,10 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.GridLayout
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -130,8 +129,8 @@ class IngredientSearchComponent(
     inner class SubcatIconAdapter(var myDataset: List<Subcat>) :
         RecyclerView.Adapter<SubcatIconAdapter.SubcatIconViewHolder>() {
 
-        inner class SubcatIconViewHolder(val subcatIcon: SubcatSearchIcon) :
-            RecyclerView.ViewHolder(subcatIcon)
+        inner class SubcatIconViewHolder(val subcatIconButton: ImageButton) :
+            RecyclerView.ViewHolder(subcatIconButton)
 
         //Create the icon
         override fun onCreateViewHolder(
@@ -139,24 +138,60 @@ class IngredientSearchComponent(
             viewType: Int
         ): SubcatIconViewHolder {
 
-            return SubcatIconViewHolder(SubcatSearchIcon(context))
+            return SubcatIconViewHolder(ImageButton(context))
         }
 
         //Populate the icon
         override fun onBindViewHolder(holder: SubcatIconViewHolder, position: Int) {
-            with(holder.subcatIcon) {
-                setProperties(
-                    myDataset[position].subcatLabel,
-                    myDataset[position].subcatImageResource
-                )
+            with(holder.subcatIconButton) {
+                val backgroundId = when (myDataset[position].subcatLabel) {
+                    "Relevant" -> R.drawable.relevant_button
+                    Aisle.BAKING.name -> R.drawable.baking_button
+                        Aisle.HEALTH_FOODS.name -> R.drawable.baking_button //TODO
+                        Aisle.SPICES_AND_SEASONINGS.name -> R.drawable.spices_button
+                        Aisle.PASTA_AND_RICE.name -> R.drawable.rice_pasta_button
+                        Aisle.BAKERY.name -> R.drawable.baking_button
+                        Aisle.REFRIGERATED.name -> R.drawable.baking_button //TODO
+                        Aisle.CANNED_AND_JARRED.name -> R.drawable.baking_button//TODO
+                        Aisle.FROZEN.name -> R.drawable.baking_button//TODO
+                        Aisle.BUTTERS_JAMS.name -> R.drawable.butter_jam_button
+                        Aisle.OIL_VINEGAR.name -> R.drawable.oil_vinegar_button
+                        Aisle.CONDIMENTS.name -> R.drawable.baking_button//TODO
+                        Aisle.SAVORY_SNACKS.name -> R.drawable.savory_snacks_button
+                        Aisle.EGGS_DAIRY.name -> R.drawable.dairy_button
+                        Aisle.ETHNIC_FOODS.name -> R.drawable.baking_button//TODO
+                        Aisle.TEA_AND_COFFEE.name -> R.drawable.tea_coffee_button
+                        Aisle.MEAT.name -> R.drawable.meat_button
+                        Aisle.GOURMET.name -> R.drawable.baking_button//TODO
+                        Aisle.SWEET_SNACKS.name -> R.drawable.sweet_snacks_button
+                        Aisle.GLUTEN_FREE.name -> R.drawable.baking_button//TODO
+                        Aisle.ALCOHOLIC_BEVERAGES.name -> R.drawable.alcoholic_beverages_button
+                        Aisle.CEREAL.name -> R.drawable.cereal_button
+                        Aisle.NUTS.name -> R.drawable.nuts_button
+                        Aisle.BEVERAGES.name -> R.drawable.beverages_button
+                        Aisle.PRODUCE.name -> R.drawable.baking_button//TODO
+                        Aisle.HOMEMADE.name -> R.drawable.baking_button//TODO
+                        Aisle.SEAFOOD.name -> R.drawable.seafood_button
+                        Aisle.CHEESE.name -> R.drawable.cheese_button
+                        Aisle.DRIED_FRUITS.name -> R.drawable.baking_button//TODO
+                        Aisle.ONLINE.name -> R.drawable.baking_button//TODO
+                        Aisle.GRILLING_SUPPLIES.name -> R.drawable.baking_button//TODO
+                        Aisle.BREAD.name -> R.drawable.bread__button
+                        else -> R.drawable.baking_button //TODO
+                }
+                background = ContextCompat.getDrawable(context, backgroundId)
+                val density = context.resources.displayMetrics.density
+                layoutParams = LayoutParams((120 * density).toInt(), (145 * density).toInt())
+                scaleType = ImageView.ScaleType.FIT_CENTER
+
 
                 if (currentSubcatIndex == position) {
-                    setCheckedState(true)
+                    isPressed = true
                 }
 
                 setOnClickListener {
                     uncheckAllSubcatIcons()
-                    onClick()
+                    it.isPressed = true
                     currentSubcatIndex = position
                     ingredientIconAdapter.myDataset =
                         if (currentSubcatIndex == 0) {
@@ -165,8 +200,8 @@ class IngredientSearchComponent(
                         } else {
                             //Only show ingredients from that aisle
                             val aisle: Aisle = getAisleFromAisleString(myDataset[position].subcatLabel)
-                            ingredients.filter {
-                                it.aisle == aisle
+                            ingredients.filter { ingredient ->
+                                ingredient.aisle == aisle
                             }
                         }
                     ingredientIconAdapter.notifyDataSetChanged()
@@ -177,7 +212,6 @@ class IngredientSearchComponent(
         // Return the size of your dataset
         override fun getItemCount() = myDataset.size
     }
-
 
     fun setIngredients(ingredientList: List<Ingredient>) {
         currentSubcatIndex = 0
@@ -242,9 +276,12 @@ class IngredientSearchComponent(
     }
 
     private fun uncheckAllSubcatIcons() {
-        for (i in 1..subcatIconRecyclerView.childCount) {
-            val child = subcatIconRecyclerView.getChildAt(i - 1) as SubcatSearchIcon
-            child.setCheckedState(false)
+//        for (i in 1..subcatIconRecyclerView.childCount) {
+//            val child = subcatIconRecyclerView.getChildAt(i - 1) as SubcatSearchIcon
+//            child.setCheckedState(false)
+//        }
+        for (subcatButton in subcatIconRecyclerView.children) {
+            subcatButton.isPressed = false
         }
     }
 }
