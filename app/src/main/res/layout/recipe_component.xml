@@ -5,6 +5,7 @@
     android:id="@+id/recipeComponentContainer"
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".RecipeComponent">
 
@@ -14,15 +15,15 @@
         android:layout_height="134dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:background="@color/colorAccent"
+        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgFavourite"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="@+id/txvRecipeInfo"
         app:layout_constraintTop_toTopOf="@+id/imgRecipePicture"
@@ -36,6 +37,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgFavourite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgFavourite"
@@ -50,6 +53,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRecipePicture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgRecipePicture"

@@ -53,7 +53,7 @@ class RecipeSearchFragment : Fragment() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //TODO: onChangeSearchText(p0.toString())
+                onChangeSearchText(p0.toString())
             }
         })
 
@@ -67,15 +67,8 @@ class RecipeSearchFragment : Fragment() {
             favouriteRecipes.addAll(tempFavouriteRecipes)
         }
 
-        //TODO: Temp
-        val recipeList = listOf(
-            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
-            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100))
-        )
-
-
         recyclerViewRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
-            recyclerViewRecipeListAdapter = RecipeListAdapter(context, favouriteRecipes, this, recipeList)
+            recyclerViewRecipeListAdapter = RecipeListAdapter(context, favouriteRecipes, this, emptyList())
             recyclerViewRecipeListLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             layoutManager = recyclerViewRecipeListLayoutManager
@@ -84,4 +77,9 @@ class RecipeSearchFragment : Fragment() {
 
         return v
     }
+
+    private fun onChangeSearchText(text: String) {
+        //TODO: Change the dataset through the adapter from the recipes returned by the API
+    }
+
 }

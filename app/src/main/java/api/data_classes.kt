@@ -8,7 +8,7 @@ import android.graphics.Bitmap
  *  value = "54"
  *  unit = "g"
  *
- *  toString() will return "54g".
+ *  toString() will return "Fat: 54g".
  */
 data class Nutrition(val name: String,
                      val value: Double,
@@ -29,6 +29,14 @@ data class Ingredient(val id: Int,
         } else {
             super.equals(other)
         }
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + name.hashCode()
+        result = 31 * result + aisle.hashCode()
+        result = 31 * result + image.hashCode()
+        return result
     }
 }
 

@@ -5,6 +5,10 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import android.widget.*
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
+import api.Nutrition
+import api.Recipe
 import com.example.fridgr.ingredient_search_component.IngredientSearchComponent
 import com.example.fridgr.popups.AbstractPopup
 import com.example.fridgr.popups.IngredientListPopup
@@ -59,8 +63,22 @@ class FridgeFragment : Fragment() {
     }
 
     private fun onClickSearch() {
-        //TODO: getIngredientList from component; search for recipes through API and switch to recipesearch fragment (fragment to display the results of your search)
-        val recipeSearchFrag = RecipeSearchFragment.newInstance(switchToFragment, this) //parse recipes, and whether there should be a back button
+        //TODO: make this method get the recipes from the API instead of hardcoded ones here
+        val recipesFromAPI = listOf(
+            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
+            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
+            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
+            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
+            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
+            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
+            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
+            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
+            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
+            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100))
+
+        )
+
+        val recipeSearchFrag = RecipeFragment.newInstance(switchToFragment, this, recipesFromAPI)
         switchToFragment.invoke(this, recipeSearchFrag)
     }
 

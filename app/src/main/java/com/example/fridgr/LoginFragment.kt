@@ -57,6 +57,8 @@ class LoginFragment: Fragment() {
         usernameEditText = v.findViewById(R.id.edtUsername)
         passwordEditText = v.findViewById(R.id.edtPassword)
 
+        //TODO: Use as guest?
+
         return v
     }
 

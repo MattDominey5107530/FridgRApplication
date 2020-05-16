@@ -45,6 +45,8 @@ class RecipeListAdapter(private val context: Context,
                 isFavouriteRecipe,
                 myDataset[position].image
             )
+
+            //TODO: set the onclick listener to show the recipe tab
         }
     }
 

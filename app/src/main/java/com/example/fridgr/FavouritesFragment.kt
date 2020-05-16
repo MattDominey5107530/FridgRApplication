@@ -10,6 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import api.Recipe
+import com.example.fridgr.local_storage.getFavouriteRecipes
+import com.example.fridgr.recyclerViewAdapters.RecipeListAdapter
 
 class FavouritesFragment : Fragment() {
 
@@ -26,9 +33,11 @@ class FavouritesFragment : Fragment() {
             }
     }
 
-    lateinit var recipeSearchEditText: EditText
-    lateinit var filterButton: Button
-    lateinit var sortButton: Button
+    private var isActive: Boolean = false
+
+    private lateinit var recyclerViewFavouriteRecipeList: RecyclerView
+    private lateinit var recyclerViewFavouriteRecipeListAdapter: RecyclerView.Adapter<*>
+    private lateinit var recyclerViewFavouriteRecipeListLayoutManager: RecyclerView.LayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +46,13 @@ class FavouritesFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_favourites, container, false)
 
-        recipeSearchEditText = v.findViewById(R.id.edtFavouritesSearch)
-        filterButton = v.findViewById(R.id.btnFilter)
-        sortButton = v.findViewById(R.id.btnSort)
+        v.findViewById<ImageButton>(R.id.imbFilter)
+            .setOnClickListener {
+                //TODO: filter through the favourites
+            }
 
-        recipeSearchEditText.addTextChangedListener(object : TextWatcher {
+        v.findViewById<EditText>(R.id.edtFavouritesSearch)
+            .addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) { onChangeSearchText() }
 
             //Redundant but necessary functions to satisfy abstractTextWatcher
@@ -49,24 +60,29 @@ class FavouritesFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        filterButton.setOnClickListener { onClickFilter() }
-        sortButton.setOnClickListener { onClickSort() }
-
-        //TODO: populate the favouritesRecipeContainer with recipes from the local users favourites
+        val favouriteRecipes = getFavouriteRecipes(context!!)
+        if (favouriteRecipes != null) {
+            isActive = true
+            recyclerViewFavouriteRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
+                recyclerViewFavouriteRecipeListAdapter =
+                    RecipeListAdapter(context, favouriteRecipes, this, favouriteRecipes)
+                recyclerViewFavouriteRecipeListLayoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                setHasFixedSize(true)
+                layoutManager = recyclerViewFavouriteRecipeListLayoutManager
+                adapter = recyclerViewFavouriteRecipeListAdapter
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            }
+        } else {
+            //TODO: show something saying that you have no favourites or you're not logged in
+        }
 
         return v
     }
 
     fun onChangeSearchText() {
+        if (isActive) {}
         //TODO: actually search through the list of recipes
-    }
-
-    fun onClickSort() {
-        //TODO: add functionality of sorting the list
-        // potentially a popup window with sorting criteria
-        // potentially a small window underneath button with different sorting methods, e.g.
-        // A-Z name, ingredient number?,
-        // Also, do we really need this?
     }
 
     fun onClickFilter() {
