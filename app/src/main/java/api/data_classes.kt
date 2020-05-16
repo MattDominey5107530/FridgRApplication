@@ -13,7 +13,7 @@ import android.graphics.Bitmap
 data class Nutrition(val name: String,
                      val value: Double,
                      val unit: String) {
-    override fun toString(): String = value.toString() + unit
+    override fun toString(): String = "$name: $value $unit"
 }
 
 /**

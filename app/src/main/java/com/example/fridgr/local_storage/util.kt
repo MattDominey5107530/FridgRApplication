@@ -149,7 +149,7 @@ fun getUserPreferences(context: Context): UserPreferences? {
 
 /**
  * Converts the UserPreference to text and writes it to the file in a format that
- *  getUserPreferences can read
+ *  getUserPreferences can read.
  */
 fun writeUserPreferences(context: Context, userPreferences: UserPreferences) {
     val intoleranceStrings: List<String> =

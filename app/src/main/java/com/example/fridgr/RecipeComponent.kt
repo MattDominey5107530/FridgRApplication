@@ -1,5 +1,6 @@
 package com.example.fridgr
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
@@ -9,9 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 
+@SuppressLint("ViewConstructor")
 class RecipeComponent @JvmOverloads constructor(
     context: Context,
+    parentView: RecyclerView,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
 ) : ConstraintLayout(context, attrs, defStyle) {
@@ -24,7 +28,9 @@ class RecipeComponent @JvmOverloads constructor(
     private var isRecipeFavourite: Boolean = false
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.recipe_component, this, true)
+        LayoutInflater.from(context).inflate(R.layout.recipe_component, this, true).apply {
+            layoutParams = parentView.layoutParams
+        }
 
         //Get reference to drawn components
         recipeImageView = findViewById(R.id.imgRecipePicture)
@@ -36,21 +42,30 @@ class RecipeComponent @JvmOverloads constructor(
 
     }
 
-    fun setImageBitmap(resourceId: Int) { recipeImageView.setImageResource(resourceId) }
+    private fun setImageBitmap(bitmap: Bitmap) { recipeImageView.setImageBitmap(bitmap) }
 
-    fun setFavouriteState(isFavourite: Boolean) {
-        //TODO: set the image of the favourite button according to whether it should be 'checked' or not
+    private fun setFavouriteState(isFavourite: Boolean) {
+        isRecipeFavourite = isFavourite
+        favouriteButton.apply {
+            if (isFavourite) {
+                setImageResource(R.drawable.ic_favourite)
+                setColorFilter(ContextCompat.getColor(context, R.color.design_default_color_error))
+            } else {
+                setImageResource(R.drawable.ic_favourite)
+                colorFilter = null
+            }
+        }
     }
 
-    fun setRecipeName(recipeName: String) { recipeTextView.text = recipeName }
+    private fun setRecipeName(recipeName: String) { recipeTextView.text = recipeName }
 
-    fun setRecipeInfo(recipeInfo: String) { recipeInfoTextView.text = recipeInfo }
+    private fun setRecipeInfo(recipeInfo: String) { recipeInfoTextView.text = recipeInfo }
 
-    fun setRecipe(recipeName: String, recipeInfo: String, isFavourite: Boolean, recipeResourceId: Int) {
+    fun setRecipe(recipeName: String, recipeInfo: String, isFavourite: Boolean, recipeBitmap: Bitmap) {
         setRecipeName(recipeName)
         setRecipeInfo(recipeInfo)
         setFavouriteState(isFavourite)
-        setImageBitmap(recipeResourceId)
+        setImageBitmap(recipeBitmap)
     }
 
     /**
@@ -58,15 +73,9 @@ class RecipeComponent @JvmOverloads constructor(
      */
     private fun onClickFavourite() {
         isRecipeFavourite = !isRecipeFavourite
-        favouriteButton.apply {
-            if (isRecipeFavourite) {
-                setImageResource(R.drawable.ic_black_heart)
-                setColorFilter(ContextCompat.getColor(context, R.color.design_default_color_error))
-            } else {
-                setImageResource(R.drawable.ic_favourite)
-                colorFilter = null
-            }
-        }
+        setFavouriteState(isRecipeFavourite)
         //TODO: Add functionality to actually ADD the recipe to your favourites
     }
+
+
 }

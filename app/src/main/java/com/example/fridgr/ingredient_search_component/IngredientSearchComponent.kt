@@ -51,11 +51,12 @@ class IngredientSearchComponent(
         subcatIconLayoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         subcatIconAdapter = SubcatIconAdapter(arrayListOf())
-        subcatIconRecyclerView = findViewById<RecyclerView>(R.id.rcvSubcatIconContainer).apply {
-            setHasFixedSize(true)
-            layoutManager = subcatIconLayoutManager
-            adapter = subcatIconAdapter
-        }
+        subcatIconRecyclerView =
+            findViewById<RecyclerView>(R.id.rcvSubcatIconContainer).apply {
+                setHasFixedSize(true)
+                layoutManager = subcatIconLayoutManager
+                adapter = subcatIconAdapter
+            }
 
         ingredientIconLayoutManager =
             GridLayoutManager(context, 3, LinearLayoutManager.HORIZONTAL, false)

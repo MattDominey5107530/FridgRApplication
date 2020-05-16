@@ -23,10 +23,8 @@
         android:id="@+id/imgFavourite"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/imgRecipePicture"
+        app:layout_constraintStart_toStartOf="@+id/txvRecipeInfo"
         app:layout_constraintTop_toTopOf="@+id/imgRecipePicture"
         app:srcCompat="@drawable/ic_favourite" />
 
@@ -38,7 +36,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="@+id/imgFavourite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgFavourite"
@@ -48,14 +45,14 @@
         android:id="@+id/txvRecipeInfo"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="@+id/imgRecipePicture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imgFavourite"
+        app:layout_constraintStart_toEndOf="@+id/imgRecipePicture"
         app:layout_constraintTop_toBottomOf="@+id/imgFavourite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
