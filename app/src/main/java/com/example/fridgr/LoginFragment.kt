@@ -66,6 +66,7 @@ class LoginFragment: Fragment() {
      * Button press functions
      */
     private fun onClickLoginButton() {
+        hideKeyboard()
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
         if (username != "") {
@@ -79,7 +80,7 @@ class LoginFragment: Fragment() {
                     if (userPreferences != null) {
                         writeUserPreferences(context!!, userPreferences)
                     }
-                    hideKeyboard()
+
                     (myParentFragment!! as ProfileFragment).populateFields()
                     switchToFragment(this, myParentFragment!!)
                 } else {
@@ -94,8 +95,8 @@ class LoginFragment: Fragment() {
     }
 
     private fun onClickRegisterButton() {
-        val registerFragment = RegisterFragment.newInstance(switchToFragment, this)
         hideKeyboard()
+        val registerFragment = RegisterFragment.newInstance(switchToFragment, this)
         switchToFragment(this, registerFragment)
     }
 

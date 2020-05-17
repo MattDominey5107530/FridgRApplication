@@ -48,7 +48,7 @@ class FavouritesFragment : Fragment() {
 
         v.findViewById<ImageButton>(R.id.imbFilter)
             .setOnClickListener {
-                //TODO: filter through the favourites
+                onClickFilter()
             }
 
         v.findViewById<EditText>(R.id.edtFavouritesSearch)

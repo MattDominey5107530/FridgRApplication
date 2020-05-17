@@ -78,7 +78,7 @@ class FridgeFragment : Fragment() {
 
         )
 
-        val recipeSearchFrag = RecipeFragment.newInstance(switchToFragment, this, recipesFromAPI)
+        val recipeSearchFrag = RecipeListFragment.newInstance(switchToFragment, this, recipesFromAPI)
         switchToFragment.invoke(this, recipeSearchFrag)
     }
 
