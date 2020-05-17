@@ -7,30 +7,16 @@
     android:background="@color/background"
     tools:context=".RecipeSearchFragment">
 
-    <EditText
-        android:id="@+id/edtRecipeSearch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="Search for recipe"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/imbFilter"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/imbFilter"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/background"
+        android:padding="3dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_filter"
+        android:src="@drawable/filter_button"
         app:layout_constraintBottom_toBottomOf="@+id/edtRecipeSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edtRecipeSearch" />
@@ -41,14 +27,34 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtRecipeSearch"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/search_bar_background"
+        android:drawableLeft="@drawable/ic_search_icon"
+        android:drawablePadding="4dp"
+        android:elevation="5dp"
+        android:ems="10"
+        android:hint="Search for recipes"
+        android:inputType="textPersonName"
+        android:paddingLeft="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/imbFilter"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtRecipeSearch"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

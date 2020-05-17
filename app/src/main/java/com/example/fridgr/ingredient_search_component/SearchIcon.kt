@@ -25,23 +25,18 @@ open class SearchIcon @JvmOverloads constructor(
 
     var isChecked: Boolean = false
 
-    fun setIconProperties(bitmap: Bitmap, labelText: String, padding: Int) {
+    fun setIconProperties(bitmap: Bitmap, labelText: String) {
         this.iconImageView.setImageBitmap(bitmap)
-        setIconLabelAndPadding(labelText, padding)
+        setIconLabel(labelText)
     }
 
-    fun setIconProperties(drawable: Drawable, labelText: String, padding: Int) {
+    fun setIconProperties(drawable: Drawable, labelText: String) {
         this.iconImageView.setImageDrawable(drawable)
-        setIconLabelAndPadding(labelText, padding)
+        setIconLabel(labelText)
     }
 
-    private fun setIconLabelAndPadding(labelText: String, padding: Int) {
+    private fun setIconLabel(labelText: String) {
         this.labelTextView.text = labelText
 
-        //Set the icon size by the padding from its dimensions (Higher padding = smaller icon)
-        val scale = resources.displayMetrics.density
-        val actualPadding = (scale * padding + 0.5).toInt()
-        this.findViewById<ConstraintLayout>(R.id.cnlIngredientSubcatSearchIconComponent)
-            .setPadding(actualPadding, actualPadding, actualPadding, actualPadding)
     }
 }
