@@ -61,6 +61,15 @@ class ProfileFragment : Fragment() {
     }
 
     /**
+     * Function which sets all the information to be displayed in all fields
+     */
+    fun updateFields() {
+        updateProfilePicture()
+        updateDiets()
+        updateCuisines()
+    }
+
+    /**
      * Function which gets the profile picture from local storage and adds it to the fragment.
      */
     private fun updateProfilePicture() {
@@ -70,5 +79,17 @@ class ProfileFragment : Fragment() {
             val profilePictureDrawable = BitmapDrawable(context!!.resources, profilePicture)
             profilePictureImageView.background = profilePictureDrawable
         }
+    }
+
+    /**
+     * TODO: Need to write inner adapters for the recycler views (diets and cuisines)
+     */
+
+    private fun updateDiets() {
+        //TODO: Update the items in the recycler view for diets
+    }
+
+    private fun updateCuisines() {
+        //TODO: Update the items in the recycler view for cuisines
     }
 }

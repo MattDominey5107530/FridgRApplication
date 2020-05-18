@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/btnDietaryRequirements"
-        android:layout_width="match_constraint"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:drawableRight="@drawable/ic_right_arrow"
@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/btnFavouriteCuisines"
-        android:layout_width="match_constraint"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:drawableRight="@drawable/ic_right_arrow"
@@ -52,7 +52,7 @@
 
     <Button
         android:id="@+id/btnMembershipSettings"
-        android:layout_width="match_constraint"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:gravity="left|center_vertical"
@@ -68,7 +68,7 @@
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="match_constraint"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:gravity="left|center_vertical"

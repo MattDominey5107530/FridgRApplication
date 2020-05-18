@@ -12,7 +12,4 @@
     <item android:id="@+id/navigation_recipesearch"
         android:icon="@drawable/ic_recipe"
         android:title="@string/menu_recipesearch" />
-    <item android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/menu_settings" />
 </menu>

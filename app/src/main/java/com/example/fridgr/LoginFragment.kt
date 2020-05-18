@@ -81,7 +81,7 @@ class LoginFragment: Fragment() {
                         writeUserPreferences(context!!, userPreferences)
                     }
 
-                    (myParentFragment!! as ProfileFragment).populateFields()
+                    (myParentFragment!! as ProfileFragment).updateFields()
                     switchToFragment(this, myParentFragment!!)
                 } else {
                     Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()

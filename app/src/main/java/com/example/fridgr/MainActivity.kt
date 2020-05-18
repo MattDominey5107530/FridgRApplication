@@ -51,12 +51,6 @@ class MainActivity : AppCompatActivity() {
                     openFragment(recipeSearchFragment)
                     return@OnNavigationItemSelectedListener true
                 }
-                //TODO: Remove after creating and testing all GUI elements
-                R.id.navigation_settings -> {
-                    val testFragment = LoginFragment.newInstance(::switchToFragment)
-                    openFragment(testFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
             }
             false
         }
