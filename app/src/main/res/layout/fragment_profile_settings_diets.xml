@@ -7,34 +7,14 @@
     android:background="@color/background"
     tools:context=".ProfileFragment">
 
-    <ImageView
-        android:id="@+id/imvProfilePicture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorPrimary"
-        android:contentDescription="@string/profile_acc_profilepicture"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/background"
+        android:src="@drawable/ic_left_arrow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_profile" />
-
-    <TextView
-        android:id="@+id/txvName"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:maxLines="3"
-        android:singleLine="false"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePicture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvProfilePicture" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/ScrollView"
@@ -42,25 +22,21 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvProfilePicture">
+        app:layout_constraintTop_toBottomOf="@+id/imageButton">
 
         <!-- TODO: Add attributes to change in the profile -->
         <LinearLayout
             android:id="@+id/profileAttrContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
 
             <TextView
-                android:id="@+id/txvDietaryRequirements"
+                android:id="@+id/txvCuisineTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_intolerances"
@@ -175,14 +151,14 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <TextView
-                android:id="@+id/txvDietaryPreferences"
+                android:id="@+id/txvDietaryPreferences2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_diets"
                 android:textSize="30sp" />
 
             <CheckBox
-                android:id="@+id/chb_diet0"
+                android:id="@+id/chb_diet11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -191,7 +167,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet1"
+                android:id="@+id/chb_diet12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -200,7 +176,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet2"
+                android:id="@+id/chb_diet13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -209,7 +185,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet3"
+                android:id="@+id/chb_diet14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -218,7 +194,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet4"
+                android:id="@+id/chb_diet15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -227,7 +203,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet5"
+                android:id="@+id/chb_diet16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -236,7 +212,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet6"
+                android:id="@+id/chb_diet17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -245,7 +221,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet7"
+                android:id="@+id/chb_diet18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -254,7 +230,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet8"
+                android:id="@+id/chb_diet19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -263,7 +239,7 @@
                 app:buttonTint="@color/colorPrimaryDark" />
 
             <CheckBox
-                android:id="@+id/chb_diet9"
+                android:id="@+id/chb_diet20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"
@@ -273,4 +249,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@ const val profilePictureFilename = "profile_picture.jpg"
 /**
  * TODO temp: Called every time the app runs so that there are no files left over.
  */
-fun deleteFiles(context: Context) {
+fun logoutUser(context: Context) {
     context.deleteFile(userPreferencesFileName)
     context.deleteFile(userTokenFileName)
     context.deleteFile(userFavouritesFilename)

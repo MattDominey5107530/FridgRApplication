@@ -13,16 +13,17 @@
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/profile_acc_profilepicture"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_profile" />
+        app:srcCompat="@drawable/example_profile_picture" />
 
     <ImageView
         android:id="@+id/imvCircularMask"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="center"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:scaleType="centerInside"
         android:src="@drawable/transparent_circle"
         app:layout_constraintBottom_toBottomOf="@+id/imvProfilePicture"
         app:layout_constraintEnd_toEndOf="@+id/imvProfilePicture"
@@ -46,7 +47,6 @@
         android:id="@+id/txvName"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
         android:maxLines="3"
         android:singleLine="false"
         android:text="Matt Dominey"
@@ -65,6 +65,7 @@
         android:layout_marginTop="32dp"
         android:text="Dietary Requirements"
         android:textColor="@color/textLightPrimary"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvName" />
 
