@@ -38,6 +38,7 @@ fun deleteFiles(context: Context) {
  */
 fun isUserLoggedIn(context: Context): Boolean {
     val deviceTokenFile = context.getFileStreamPath(userTokenFileName)
+    return true //TODO: temp user is always logged in
     return deviceTokenFile.exists()
 }
 

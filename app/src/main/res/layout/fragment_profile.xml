@@ -4,275 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/backgroundAccent"
     tools:context=".ProfileFragment">
 
     <ImageView
         android:id="@+id/imvProfilePicture"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/profile_acc_profilepicture"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_profile" />
 
+    <ImageView
+        android:id="@+id/imvCircularMask"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="center"
+        android:src="@drawable/transparent_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePicture"
+        app:layout_constraintEnd_toEndOf="@+id/imvProfilePicture"
+        app:layout_constraintStart_toStartOf="@+id/imvProfilePicture"
+        app:layout_constraintTop_toTopOf="@+id/imvProfilePicture"
+        app:srcCompat="@drawable/transparent_circle" />
+
+    <ImageButton
+        android:id="@+id/imbProfileSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/backgroundAccent"
+        android:src="@drawable/ic_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txvName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
         android:maxLines="3"
         android:singleLine="false"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePicture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvProfilePicture"
-        app:layout_constraintTop_toTopOf="@+id/imvProfilePicture" />
-
-    <ScrollView
-        android:id="@+id/ScrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Matt Dominey"
+        android:textColor="@color/textLightPrimary"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvProfilePicture">
+        app:layout_constraintTop_toBottomOf="@+id/imvProfilePicture" />
 
-        <!-- TODO: Add attributes to change in the profile -->
-        <LinearLayout
-            android:id="@+id/profileAttrContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="32dp"
+        android:text="Dietary Requirements"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvName" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvDietaryRequirements"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <TextView
-                android:id="@+id/txvDietaryRequirements"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_intolerances"
-                android:textSize="30sp" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Favourite Cuisines"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rcvDietaryRequirements" />
 
-            <CheckBox
-                android:id="@+id/chb_intolerance0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__dairy"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvFavouriteCuisines"
+        android:layout_width="match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-            <CheckBox
-                android:id="@+id/chb_intolerance1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__egg"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__gluten"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__grain"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__peanut"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__seafood"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__sesame"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__shellfish"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__soy"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__sulfite"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__tree_nut"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_intolerance11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_intolerances__wheat"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <TextView
-                android:id="@+id/txvDietaryPreferences"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_diets"
-                android:textSize="30sp" />
-
-            <CheckBox
-                android:id="@+id/chb_diet0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__gluten_free"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__ketogenic"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__vegetarian"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__lacto_vegetarian"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__ovo_vegetarian"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__vegan"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__pescetarian"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__paleo"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__primal"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-            <CheckBox
-                android:id="@+id/chb_diet9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="@string/profile_diets__whole30"
-                android:textSize="24sp"
-                app:buttonTint="@color/colorPrimaryDark" />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

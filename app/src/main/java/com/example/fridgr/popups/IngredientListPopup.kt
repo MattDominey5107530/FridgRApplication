@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import api.Ingredient
@@ -19,7 +20,7 @@ class IngredientListPopup(
 ) :
     AbstractPopup(
         context,
-        R.layout.popupwindow_ingredient_list, onDismissListener, 300, 500
+        R.layout.popupwindow_ingredient_list, onDismissListener, 300, 510
     ) {
 
     //Public field for caller to access
@@ -32,6 +33,16 @@ class IngredientListPopup(
     private val recyclerViewAdapter: CheckedIngredientAdapter
 
     init {
+        val swipeHandler = object : SwipeToDeleteCallback(context) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = ingredientListRecyclerView.adapter as CheckedIngredientAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(ingredientListRecyclerView)
+
         recyclerViewAdapter = CheckedIngredientAdapter(checkedIngredientList)
         ingredientListRecyclerView.apply {
             setHasFixedSize(true)
@@ -84,16 +95,16 @@ class IngredientListPopup(
                     .setImageBitmap(myDataset[position].image)
                 findViewById<TextView>(R.id.txvIngredientName)
                     .text = myDataset[position].name
-                findViewById<ImageButton>(R.id.btnDeleteIngredient)
-                    .setOnClickListener {
-                        myDataset.remove(myDataset[position])
-                        notifyDataSetChanged()
-                    }
             }
         }
 
         // Return the size of your dataset
         override fun getItemCount() = myDataset.size
+
+        fun removeAt(position: Int) {
+            myDataset.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 
 }

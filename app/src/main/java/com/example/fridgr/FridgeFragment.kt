@@ -106,9 +106,9 @@ class FridgeFragment : Fragment() {
         )
             .showAtLocation(
                 view!!,
-                Gravity.CENTER,
+                Gravity.CENTER_VERTICAL,
                 0,
-                0
+                -72
             )
     }
 }
