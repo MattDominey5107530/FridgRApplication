@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import api.Diet
-import api.Intolerance
-import api.Nutrition
-import api.Recipe
+import api.*
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileOutputStream
@@ -19,6 +16,7 @@ data class UserPreferences(
 )
 
 const val userPreferencesFileName = "user_preferences.txt"
+const val userCuisineFileName = "user_cuisines.txt"
 const val userTokenFileName = "device_token.txt"
 const val userFavouritesFilename = "user_favourites.txt"
 const val profilePictureFilename = "profile_picture.jpg"
@@ -38,7 +36,7 @@ fun logoutUser(context: Context) {
  */
 fun isUserLoggedIn(context: Context): Boolean {
     val deviceTokenFile = context.getFileStreamPath(userTokenFileName)
-    return true //TODO: temp user is always logged in
+    //return true //TODO: temp user is always logged in
     return deviceTokenFile.exists()
 }
 
@@ -113,7 +111,7 @@ fun writeUserToken(context: Context, deviceToken: String) {
 
 /**
  * Gets the UserPreferences from the file where the file is in the format:
- *  "INTOLERANCE,INTOLERANCE,INTOLERANCE-DIET"
+ *  "INTOLERANCE,INTOLERANCE,INTOLERANCE-DIET-CUISINE,CUISINE,CUISINE"
  */
 fun getUserPreferences(context: Context): UserPreferences? {
     val userPreferenceFileString = getTextFromFile(context, userPreferencesFileName)
@@ -164,8 +162,38 @@ fun writeUserPreferences(context: Context, userPreferences: UserPreferences) {
     writeTextToFile(context, userPreferencesFileName, userPreferencesString)
 }
 
-fun writeUserPreferences(context: Context, intolerances: List<Intolerance>, diet: Diet?) {
+fun writeUserPreferences(
+    context: Context,
+    intolerances: List<Intolerance>,
+    diet: Diet?
+) {
     writeUserPreferences(context, UserPreferences(intolerances, diet))
+}
+
+fun getUserCuisines(context: Context): List<Cuisine>? {
+    val userCuisineString = getTextFromFile(context, userCuisineFileName)
+    return if (userCuisineString != null) {
+        //Extract the cuisine, if there are any
+        if (userCuisineString != "") {
+            val cuisineStringList: List<String> = userCuisineString.split(",")
+            cuisineStringList.map { cuisineString ->
+                Cuisine.valueOf(cuisineString)
+            }
+        } else {
+            null
+        }
+    } else {
+        null
+    }
+}
+
+fun writeUserCuisines(context: Context, cuisines: List<Cuisine>) {
+    val cuisineStrings: List<String> =
+        cuisines.map { cuisine ->
+            cuisine.name
+        }
+    val cuisineString: String = cuisineStrings.joinToString(",")
+    writeTextToFile(context, userCuisineFileName, cuisineString)
 }
 
 /**
