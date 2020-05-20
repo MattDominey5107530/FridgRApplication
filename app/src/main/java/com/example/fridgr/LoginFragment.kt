@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import api.Cuisine
 import api.Diet
 import api.Intolerance
 import com.example.fridgr.local_storage.UserPreferences
+import com.example.fridgr.local_storage.writeUserCuisines
 import com.example.fridgr.local_storage.writeUserPreferences
 import com.example.fridgr.local_storage.writeUserToken
 
@@ -80,8 +82,12 @@ class LoginFragment: Fragment() {
                     if (userPreferences != null) {
                         writeUserPreferences(context!!, userPreferences)
                     }
-
-                    (myParentFragment!! as ProfileFragment).populateFields()
+                    //val cuisines = userDatabaseHandler.getCuisines(userToken) TODO: add once database handler has been created
+                    val cuisines = listOf(Cuisine.AFRIAN, Cuisine.CHINESE)
+                    if (cuisines != null) {
+                        writeUserCuisines(context!!, cuisines)
+                    }
+                    (myParentFragment!! as ProfileFragment).updateFields()
                     switchToFragment(this, myParentFragment!!)
                 } else {
                     Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()

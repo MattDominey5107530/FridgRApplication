@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ProfileFragment">
+
+    <ImageButton
+        android:id="@+id/imbBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/background"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDietaryRequirements"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="Dietary Requirements"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imbBack" />
+
+    <Button
+        android:id="@+id/btnFavouriteCuisines"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="Favourite Cuisines"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDietaryRequirements" />
+
+    <Button
+        android:id="@+id/btnMembershipSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="Membership Settings"
+        android:textAllCaps="false"
+        android:textColor="@color/hyperlink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFavouriteCuisines" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="@color/hyperlink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMembershipSettings" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

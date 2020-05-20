@@ -3,8 +3,15 @@
     <color name="colorPrimary">#f7f7f7</color>
     <color name="colorPrimaryDark">#c4c4c4</color>
     <color name="colorAccent">#50c878</color>
-    <color name="background">#ffffff</color>
+    <color name="closing">#FE5757</color>
+    <color name="hyperlink">#0030F2</color>
+    <color name="background">#fafafa</color>
+    <color name="backgroundAccent">#F1F5F9</color>
+    <color name="iconDarkColor">#59D97B</color>
+    <color name="iconText">#ffffff</color>
 
-    <color name="textLightPrimary">#000000</color>
+
+
+    <color name="textLightPrimary">#343434</color>
 
 </resources>

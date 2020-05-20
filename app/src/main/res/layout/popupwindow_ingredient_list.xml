@@ -11,10 +11,10 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/background"
-        android:tint="@color/design_default_color_error"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:tint="@color/iconDarkColor"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:srcCompat="@drawable/ic_left_arrow" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvIngredientContainer"

@@ -1,10 +1,9 @@
 package com.example.fridgr
 
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.fridgr.local_storage.deleteFiles
+import com.example.fridgr.local_storage.logoutUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //TODO: temp
-        deleteFiles(applicationContext)
+        logoutUser(applicationContext)
 
         setContentView(R.layout.activity_main)
 
@@ -50,12 +49,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_recipesearch -> {
                     val recipeSearchFragment = RecipeSearchFragment.newInstance(::switchToFragment)
                     openFragment(recipeSearchFragment)
-                    return@OnNavigationItemSelectedListener true
-                }
-                //TODO: Remove after creating and testing all GUI elements
-                R.id.navigation_settings -> {
-                    val testFragment = LoginFragment.newInstance(::switchToFragment)
-                    openFragment(testFragment)
                     return@OnNavigationItemSelectedListener true
                 }
             }

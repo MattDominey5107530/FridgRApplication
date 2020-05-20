@@ -10,20 +10,31 @@
     <EditText
         android:id="@+id/edtIngredientSearch"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/search_bar_background"
+        android:drawableLeft="@drawable/ic_search_icon"
+        android:drawablePadding="4dp"
+        android:elevation="5dp"
         android:ems="10"
-        android:hint="@string/fridge_searchforingredients"
-        android:imeOptions="actionSearch"
+        android:hint="Search for recipes"
         android:inputType="textPersonName"
-        android:textSize="24sp"
+        android:paddingLeft="8dp"
         app:layout_constraintEnd_toStartOf="@+id/btnIngredientList"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvSubcatIconContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/edtIngredientSearch" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,13 +48,15 @@
 
     <Button
         android:id="@+id/btnIngredientList"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/circular_button_checked"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/counter_button"
+        android:elevation="5dp"
         android:text="0"
-        android:textSize="24sp"
+        android:textColor="@color/iconText"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/edtIngredientSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edtIngredientSearch" />
