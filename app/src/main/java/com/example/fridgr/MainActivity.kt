@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.fridgr.local_storage.logoutUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import user_database.UserDatabaseHandler
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +14,13 @@ class MainActivity : AppCompatActivity() {
 
         //TODO: temp
         logoutUser(applicationContext)
+
+        with (UserDatabaseHandler) {
+            connect()
+        }
+
+
+
 
         setContentView(R.layout.activity_main)
 
