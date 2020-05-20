@@ -7,7 +7,7 @@ import java.sql.*
 import java.util.*
 
 const val DATABASE_USERNAME = "root"
-const val DATABASE_PASSWORD = "XDfasja2948sklfpP!K"
+const val DATABASE_PASSWORD = "@Poppy@123@"
 
 object UserDatabaseHandler : IUserDatabaseHandler {
     internal var conn: Connection? = null
@@ -16,26 +16,22 @@ object UserDatabaseHandler : IUserDatabaseHandler {
 
     fun connect() {
         val connectionProps = Properties()
-        connectionProps["user"] = username
-        connectionProps["password"] = password
-
+        connectionProps.put("user", username)
+        connectionProps.put("password", password)
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance()
             conn = DriverManager.getConnection(
                 "jdbc:" + "mysql" + "://" +
                         "127.0.0.1" +
                         ":" + "3306" + "/" +
-                        "frigr_user_database",
-                connectionProps
-            )
-        } catch (sqlE: SQLException) {
-            //SQL exceptions
-            Log.v("X", "SQL Error")
-            sqlE.printStackTrace()
-        } catch (e: Exception) {
-            //Any other exceptions, (possible phone not connected to the internet)
-            Log.v("X", "Other error")
-            e.printStackTrace()
+                        "",
+                connectionProps)
+        } catch (ex: SQLException) {
+            // handle any errors
+            ex.printStackTrace()
+        } catch (ex: Exception) {
+            // handle any errors
+            ex.printStackTrace()
         }
     }
 
