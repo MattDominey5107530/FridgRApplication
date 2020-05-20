@@ -16,6 +16,12 @@ import com.example.fridgr.local_storage.UserPreferences
 import com.example.fridgr.local_storage.writeUserCuisines
 import com.example.fridgr.local_storage.writeUserPreferences
 import com.example.fridgr.local_storage.writeUserToken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import user_database.UserDatabaseHandler
 
 class LoginFragment: Fragment() {
 
@@ -73,31 +79,44 @@ class LoginFragment: Fragment() {
         val password = passwordEditText.text.toString()
         if (username != "") {
             if (password != "") {
-                //val userToken: String? = userDatabaseHandler.authenticate() TODO: add once database handler has been created
-                val userToken = "ABCDEF12345"
-                if (userToken != null) {
-                    writeUserToken(context!!, userToken)
-                    //val userPreferences = userDatabaseHandler.getUserPreferences(userToken) TODO: add once database handler has been created
-                    val userPreferences = UserPreferences(listOf(Intolerance.EGG, Intolerance.GRAIN), Diet.VEGAN)
-                    if (userPreferences != null) {
-                        writeUserPreferences(context!!, userPreferences)
+                CoroutineScope(IO).launch {
+                    val userToken: String? = UserDatabaseHandler.authenticate(username, password)
+                    if (userToken != null) {
+                        writeUserToken(context!!, userToken)
+                        //val userPreferences = userDatabaseHandler.getUserPreferences(userToken) TODO: add once database handler has been created
+                        val userPreferences = UserPreferences(listOf(Intolerance.EGG, Intolerance.GRAIN), Diet.VEGAN)
+                        if (userPreferences != null) {
+                            writeUserPreferences(context!!, userPreferences)
+                        }
+                        //val cuisines = userDatabaseHandler.getCuisines(userToken) TODO: add once database handler has been created
+                        val cuisines = listOf(Cuisine.AFRICAN, Cuisine.CHINESE)
+                        if (cuisines != null) {
+                            writeUserCuisines(context!!, cuisines)
+                        }
+                        withContext(Main) {
+                            updateFieldsAndSwitchBackToParent()
+                        }
+                    } else {
+                        withContext(Main) {
+                            Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()
+                        }
+
                     }
-                    //val cuisines = userDatabaseHandler.getCuisines(userToken) TODO: add once database handler has been created
-                    val cuisines = listOf(Cuisine.AFRICAN, Cuisine.CHINESE)
-                    if (cuisines != null) {
-                        writeUserCuisines(context!!, cuisines)
-                    }
-                    (myParentFragment!! as ProfileFragment).updateFields()
-                    switchToFragment(this, myParentFragment!!)
-                } else {
-                    Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()
                 }
+
+
+
             } else {
                 Toast.makeText(context, "Password required.", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(context, "Username required.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun updateFieldsAndSwitchBackToParent() {
+        (myParentFragment!! as ProfileFragment).updateFields()
+        switchToFragment(this, myParentFragment!!)
     }
 
     private fun onClickRegisterButton() {
