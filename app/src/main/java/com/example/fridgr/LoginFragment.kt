@@ -83,7 +83,7 @@ class LoginFragment: Fragment() {
                         writeUserPreferences(context!!, userPreferences)
                     }
                     //val cuisines = userDatabaseHandler.getCuisines(userToken) TODO: add once database handler has been created
-                    val cuisines = listOf(Cuisine.AFRIAN, Cuisine.CHINESE)
+                    val cuisines = listOf(Cuisine.AFRICAN, Cuisine.CHINESE)
                     if (cuisines != null) {
                         writeUserCuisines(context!!, cuisines)
                     }

@@ -33,9 +33,7 @@ interface IUserDatabaseHandler {
     /**
      * Function to write the diets and intolerances stored in the user preferences to the database.
      */
-    fun writeUserPreferences(user_token: String, userPreferences: UserPreferences) {
-
-    }
+    fun writeUserPreferences(user_token: String, userPreferences: UserPreferences)
 
     /**
      * Function which should get the users' favourite cuisines from the database using the

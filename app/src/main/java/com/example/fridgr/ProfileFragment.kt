@@ -243,7 +243,7 @@ class ProfileFragment : Fragment() {
                     .setImageResource(
                         //TODO: add actual icons
                         when (myDataset[position]) {
-                            Cuisine.AFRIAN -> R.drawable.ic_vegetables
+                            Cuisine.AFRICAN -> R.drawable.ic_vegetables
                             Cuisine.AMERICAN -> R.drawable.ic_vegetables
                             Cuisine.BRITISH -> R.drawable.ic_vegetables
                             Cuisine.CAJUN -> R.drawable.ic_vegetables
