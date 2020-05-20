@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import api.Diet
 import api.Intolerance
+import com.example.fridgr.LoginFragment
 import com.example.fridgr.ProfileFragment
 import com.example.fridgr.R
 import com.example.fridgr.local_storage.*
@@ -62,7 +63,8 @@ class ProfileSettingsFragment : Fragment() {
         v.findViewById<Button>(R.id.btnLogout).setOnClickListener {
             logoutUser(context!!)
             Toast.makeText(context, "Logged out!", Toast.LENGTH_SHORT).show()
-            //TODO: go back to login screen; maybe just create a new fragment and just show it rather than cascading down through fragments
+            val loginFragment = LoginFragment.newInstance(switchToFragment, this)
+            switchToFragment(myParentFragment!!, loginFragment)
         }
 
         return v

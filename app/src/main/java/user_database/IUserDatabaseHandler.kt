@@ -28,7 +28,7 @@ interface IUserDatabaseHandler {
      * Function which should get the users preferences from the database using the userToken as
      *  authentication.
      */
-    fun getUserPreferences(user_token: String): UserPreferences
+    fun getUserPreferences(user_token: String): UserPreferences?
 
     /**
      * Function to write the diets and intolerances stored in the user preferences to the database.
@@ -39,7 +39,7 @@ interface IUserDatabaseHandler {
      * Function which should get the users' favourite cuisines from the database using the
      *  userToken as authentication.
      */
-    fun getUserCuisines(user_token: String): List<Cuisine>
+    fun getUserCuisines(user_token: String): List<Cuisine>?
 
     /**
      * Function to write the user's cuisines to the database.

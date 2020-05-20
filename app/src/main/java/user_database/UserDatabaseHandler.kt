@@ -2,6 +2,7 @@ package user_database
 
 import android.util.Log
 import api.Cuisine
+import api.Intolerance
 import com.example.fridgr.local_storage.UserPreferences
 import java.sql.*
 import java.util.*
@@ -112,18 +113,27 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         return null
     }
 
-    override fun getUserPreferences(user_token: String): UserPreferences {
+    override fun getUserPreferences(user_token: String): UserPreferences? {
         this.connect()
-        return TODO()
+        //TODO: temp
+        return UserPreferences(
+            listOf(
+                Intolerance.DAIRY, Intolerance.GLUTEN
+            ),
+            null
+        )
     }
 
     override fun writeUserPreferences(user_token: String, userPreferences: UserPreferences) {
         this.connect()
     }
 
-    override fun getUserCuisines(user_token: String): List<Cuisine> {
+    override fun getUserCuisines(user_token: String): List<Cuisine>? {
         this.connect()
-        return TODO()
+        //TODO: temp
+        return listOf(
+            Cuisine.CHINESE, Cuisine.BRITISH, Cuisine.EUROPEAN
+        )
     }
 
     override fun writeUserCuisines(user_token: String, userCuisines: List<Cuisine>) {

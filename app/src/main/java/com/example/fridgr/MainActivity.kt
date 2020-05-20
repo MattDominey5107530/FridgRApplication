@@ -18,13 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO: temp
-        logoutUser(applicationContext)
-
-        //TODO: any database tests
-
-
-
         setContentView(R.layout.activity_main)
 
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)

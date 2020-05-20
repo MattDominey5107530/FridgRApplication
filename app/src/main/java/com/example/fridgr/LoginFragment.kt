@@ -83,13 +83,11 @@ class LoginFragment: Fragment() {
                     val userToken: String? = UserDatabaseHandler.authenticate(username, password)
                     if (userToken != null) {
                         writeUserToken(context!!, userToken)
-                        //val userPreferences = userDatabaseHandler.getUserPreferences(userToken) TODO: add once database handler has been created
-                        val userPreferences = UserPreferences(listOf(Intolerance.EGG, Intolerance.GRAIN), Diet.VEGAN)
+                        val userPreferences = UserDatabaseHandler.getUserPreferences(userToken)
                         if (userPreferences != null) {
                             writeUserPreferences(context!!, userPreferences)
                         }
-                        //val cuisines = userDatabaseHandler.getCuisines(userToken) TODO: add once database handler has been created
-                        val cuisines = listOf(Cuisine.AFRICAN, Cuisine.CHINESE)
+                        val cuisines = UserDatabaseHandler.getUserCuisines(userToken)
                         if (cuisines != null) {
                             writeUserCuisines(context!!, cuisines)
                         }
