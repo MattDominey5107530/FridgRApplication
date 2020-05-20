@@ -1,5 +1,6 @@
 package user_database
 
+import api.Cuisine
 import com.example.fridgr.local_storage.UserPreferences
 
 interface IUserDatabaseHandler {
@@ -27,7 +28,24 @@ interface IUserDatabaseHandler {
      * Function which should get the users preferences from the database using the userToken as
      *  authentication.
      */
-    fun getUserPreferences(user_token: String): UserPreferences
+    fun getUserPreferences(user_token: String): UserPreferences?
+
+    /**
+     * Function to write the diets and intolerances stored in the user preferences to the database.
+     */
+    fun writeUserPreferences(user_token: String, userPreferences: UserPreferences)
+
+    /**
+     * Function which should get the users' favourite cuisines from the database using the
+     *  userToken as authentication.
+     */
+    fun getUserCuisines(user_token: String): List<Cuisine>?
+
+    /**
+     * Function to write the user's cuisines to the database.
+     */
+    fun writeUserCuisines(user_token: String, userCuisines: List<Cuisine>)
+
 
 
 }

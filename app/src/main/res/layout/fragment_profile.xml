@@ -28,20 +28,7 @@
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/example_profile_picture" />
-
-    <ImageView
-        android:id="@+id/imvCircularMask"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/transparent_circle"
-        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePicture"
-        app:layout_constraintEnd_toEndOf="@+id/imvProfilePicture"
-        app:layout_constraintStart_toStartOf="@+id/imvProfilePicture"
-        app:layout_constraintTop_toTopOf="@+id/imvProfilePicture"
-        app:srcCompat="@drawable/transparent_circle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imbProfileSettings"
