@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import api.*
+import com.example.fridgr.R
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileOutputStream

@@ -1,5 +1,6 @@
 package com.example.fridgr
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import api.Cuisine
 import api.Diet
 import api.Intolerance
@@ -60,7 +62,7 @@ class ProfileFragment : Fragment() {
 
         recyclerViewDiets = v.findViewById<RecyclerView>(R.id.rcvDietaryRequirements).apply {
             recyclerViewDietsAdapter = DietAdapter(emptyList())
-            recyclerViewDietsLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerViewDietsLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL)
             setHasFixedSize(true)
             layoutManager = recyclerViewDietsLayoutManager
             adapter = recyclerViewDietsAdapter
@@ -68,7 +70,7 @@ class ProfileFragment : Fragment() {
 
         recyclerViewCuisines = v.findViewById<RecyclerView>(R.id.rcvFavouriteCuisines).apply {
             recyclerViewCuisinesAdapter = CuisineAdapter(emptyList())
-            recyclerViewCuisinesLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false)
+            recyclerViewCuisinesLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             layoutManager = recyclerViewCuisinesLayoutManager
             adapter = recyclerViewCuisinesAdapter
@@ -180,40 +182,42 @@ class ProfileFragment : Fragment() {
 
         override fun onBindViewHolder(holder: DietViewHolder, position: Int) {
             with(holder.view) {
+                val imageDrawable = ContextCompat.getDrawable(context, if (myDataset[position].first != null) {
+                    when (myDataset[position].first!!) {
+                        Diet.GLUTEN_FREE -> R.drawable.gluten_free
+                        Diet.KETOGENIC -> R.drawable.ketogenic
+                        Diet.VEGETARIAN -> R.drawable.sweet_snacks //TODO: vegetarian
+                        Diet.LACTO_VEGETARIAN -> R.drawable.lacto_vegetarian
+                        Diet.OVO_VEGETARIAN -> R.drawable.ovo_vegetarian
+                        Diet.VEGAN -> R.drawable.vegan
+                        Diet.PESCETARIAN -> R.drawable.pescetarian
+                        Diet.PALEO -> R.drawable.paleo
+                        Diet.PRIMAL -> R.drawable.primal
+                        Diet.WHOLE30 -> R.drawable.whole30
+                    }
+                } else {
+                    when (myDataset[position].second) {
+                        Intolerance.DAIRY -> R.drawable.dairy_intolerance
+                        Intolerance.EGG -> R.drawable.egg
+                        Intolerance.GLUTEN -> R.drawable.gluten
+                        Intolerance.GRAIN -> R.drawable.grain
+                        Intolerance.PEANUT -> R.drawable.peanut
+                        Intolerance.SEAFOOD -> R.drawable.seafood_intolerance
+                        Intolerance.SESAME -> R.drawable.sesame
+                        Intolerance.SHELLFISH -> R.drawable.wheat //TODO: shellfish
+                        Intolerance.SOY -> R.drawable.soy
+                        Intolerance.SULFITE -> R.drawable.sulfite
+                        Intolerance.TREE_NUT -> R.drawable.tree_nut
+                        Intolerance.WHEAT -> R.drawable.wheat
+                        else -> R.drawable.wheat //TODO: add more diets/intolerances button
+                    }
+                })
                 findViewById<ImageView>(R.id.imvIcon)
-                    .setImageResource(
-                        //TODO: add actual icons
-                        if (myDataset[position].first != null) {
-                            when (myDataset[position].first!!) {
-                                Diet.GLUTEN_FREE -> R.drawable.sweet_snacks
-                                Diet.KETOGENIC -> R.drawable.sweet_snacks
-                                Diet.VEGETARIAN -> R.drawable.sweet_snacks
-                                Diet.LACTO_VEGETARIAN -> R.drawable.sweet_snacks
-                                Diet.OVO_VEGETARIAN -> R.drawable.sweet_snacks
-                                Diet.VEGAN -> R.drawable.sweet_snacks
-                                Diet.PESCETARIAN -> R.drawable.sweet_snacks
-                                Diet.PALEO -> R.drawable.sweet_snacks
-                                Diet.PRIMAL -> R.drawable.sweet_snacks
-                                Diet.WHOLE30 -> R.drawable.sweet_snacks
-                            }
-                        } else {
-                            //TODO: add actual icons, again
-                            when (myDataset[position].second) {
-                                Intolerance.DAIRY -> R.drawable.savory_snacks
-                                Intolerance.EGG -> R.drawable.savory_snacks
-                                Intolerance.GLUTEN -> R.drawable.savory_snacks
-                                Intolerance.GRAIN -> R.drawable.savory_snacks
-                                Intolerance.PEANUT -> R.drawable.savory_snacks
-                                Intolerance.SEAFOOD -> R.drawable.savory_snacks
-                                Intolerance.SESAME -> R.drawable.savory_snacks
-                                Intolerance.SHELLFISH -> R.drawable.savory_snacks
-                                Intolerance.SOY -> R.drawable.savory_snacks
-                                Intolerance.SULFITE -> R.drawable.savory_snacks
-                                Intolerance.TREE_NUT -> R.drawable.savory_snacks
-                                Intolerance.WHEAT -> R.drawable.savory_snacks
-                                else -> R.drawable.savory_snacks //TODO: add more diets/intolerances button
-                            }
-                        }
+                    .setImageBitmap(
+                        imageDrawable!!.toBitmap(
+                            imageDrawable.intrinsicWidth / 6,
+                            imageDrawable.intrinsicHeight / 6
+                        )
                     )
             }
         }
