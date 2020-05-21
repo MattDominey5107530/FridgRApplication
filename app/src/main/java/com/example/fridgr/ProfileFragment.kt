@@ -1,6 +1,7 @@
 package com.example.fridgr
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.GridLayoutManager
@@ -116,14 +118,15 @@ class ProfileFragment : Fragment() {
                 .setImageDrawable(profilePicture.getCircularDrawable(resources))
         } else {
             //Set the profile picture to the default if the user doesn't have one yet
-            profilePictureImageView
-                .setImageDrawable(
+            profilePictureImageView.apply {
+                setImageDrawable(
                     ContextCompat.getDrawable(context!!, R.drawable.ic_profile)!!
                         .toBitmap(
                             profilePictureImageView.layoutParams.width,
                             profilePictureImageView.layoutParams.height)
                         .getCircularDrawable(resources)
                 )
+            }
         }
     }
 
@@ -179,7 +182,6 @@ class ProfileFragment : Fragment() {
 
             return DietViewHolder(userPreferenceIcon)
         }
-
         override fun onBindViewHolder(holder: DietViewHolder, position: Int) {
             with(holder.view) {
                 val imageDrawable = ContextCompat.getDrawable(context, if (myDataset[position].first != null) {
@@ -212,13 +214,14 @@ class ProfileFragment : Fragment() {
                         else -> R.drawable.wheat //TODO: add more diets/intolerances button
                     }
                 })
-                findViewById<ImageView>(R.id.imvIcon)
-                    .setImageBitmap(
+                findViewById<ImageView>(R.id.imvIcon).apply {
+                    setImageBitmap(
                         imageDrawable!!.toBitmap(
                             imageDrawable.intrinsicWidth / 6,
                             imageDrawable.intrinsicHeight / 6
                         )
                     )
+                }
             }
         }
 
