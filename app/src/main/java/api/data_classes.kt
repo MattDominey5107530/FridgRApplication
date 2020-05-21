@@ -19,6 +19,28 @@ data class Ingredient(val id: Int,
 }
 
 /**
+ * Template class to be used for various types of nutrition. E.g.:
+ *  name = "Fat"
+ *  value = "54"
+ *  unit = "g"
+ *
+ *  toString() will return "Fat: 54g".
+ */
+data class Nutrition(val name: String,
+                     val value: Double,
+                     val unit: String) {
+    override fun toString(): String = "$name: $value $unit"
+}
+
+/**
+ * Recipe class which maps to how recipes are returned when simply searching for recipes.
+ */
+data class Recipe(val id: Int,
+                  val name: String,
+                  val nutritionList: List<Nutrition>,
+                  val image: Bitmap)
+
+/**
  *  New Data Classes
  */
 
