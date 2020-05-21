@@ -56,6 +56,30 @@ class ProfileSettingsFragment : Fragment() {
             switchToFragment(this, cuisinesFragment)
         }
 
+        val changeProfilePictureButton = v.findViewById<Button>(R.id.btnChangeProfilePicture)
+        val changeNicknameButton = v.findViewById<Button>(R.id.btnChangeNickname)
+        changeProfilePictureButton.visibility = View.GONE
+        changeNicknameButton.visibility = View.GONE
+
+        v.findViewById<Button>(R.id.btnEditProfile).setOnClickListener {
+            if (changeProfilePictureButton.visibility == View.VISIBLE) {
+                changeProfilePictureButton.visibility = View.GONE
+                changeNicknameButton.visibility = View.GONE
+            } else {
+                changeProfilePictureButton.visibility = View.VISIBLE
+                changeNicknameButton.visibility = View.VISIBLE
+            }
+        }
+
+        changeProfilePictureButton.setOnClickListener {
+            //TODO: CHange the profile pictuer by going into the users library
+        }
+
+        changeNicknameButton.setOnClickListener {
+            //TODO: change the user's nickname and push that to the database
+        }
+
+
         v.findViewById<Button>(R.id.btnMembershipSettings).setOnClickListener {
             //TODO: Make membership settings fragment
         }
