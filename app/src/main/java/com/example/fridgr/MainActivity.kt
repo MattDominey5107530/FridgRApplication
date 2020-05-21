@@ -23,6 +23,13 @@ class MainActivity : AppCompatActivity() {
         val fridgeFragment = FridgeFragment.newInstance()
         openFragment(fridgeFragment)
         bottomNavigation.selectedItemId = R.id.navigation_fridge
+
+        /** TESTING API FUNCTIONS */
+        var response: Any?
+        //response = APIHandlerClass.getRecipeListBySearch("Curry", listOf("SHELLFISH"), "VEGETARIAN", listOf("INDIAN"), "MAIN_COURSE")
+        //response = APIHandlerClass.getRecipeListByIngredients(listOf(TestIngredient("HEALTH_FOODS", 1F, 1, "", "Apple", "kg")))
+        //response = APIHandlerClass.getRecipeInfo(1426917)
+        //response = APIHandlerClass.getRecipeInstructions(1426917)
     }
 
     /**
