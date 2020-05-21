@@ -1,0 +1,9 @@
+API TO-DO List:
+
+* Make the fridgeFragment utilise one of the new ingredient classes, or use a new class entirely
+* Make the text search request much more robust, test to see if requests work when you leave out a parameter.
+	If it doesn't, worst case scenario all the parameters will have to be nullable then just build the URL depending on if the paramters are null or not
+* Render the recipes from the ingredient search and the text search
+* Make the page that shows all the specific information when a recipe is selected.
+
+

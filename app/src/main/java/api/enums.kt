@@ -64,7 +64,7 @@ enum class Intolerance {
 }
 
 enum class Cuisine {
-    AFRICAN,
+    AFRIAN,
     AMERICAN,
     BRITISH,
     CAJUN,
