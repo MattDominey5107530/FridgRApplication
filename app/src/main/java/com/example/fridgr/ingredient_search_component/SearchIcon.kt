@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.fridgr.R
+import com.example.fridgr.getCircularDrawable
 
 open class SearchIcon @JvmOverloads constructor(
     context: Context,
@@ -26,7 +27,7 @@ open class SearchIcon @JvmOverloads constructor(
     var isChecked: Boolean = false
 
     fun setIconProperties(bitmap: Bitmap, labelText: String) {
-        this.iconImageView.setImageBitmap(bitmap)
+        this.iconImageView.setImageDrawable(bitmap.getCircularDrawable(resources))
         setIconLabel(labelText)
     }
 

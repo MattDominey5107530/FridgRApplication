@@ -98,12 +98,8 @@ class LoginFragment: Fragment() {
                         withContext(Main) {
                             Toast.makeText(context, "No combination of these credentials exists!.", Toast.LENGTH_SHORT).show()
                         }
-
                     }
                 }
-
-
-
             } else {
                 Toast.makeText(context, "Password required.", Toast.LENGTH_SHORT).show()
             }

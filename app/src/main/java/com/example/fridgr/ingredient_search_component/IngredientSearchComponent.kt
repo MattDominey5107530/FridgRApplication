@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.children
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -254,13 +255,22 @@ class IngredientSearchComponent(
                 1,
                 "Apple",
                 Aisle.PRODUCE,
-                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+                ContextCompat.getDrawable(context, R.drawable.example_profile_picture)!!
+                    .toBitmap(120, 120)
             ),
             Ingredient(
                 2,
                 "Banana",
                 Aisle.MEAT,
-                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+                ContextCompat.getDrawable(context, R.drawable.example_profile_picture)!!
+                    .toBitmap(120, 120)
+            ),
+            Ingredient(
+                2,
+                "Banana",
+                Aisle.MEAT,
+                ContextCompat.getDrawable(context, R.drawable.example_profile_picture)!!
+                    .toBitmap(120, 120)
             )
         )
 
