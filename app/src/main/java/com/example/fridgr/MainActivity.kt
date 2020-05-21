@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import api.APIHandlerClass
+import api.TestIngredient
 import com.example.fridgr.local_storage.logoutUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         /** TESTING API FUNCTIONS */
         var response: Any?
         //response = APIHandlerClass.getRecipeListBySearch("Curry", listOf("SHELLFISH"), "VEGETARIAN", listOf("INDIAN"), "MAIN_COURSE")
-        //response = APIHandlerClass.getRecipeListByIngredients(listOf(TestIngredient("HEALTH_FOODS", 1F, 1, "", "Apple", "kg")))
+        response = APIHandlerClass.getRecipeListByIngredients(listOf(TestIngredient("HEALTH_FOODS", 1F, 1, "", "Apple", "kg")))
         //response = APIHandlerClass.getRecipeInfo(1426917)
         //response = APIHandlerClass.getRecipeInstructions(1426917)
     }
