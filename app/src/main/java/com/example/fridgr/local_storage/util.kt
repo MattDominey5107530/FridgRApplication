@@ -201,8 +201,8 @@ fun writeUserCuisines(context: Context, cuisines: List<Cuisine>) {
 
 /**
  * Gets the user's favourite recipes from the local storage in the format:
- *  ID,NAME,NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT
- *  ID,NAME,NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT etc.
+ *  ID,NAME,NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT,IMAGE_STRING
+ *  ID,NAME,NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT,IMAGE_STRING etc.
  */
 fun getFavouriteRecipes(context: Context): List<Recipe>? {
     val userFavouritesFileStrings = getTextFromFile(context, userFavouritesFilename)
@@ -211,7 +211,7 @@ fun getFavouriteRecipes(context: Context): List<Recipe>? {
 
         val recipeList = arrayListOf<Recipe>()
         for (favouriteRecipeString in favouriteRecipeStringList) {
-            val (idString, nameString, nutritionsString) =
+            val (idString, nameString, nutritionsString, imageString) =
                 favouriteRecipeString.split(",")
 
             val nutritionStringList = nutritionsString.split(';')
@@ -227,14 +227,12 @@ fun getFavouriteRecipes(context: Context): List<Recipe>? {
                 )
             }
 
-            val recipeBitmap = getBitmapFromFile(context, "$idString.jpg")
-
             recipeList.add(
                 Recipe(
                     idString.toInt(),
                     nameString,
                     nutritionList,
-                    recipeBitmap!!
+                    imageString
                 )
             )
         }
@@ -254,7 +252,7 @@ fun writeFavouriteRecipes(context: Context, recipeList: List<Recipe>) {
     val recipeStrings: List<String> = recipeList.map { recipe ->
         "${recipe.id.toString()},${recipe.name},${recipe.nutritionList.joinToString(";") {
             getNutritionString(it)
-        }}"
+        }},${recipe.imageString}"
     }
     val recipesString = recipeStrings.joinToString("\n")
 

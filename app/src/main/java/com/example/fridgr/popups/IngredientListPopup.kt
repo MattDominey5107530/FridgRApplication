@@ -91,8 +91,8 @@ class IngredientListPopup(
         //Populate the view
         override fun onBindViewHolder(holder: IngredientIconViewHolder, position: Int) {
             with(holder.ingredientComponent) {
-                findViewById<ImageView>(R.id.imvIngredientIcon)
-                    .setImageBitmap(myDataset[position].image)
+                //findViewById<ImageView>(R.id.imvIngredientIcon).setImageBitmap(myDataset[position].image)
+                //TODO: set image with string using Picasso?
                 findViewById<TextView>(R.id.txvIngredientName)
                     .text = myDataset[position].name
             }

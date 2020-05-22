@@ -1,20 +1,19 @@
 package api
 
-//Todo: Check that the mapping is correct according to the API
 enum class Aisle {
     BAKING,
     HEALTH_FOODS,
     SPICES_AND_SEASONINGS,
     PASTA_AND_RICE,
-    BAKERY,                 //maps to: "Bakery/Bread"
+    BAKERY,
     REFRIGERATED,
     CANNED_AND_JARRED,
     FROZEN,
-    BUTTERS_JAMS,           //maps to: "Nut butters, Jams, and Honey"
-    OIL_VINEGAR,            //maps to: "Oil, Vinegar, Salad Dressing"
+    BUTTERS_JAMS,
+    OIL_VINEGAR,
     CONDIMENTS,
     SAVORY_SNACKS,
-    EGGS_DAIRY,             //maps to: "Milk, Eggs, Other Dairy"
+    EGGS_DAIRY,
     ETHNIC_FOODS,
     TEA_AND_COFFEE,
     MEAT,

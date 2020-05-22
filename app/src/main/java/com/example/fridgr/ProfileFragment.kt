@@ -188,7 +188,7 @@ class ProfileFragment : Fragment() {
                     when (myDataset[position].first!!) {
                         Diet.GLUTEN_FREE -> R.drawable.gluten_free
                         Diet.KETOGENIC -> R.drawable.ketogenic
-                        Diet.VEGETARIAN -> R.drawable.sweet_snacks //TODO: vegetarian
+                        Diet.VEGETARIAN -> R.drawable.vegetarian
                         Diet.LACTO_VEGETARIAN -> R.drawable.lacto_vegetarian
                         Diet.OVO_VEGETARIAN -> R.drawable.ovo_vegetarian
                         Diet.VEGAN -> R.drawable.vegan
@@ -206,7 +206,7 @@ class ProfileFragment : Fragment() {
                         Intolerance.PEANUT -> R.drawable.peanut
                         Intolerance.SEAFOOD -> R.drawable.seafood_intolerance
                         Intolerance.SESAME -> R.drawable.sesame
-                        Intolerance.SHELLFISH -> R.drawable.wheat //TODO: shellfish
+                        Intolerance.SHELLFISH -> R.drawable.shellfish
                         Intolerance.SOY -> R.drawable.soy
                         Intolerance.SULFITE -> R.drawable.sulfite
                         Intolerance.TREE_NUT -> R.drawable.tree_nut

@@ -7,11 +7,18 @@ import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import api.IngredientSearchRecipe
 import api.Nutrition
 import api.Recipe
+import api.SpoonacularAPIHandler
 import com.example.fridgr.ingredient_search_component.IngredientSearchComponent
 import com.example.fridgr.popups.AbstractPopup
 import com.example.fridgr.popups.IngredientListPopup
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FridgeFragment : Fragment() {
 
@@ -20,8 +27,10 @@ class FridgeFragment : Fragment() {
     private var myParentFragment: Fragment? = null
 
     companion object {
-        fun newInstance(switchToFragment: (Fragment, Fragment) -> Unit,
-                        parentFragment: Fragment? = null): FridgeFragment =
+        fun newInstance(
+            switchToFragment: (Fragment, Fragment) -> Unit,
+            parentFragment: Fragment? = null
+        ): FridgeFragment =
             FridgeFragment().apply {
                 this.switchToFragment = switchToFragment
                 this.myParentFragment = parentFragment
@@ -63,22 +72,31 @@ class FridgeFragment : Fragment() {
     }
 
     private fun onClickSearch() {
-        //TODO: make this method get the recipes from the API instead of hardcoded ones here
-        val recipesFromAPI = listOf(
-            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
-            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
-            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
-            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
-            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
-            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
-            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
-            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100)),
-            Recipe(1, "Lasagne", listOf(Nutrition("Fat", 32.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.alcoholic_beverages)!!.toBitmap(100, 100)),
-            Recipe(1, "Chicken pie", listOf(Nutrition("Fat", 45.0, "g")), ContextCompat.getDrawable(context!!, R.drawable.bakery)!!.toBitmap(100, 100))
+        if (ingredientSearchComponent.checkedIngredients.isNotEmpty()) {
+            CoroutineScope(IO).launch {
+                //TODO: buffering animation?
+                val recipesFromApi =
+                    SpoonacularAPIHandler.getRecipeListByIngredients(ingredientSearchComponent.checkedIngredients)
 
-        )
+                withContext(Main) {
+                    if (recipesFromApi.isNotEmpty()) {
+                        switchToRecipeList(recipesFromApi)
+                    } else {
+                        //Technically, should never happen if the Api is okay.
+                        Toast.makeText(context, "No recipes can be found!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+        } else {
+            //Technically, should never happen if the Api is okay.
+            Toast.makeText(context, "Pick some ingredients first.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-        val recipeSearchFrag = RecipeListFragment.newInstance(switchToFragment, this, recipesFromAPI)
+    private fun switchToRecipeList(recipesFromApi: List<IngredientSearchRecipe>) {
+        val recipeSearchFrag =
+            RecipeListFragment.newInstance(switchToFragment, this, recipesFromApi)
         switchToFragment.invoke(this, recipeSearchFrag)
     }
 
@@ -88,7 +106,6 @@ class FridgeFragment : Fragment() {
         } else {
             Toast.makeText(context, "Pick some ingredients first!", Toast.LENGTH_SHORT).show()
         }
-
     }
 
 

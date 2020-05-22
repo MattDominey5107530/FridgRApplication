@@ -38,11 +38,14 @@ class RecipeComponent @JvmOverloads constructor(
         recipeTextView = findViewById(R.id.txvRecipeName)
         recipeInfoTextView = findViewById(R.id.txvRecipeInfo)
 
-        favouriteButton.setOnClickListener{ onClickFavourite() }
+        favouriteButton.setOnClickListener { onClickFavourite() }
 
     }
 
-    private fun setImageBitmap(bitmap: Bitmap) { recipeImageView.setImageBitmap(bitmap) }
+    private fun setImageBitmap(imageString: String) {
+        //recipeImageView.setImageBitmap(bitmap)
+        //TODO: set image with string using Picasso?
+    }
 
     private fun setFavouriteState(isFavourite: Boolean) {
         isRecipeFavourite = isFavourite
@@ -57,15 +60,24 @@ class RecipeComponent @JvmOverloads constructor(
         }
     }
 
-    private fun setRecipeName(recipeName: String) { recipeTextView.text = recipeName }
+    private fun setRecipeName(recipeName: String) {
+        recipeTextView.text = recipeName
+    }
 
-    private fun setRecipeInfo(recipeInfo: String) { recipeInfoTextView.text = recipeInfo }
+    private fun setRecipeInfo(recipeInfo: String) {
+        recipeInfoTextView.text = recipeInfo
+    }
 
-    fun setRecipe(recipeName: String, recipeInfo: String, isFavourite: Boolean, recipeBitmap: Bitmap) {
+    fun setRecipe(
+        recipeName: String,
+        recipeInfo: String,
+        isFavourite: Boolean,
+        recipeImageString: String
+    ) {
         setRecipeName(recipeName)
         setRecipeInfo(recipeInfo)
         setFavouriteState(isFavourite)
-        setImageBitmap(recipeBitmap)
+        setImageBitmap(recipeImageString)
     }
 
     /**

@@ -16,10 +16,15 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import api.Aisle
-import api.Ingredient
-import api.getAisleFromAisleString
+import api.*
 import com.example.fridgr.R
+import com.example.fridgr.local_storage.UserPreferences
+import com.example.fridgr.local_storage.getUserPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class IngredientSearchComponent(
     context: Context,
@@ -40,6 +45,8 @@ class IngredientSearchComponent(
 
     private var currentSubcatIndex: Int = 0
     private var ingredients = listOf<Ingredient>()
+    private val userPreferences: UserPreferences?
+
     var checkedIngredients = arrayListOf<Ingredient>()
 
     init {
@@ -79,6 +86,8 @@ class IngredientSearchComponent(
                 onChangeSearchText(p0.toString())
             }
         })
+
+        userPreferences = getUserPreferences(context)
     }
 
     inner class IngredientIconAdapter(var myDataset: List<Ingredient>) :
@@ -126,9 +135,7 @@ class IngredientSearchComponent(
         override fun getItemCount() = myDataset.size
     }
 
-    data class Subcat(val subcatLabel: String, val subcatImageResource: Int)
-
-    inner class SubcatIconAdapter(var myDataset: List<Subcat>) :
+    inner class SubcatIconAdapter(var myDataset: List<String>) :
         RecyclerView.Adapter<SubcatIconAdapter.SubcatIconViewHolder>() {
 
         inner class SubcatIconViewHolder(val subcatIconButton: ImageButton) :
@@ -146,46 +153,45 @@ class IngredientSearchComponent(
         //Populate the icon
         override fun onBindViewHolder(holder: SubcatIconViewHolder, position: Int) {
             with(holder.subcatIconButton) {
-                val backgroundId = when (myDataset[position].subcatLabel) {
+                val backgroundId = when (myDataset[position]) {
                     "Relevant" -> R.drawable.relevant_button
-                    Aisle.BAKING.name -> R.drawable.baking_button
-                    Aisle.HEALTH_FOODS.name -> R.drawable.baking_button //TODO
-                    Aisle.SPICES_AND_SEASONINGS.name -> R.drawable.spices_button
-                    Aisle.PASTA_AND_RICE.name -> R.drawable.rice_pasta_button
-                    Aisle.BAKERY.name -> R.drawable.baking_button
-                    Aisle.REFRIGERATED.name -> R.drawable.baking_button //TODO
-                    Aisle.CANNED_AND_JARRED.name -> R.drawable.baking_button//TODO
-                    Aisle.FROZEN.name -> R.drawable.baking_button//TODO
-                    Aisle.BUTTERS_JAMS.name -> R.drawable.butter_jam_button
-                    Aisle.OIL_VINEGAR.name -> R.drawable.oil_vinegar_button
-                    Aisle.CONDIMENTS.name -> R.drawable.baking_button//TODO
-                    Aisle.SAVORY_SNACKS.name -> R.drawable.savory_snacks_button
-                    Aisle.EGGS_DAIRY.name -> R.drawable.dairy_button
-                    Aisle.ETHNIC_FOODS.name -> R.drawable.baking_button//TODO
-                    Aisle.TEA_AND_COFFEE.name -> R.drawable.tea_coffee_button
-                    Aisle.MEAT.name -> R.drawable.meat_button
-                    Aisle.GOURMET.name -> R.drawable.baking_button//TODO
-                    Aisle.SWEET_SNACKS.name -> R.drawable.sweet_snacks_button
-                    Aisle.GLUTEN_FREE.name -> R.drawable.baking_button//TODO
-                    Aisle.ALCOHOLIC_BEVERAGES.name -> R.drawable.alcoholic_beverages_button
-                    Aisle.CEREAL.name -> R.drawable.cereal_button
-                    Aisle.NUTS.name -> R.drawable.nuts_button
-                    Aisle.BEVERAGES.name -> R.drawable.beverages_button
-                    Aisle.PRODUCE.name -> R.drawable.baking_button//TODO
-                    Aisle.HOMEMADE.name -> R.drawable.baking_button//TODO
-                    Aisle.SEAFOOD.name -> R.drawable.seafood_button
-                    Aisle.CHEESE.name -> R.drawable.cheese_button
-                    Aisle.DRIED_FRUITS.name -> R.drawable.baking_button//TODO
-                    Aisle.ONLINE.name -> R.drawable.baking_button//TODO
-                    Aisle.GRILLING_SUPPLIES.name -> R.drawable.baking_button//TODO
-                    Aisle.BREAD.name -> R.drawable.bread__button
+                    "Baking" -> R.drawable.baking_button
+                    "Health Foods" -> R.drawable.baking_button //TODO
+                    "Spices and Seasonings" -> R.drawable.spices_button
+                    "Pasta & Rice" -> R.drawable.rice_pasta_button
+                    "Bakery/Bread" -> R.drawable.baking_button
+                    "Refrigerated" -> R.drawable.baking_button //TODO
+                    "Canned and Jarred" -> R.drawable.baking_button //TODO
+                    "Frozen" -> R.drawable.baking_button //TODO
+                    "Nut butters, Jams, and Honey" -> R.drawable.butter_jam_button
+                    "Oil, Vinegar, Salad Dressing" -> R.drawable.oil_vinegar_button
+                    "Condiments" -> R.drawable.baking_button //TODO
+                    "Savory Snacks" -> R.drawable.savory_snacks_button
+                    "Milk, Eggs, Other Dairy" -> R.drawable.dairy_button
+                    "Ethnic Foods" -> R.drawable.baking_button //TODO
+                    "Tea and Coffee" -> R.drawable.tea_coffee_button
+                    "Meat" -> R.drawable.meat_button
+                    "Gourmet" -> R.drawable.baking_button //TODO
+                    "Sweet Snacks" -> R.drawable.sweet_snacks_button
+                    "Gluten Free" -> R.drawable.baking_button //TODO
+                    "Alcoholic Beverages" -> R.drawable.alcoholic_beverages_button
+                    "Cereal" -> R.drawable.cereal_button
+                    "Nuts" -> R.drawable.nuts_button
+                    "Beverages" -> R.drawable.beverages_button
+                    "Produce" -> R.drawable.baking_button //TODO
+                    "Not in Grocery Store/Homemade" -> R.drawable.baking_button //TODO
+                    "Seafood" -> R.drawable.seafood_button
+                    "Cheese" -> R.drawable.cheese_button
+                    "Dried Fruits" -> R.drawable.baking_button //TODO
+                    "Online" -> R.drawable.baking_button //TODO
+                    "Grilling Supplies" -> R.drawable.baking_button //TODO
+                    "Bread" -> R.drawable.bread__button
                     else -> R.drawable.baking_button //TODO
                 }
                 background = ContextCompat.getDrawable(context, backgroundId)
                 val density = context.resources.displayMetrics.density
                 layoutParams = LayoutParams((120 * density).toInt(), (145 * density).toInt())
                 scaleType = ImageView.ScaleType.FIT_CENTER
-
 
                 if (currentSubcatIndex == position) {
                     isPressed = true
@@ -202,9 +208,9 @@ class IngredientSearchComponent(
                         } else {
                             //Only show ingredients from that aisle
                             val aisle: Aisle =
-                                getAisleFromAisleString(myDataset[position].subcatLabel)
+                                getAisleFromAisleString(myDataset[position])
                             ingredients.filter { ingredient ->
-                                ingredient.aisle == aisle
+                                ingredient.aisle.any { itAisle -> itAisle == aisle }
                             }
                         }
                     ingredientIconAdapter.notifyDataSetChanged()
@@ -216,7 +222,7 @@ class IngredientSearchComponent(
         override fun getItemCount() = myDataset.size
     }
 
-    fun setIngredients(ingredientList: List<Ingredient>) {
+    private fun setIngredients(ingredientList: List<Ingredient>) {
         currentSubcatIndex = 0
         with(ingredientIconAdapter) {
             ingredients = ingredientList
@@ -225,10 +231,10 @@ class IngredientSearchComponent(
         }
     }
 
-    private fun setSubcategories(subcatList: List<Subcat>) {
+    private fun setSubcategories(subcatList: List<String>) {
         with(subcatIconAdapter) {
             val newSubcatList = subcatList.toMutableList()
-            newSubcatList.add(0, Subcat("Relevant", R.drawable.ic_black_heart))
+            newSubcatList.add(0, "Relevant")
             myDataset = newSubcatList.toList()
             notifyDataSetChanged()
         }
@@ -250,37 +256,28 @@ class IngredientSearchComponent(
         // asyncronously, maybe add buffering animation while it loads in
         // IDEA: save quota by waiting a short time before asking for autocomplete for the control
 
-        val tempIngredientList = listOf(
-            Ingredient(
-                1,
-                "Apple",
-                Aisle.PRODUCE,
-                ContextCompat.getDrawable(context, R.drawable.example_profile_picture)!!
-                    .toBitmap(120, 120)
-            ),
-            Ingredient(
-                2,
-                "Banana",
-                Aisle.MEAT,
-                ContextCompat.getDrawable(context, R.drawable.example_profile_picture)!!
-                    .toBitmap(120, 120)
-            ),
-            Ingredient(
-                2,
-                "Banana",
-                Aisle.MEAT,
-                ContextCompat.getDrawable(context, R.drawable.example_profile_picture)!!
-                    .toBitmap(120, 120)
-            )
-        )
+        val userIntolerances = userPreferences?.intolerances ?: emptyList()
 
-        val tempSubcatList = listOf(
-            Subcat("Produce", R.drawable.ic_vegetables),
-            Subcat("Meat", R.drawable.ic_meat)
-        )
+        CoroutineScope(IO).launch {
+            val ingredientList: List<Ingredient> =
+                SpoonacularAPIHandler.getAutocompletedIngredientList(text, userIntolerances)
 
-        setIngredients(tempIngredientList)
-        setSubcategories(tempSubcatList)
+            //Add all the unique subcats
+            val subcatStringList = ArrayList<String>()
+            ingredientList.forEach { ingredient ->
+                ingredient.aisle.forEach { aisle ->
+                    val aisleString = getAisleStringFromAisle(aisle)
+                    if (aisleString !in subcatStringList) subcatStringList.add(aisleString)
+                }
+            }
+
+            withContext(Main) {
+                setIngredients(ingredientList)
+                setSubcategories(subcatStringList)
+            }
+        }
+
+
     }
 
     private fun addIngredientToCheckedList(ingredient: Ingredient) {

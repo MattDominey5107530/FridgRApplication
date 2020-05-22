@@ -1,12 +1,9 @@
 package com.example.fridgr.recyclerViewAdapters
 
-import android.app.ActionBar
 import android.content.Context
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import api.Nutrition
 import api.Recipe
 import com.example.fridgr.RecipeComponent
 
@@ -32,9 +29,6 @@ class RecipeListAdapter(private val context: Context,
             }
             val recipeInfo = recipeInfoList.joinToString("\n")
 
-            Log.v("X", recipeInfo)
-            Log.v("X", myDataset[position].nutritionList[0].toString())
-
             val isFavouriteRecipe =
                 if (favouriteRecipes != null) myDataset[position] in favouriteRecipes else false
 
@@ -43,7 +37,7 @@ class RecipeListAdapter(private val context: Context,
                 myDataset[position].name,
                 recipeInfo,
                 isFavouriteRecipe,
-                myDataset[position].image
+                myDataset[position].imageString
             )
 
             //TODO: set the onclick listener to show the recipe tab

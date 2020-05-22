@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import api.Ingredient
+import api.IngredientSearchRecipe
 import api.Recipe
 import com.example.fridgr.local_storage.getFavouriteRecipes
+import com.example.fridgr.recyclerViewAdapters.IngredientSearchRecipeListAdapter
 import com.example.fridgr.recyclerViewAdapters.RecipeListAdapter
 
 class RecipeListFragment : Fragment() {
@@ -23,19 +26,19 @@ class RecipeListFragment : Fragment() {
         fun newInstance(
             switchToFragment: (Fragment, Fragment) -> Unit,
             parentFragment: Fragment? = null,
-            recipes: List<Recipe>
+            ingredientSearchRecipes: List<IngredientSearchRecipe>
         ): RecipeListFragment =
             RecipeListFragment().apply {
                 this.switchToFragment = switchToFragment
                 this.myParentFragment = parentFragment
-                this.recipes = recipes
+                this.ingredientSearchRecipes = ingredientSearchRecipes
             }
     }
 
     private lateinit var recyclerViewRecipeList: RecyclerView
-    private lateinit var recyclerViewRecipeListAdapter: RecipeListAdapter
+    private lateinit var recyclerViewRecipeListAdapter: IngredientSearchRecipeListAdapter
     private lateinit var recyclerViewRecipeListLayoutManager: RecyclerView.LayoutManager
-    private lateinit var recipes: List<Recipe>
+    private lateinit var ingredientSearchRecipes: List<IngredientSearchRecipe>
 
     private val favouriteRecipes = ArrayList<Recipe>()
 
@@ -62,7 +65,7 @@ class RecipeListFragment : Fragment() {
 
         recyclerViewRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
             recyclerViewRecipeListAdapter =
-                RecipeListAdapter(context, favouriteRecipes, this, recipes)
+                IngredientSearchRecipeListAdapter(context, favouriteRecipes, this, ingredientSearchRecipes)
             recyclerViewRecipeListLayoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)

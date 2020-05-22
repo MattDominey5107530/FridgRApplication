@@ -28,7 +28,7 @@ class IngredientSearchIcon @JvmOverloads constructor(
 
     fun setProperties(ingredient: Ingredient) {
         with(ingredient) {
-            setIconProperties(image, name)
+            setIconProperties(imageString, name)
         }
     }
 

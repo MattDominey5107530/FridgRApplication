@@ -26,8 +26,9 @@ open class SearchIcon @JvmOverloads constructor(
 
     var isChecked: Boolean = false
 
-    fun setIconProperties(bitmap: Bitmap, labelText: String) {
-        this.iconImageView.setImageDrawable(bitmap.getCircularDrawable(resources))
+    fun setIconProperties(imageString: String, labelText: String) {
+        //this.iconImageView.setImageDrawable(bitmap.getCircularDrawable(resources))
+        //TODO: set image with URL using Picasso?
         setIconLabel(labelText)
     }
 

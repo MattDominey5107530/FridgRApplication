@@ -1,21 +1,22 @@
 package api
 
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.delay
 import okhttp3.*
 import java.io.IOException
 
 
-object APIHandlerClass : ISpoonacularAPIHandler {
+object SpoonacularAPIHandler : ISpoonacularAPIHandler {
 
     private const val apiKey = "161c30243b094154ad28c32033413409"
 
     // Pass in list of ingredients, return a list of recipes including those ingredients.
-    override fun getRecipeListByIngredients(
-        ingredients: List<TestIngredient>
-    ): List<TestIngredientSearchRecipe> {
+    override suspend fun getRecipeListByIngredients(
+        ingredients: List<Ingredient>
+    ): List<IngredientSearchRecipe> {
 
         // Recipes to be returned
-        var recipeTestIngredients : List<TestIngredientSearchRecipe> = emptyList()
+        var recipeTestIngredients: List<TestIngredientSearchRecipe> = emptyList()
 
         // Set default values, can pass these in as parameters and get input from app in the future.
         val recipeCount = 10
@@ -28,13 +29,12 @@ object APIHandlerClass : ISpoonacularAPIHandler {
         for (ingredient in ingredients) {
             if (ingredient === ingredients.last()) {
                 ingredientString += ingredient.name
-            }
-            else {
-                ingredientString = ingredientString + ingredient.name + ",+"
+            } else {
+                ingredientString = ingredientString + ingredient.name + ","
             }
         }
 
-        var url = "https://api.spoonacular.com/recipes/findByIngredients?" +
+        val url = "https://api.spoonacular.com/recipes/findByIngredients?" +
                 "apiKey=$apiKey" +
                 "&ingredients=$ingredientString" +
                 "&number=$recipeCount" +
@@ -42,40 +42,48 @@ object APIHandlerClass : ISpoonacularAPIHandler {
                 "&ignorePantry=$ignorePantry" +
                 "&limitLicense=$licensing"
 
+        var stillWaitingForResponse = true
 
         // Get API response and store response as a JSON object.
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback{
+        client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                val body = response?.body()?.string()
+                val body = response.body()?.string()
                 println("Json String: $body")
 
                 val gson = GsonBuilder().create()
 
-                recipeTestIngredients = gson.fromJson(body, Array<TestIngredientSearchRecipe>::class.java).toList()
-
+                recipeTestIngredients =
+                    gson.fromJson(body, Array<TestIngredientSearchRecipe>::class.java).toList()
 
                 println("Recipe List: $recipeTestIngredients")
+                stillWaitingForResponse = false
             }
+
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute")
+                stillWaitingForResponse = false
             }
         })
 
-        return recipeTestIngredients
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
+
+        //Convert from TestIngredientSearchRecipe to IngredientSearchRecipe to match UI code
+        return recipeTestIngredients.map { it.toIngredientSearchRecipe() }
     }
 
     // Search for recipes using a string with other filters, returns list of recipes.
-    //Todo: Replace the strings with the enums or convert enums to string when passing it into function
-    //Todo: Search will not work if one of the paramaters is not passed in, and it needs to be valid
-    override fun getRecipeListBySearch(
+    override suspend fun getRecipeListBySearch(
         recipeSearchText: String,
-        intolerances: List<String>,
-        diets: String,
-        cuisines: List<String>,
-        mealTypes: String
-    ): List<TestSearchRecipe> {
+        intolerances: List<Intolerance>,
+        diet: Diet,
+        cuisines: List<Cuisine>,
+        mealType: MealType
+    ): List<Recipe> {
 
         var search: TestSearch
         var recipeList: List<TestSearchRecipe> = emptyList()
@@ -94,45 +102,46 @@ object APIHandlerClass : ISpoonacularAPIHandler {
 
         for (cuisine in cuisines) {
             if (cuisine === cuisines.last()) {
-                cuisinesString += cuisine
-            }
-            else {
-                cuisinesString = "$cuisinesString$cuisine,+"
+                cuisinesString += getCuisineStringFromCuisine(cuisine)
+            } else {
+                cuisinesString = "$cuisinesString${getCuisineStringFromCuisine(cuisine)},"
             }
 
         }
 
         for (intolerance in intolerances) {
             if (intolerance === intolerances.last()) {
-                intolerancesString += intolerance
-            }
-            else {
-                intolerancesString = "$intolerancesString$intolerance,+"
+                intolerancesString += getIntoleranceStringFromIntolerance(intolerance)
+            } else {
+                intolerancesString =
+                    "$intolerancesString${getIntoleranceStringFromIntolerance(intolerance)},"
             }
 
         }
 
-        var url = "https://api.spoonacular.com/recipes/complexSearch?" +
+        val url = "https://api.spoonacular.com/recipes/complexSearch?" +
                 "apiKey=$apiKey" +
                 "&query=$recipeSearchText" +
                 "&cuisine=$cuisinesString" +
                 "&intolerances=$intolerancesString" +
-                "&diet=$diets" +
+                "&diet=${getDietStringFromDiet(diet)}" +
                 "&minCarbs=$minCarbs" +
                 "&minProtein=$minProtein" +
                 "&minFat=$minFat" +
                 "&minCalories=$minCalories" +
-                "&type=$mealTypes" +
+                "&type=${getMealTypeStringFromMealType(mealType)}" +
                 "&number=$recipeCount" +
                 "&limitLicense=$licensing" +
                 "&instructionRequired=$instructionsRequired"
 
+        var stillWaitingForResponse = true
+
         // Get API response and store response as a JSON object.
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback{
+        client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                val body = response?.body()?.string()
+                val body = response.body()?.string()
                 println("Json String: $body")
 
                 val gson = GsonBuilder().create()
@@ -140,79 +149,163 @@ object APIHandlerClass : ISpoonacularAPIHandler {
                 search = gson.fromJson(body, TestSearch::class.java)
                 recipeList = search.results
                 println("Recipe List: $recipeList")
+                stillWaitingForResponse = false
             }
+
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute")
+                stillWaitingForResponse = false
             }
         })
 
-        return recipeList
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
+
+        return recipeList.map { it.toRecipe() }
     }
 
     // Takes in a recipe and returns all its details
-    override fun getRecipeInfo(
+    override suspend fun getRecipeInfo(
         recipeId: Int
     ): RecipeInfo? {
         var moreInfo: RecipeInfo? = null
 
-        var includeNutrition = false
-        var url = "https://api.spoonacular.com/recipes/$recipeId/information?" +
+        val includeNutrition = false
+        val url = "https://api.spoonacular.com/recipes/$recipeId/information?" +
                 "apiKey=$apiKey" +
                 "&includeNutrition=$includeNutrition"
+
+        var stillWaitingForResponse = true
 
         // Get API response and store response as a JSON object.
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback{
+        client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                val body = response?.body()?.string()
+                val body = response.body()?.string()
                 println("Json String: $body")
 
                 val gson = GsonBuilder().create()
 
                 moreInfo = gson.fromJson(body, RecipeInfo::class.java)
                 println("Recipe List: $moreInfo")
+                stillWaitingForResponse = false
             }
+
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute")
+                stillWaitingForResponse = false
             }
         })
+
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
 
         return moreInfo
     }
 
     // Takes in a recipe and returns its method.
-    override fun getRecipeInstructions(
+    override suspend fun getRecipeInstructions(
         recipeId: Int
     ): List<RecipeInstructions> {
         var recipeInstructions: List<RecipeInstructions> = emptyList()
 
-        var url = "https://api.spoonacular.com/recipes/$recipeId/analyzedInstructions?" +
+        val url = "https://api.spoonacular.com/recipes/$recipeId/analyzedInstructions?" +
                 "apiKey=$apiKey"
+
+        var stillWaitingForResponse = true
 
         // Get API response and store response as a JSON object.
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback{
+        client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                val body = response?.body()?.string()
+                val body = response.body()?.string()
                 println("Json String: $body")
 
                 val gson = GsonBuilder().create()
 
-                recipeInstructions = gson.fromJson(body, Array<RecipeInstructions>::class.java).toList()
+                recipeInstructions =
+                    gson.fromJson(body, Array<RecipeInstructions>::class.java).toList()
                 println("Recipe List: $recipeInstructions")
+                stillWaitingForResponse = false
             }
+
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute")
+                stillWaitingForResponse = false
             }
         })
+
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
 
         return recipeInstructions
     }
 
+    override suspend fun getAutocompletedIngredientList(
+        ingredientSearchText: String,
+        intolerances: List<Intolerance>
+    ): List<Ingredient> {
 
+        var autoCompleteIngredientResult: List<TestIngredient> = emptyList()
 
+        val ingredientCount = 5
+
+        var intolerancesString = ""
+
+        for (intolerance in intolerances) {
+            if (intolerance === intolerances.last()) {
+                intolerancesString += intolerance.toString()
+            } else {
+                intolerancesString = "$intolerancesString$intolerance,"
+            }
+        }
+
+        val url = "https://api.spoonacular.com/food/ingredients/autocomplete?" +
+                "apiKey=$apiKey" +
+                "&query=$ingredientSearchText" +
+                "&number=$ingredientCount" +
+                "&metaInformation=true"
+
+        var stillWaitingForResponse = true
+
+        // Get API response and store response as a JSON object.
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println("Json String: $body")
+
+                val gson = GsonBuilder().create()
+
+                autoCompleteIngredientResult =
+                    gson.fromJson(body, Array<TestIngredient>::class.java).toList()
+                println("Recipe List: $autoCompleteIngredientResult")
+                stillWaitingForResponse = false
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to execute")
+                stillWaitingForResponse = false
+            }
+        })
+
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
+
+        return autoCompleteIngredientResult.map { it.toIngredient() }
+    }
+}
 
 
 //
@@ -231,13 +324,6 @@ object APIHandlerClass : ISpoonacularAPIHandler {
 //    }
 //
 //    //
-//    override fun getAutocompletedIngredientList(
-//        ingredientSearchText: String,
-//        intolerances: List<Intolerance>
-//    ): List<Ingredient> {
-//
-//        return emptyList()
-//    }
 //
 //    override fun getAutocompletedRecipeList(
 //        recipeSearchText: String
@@ -253,5 +339,3 @@ object APIHandlerClass : ISpoonacularAPIHandler {
 //
 //        return emptyList()
 //    }
-
-}
