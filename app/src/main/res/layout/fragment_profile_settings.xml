@@ -7,6 +7,42 @@
     android:background="@color/background"
     tools:context=".ProfileFragment">
 
+    <Button
+        android:id="@+id/btnChangeNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="16dp"
+        android:text="Change Nickname"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeProfilePicture"
+        tools:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnChangeProfilePicture"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableRight="@drawable/ic_right_arrow"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="16dp"
+        android:text="Change Profile Picture"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditProfile"
+        tools:visibility="gone" />
+
     <ImageButton
         android:id="@+id/imbBack"
         android:layout_width="50dp"
@@ -51,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnDietaryRequirements" />
 
     <Button
-        android:id="@+id/btnProfileSettings"
+        android:id="@+id/btnEditProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -60,7 +96,7 @@
         android:gravity="left|center_vertical"
         android:paddingLeft="40dp"
         android:paddingRight="16dp"
-        android:text="Profile Settings"
+        android:text="Edit profile"
         android:textAllCaps="false"
         android:textColor="@color/textLightPrimary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +108,6 @@
         android:id="@+id/btnMembershipSettings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:background="@color/background"
         android:gravity="left|center_vertical"
         android:paddingLeft="40dp"
@@ -83,7 +118,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFavouriteCuisines" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeNickname" />
 
     <Button
         android:id="@+id/btnLogout"
