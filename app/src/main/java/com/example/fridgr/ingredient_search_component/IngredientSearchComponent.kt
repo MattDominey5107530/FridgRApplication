@@ -161,11 +161,11 @@ class IngredientSearchComponent(
                     "Pasta & Rice" -> R.drawable.rice_pasta_button
                     "Bakery/Bread" -> R.drawable.baking_button
                     "Refrigerated" -> R.drawable.baking_button //TODO
-                    "Canned and Jarred" -> R.drawable.baking_button //TODO
+                    "Canned and Jarred" -> R.drawable.canned_and_jarred_button
                     "Frozen" -> R.drawable.baking_button //TODO
                     "Nut butters, Jams, and Honey" -> R.drawable.butter_jam_button
                     "Oil, Vinegar, Salad Dressing" -> R.drawable.oil_vinegar_button
-                    "Condiments" -> R.drawable.baking_button //TODO
+                    "Condiments" -> R.drawable.condiments_button
                     "Savory Snacks" -> R.drawable.savory_snacks_button
                     "Milk, Eggs, Other Dairy" -> R.drawable.dairy_button
                     "Ethnic Foods" -> R.drawable.baking_button //TODO
@@ -173,7 +173,7 @@ class IngredientSearchComponent(
                     "Meat" -> R.drawable.meat_button
                     "Gourmet" -> R.drawable.baking_button //TODO
                     "Sweet Snacks" -> R.drawable.sweet_snacks_button
-                    "Gluten Free" -> R.drawable.baking_button //TODO
+                    "Gluten Free" -> R.drawable.gluten_free_button
                     "Alcoholic Beverages" -> R.drawable.alcoholic_beverages_button
                     "Cereal" -> R.drawable.cereal_button
                     "Nuts" -> R.drawable.nuts_button
@@ -182,7 +182,7 @@ class IngredientSearchComponent(
                     "Not in Grocery Store/Homemade" -> R.drawable.baking_button //TODO
                     "Seafood" -> R.drawable.seafood_button
                     "Cheese" -> R.drawable.cheese_button
-                    "Dried Fruits" -> R.drawable.baking_button //TODO
+                    "Dried Fruits" -> R.drawable.dried_fruits_button
                     "Online" -> R.drawable.baking_button //TODO
                     "Grilling Supplies" -> R.drawable.baking_button //TODO
                     "Bread" -> R.drawable.bread__button
