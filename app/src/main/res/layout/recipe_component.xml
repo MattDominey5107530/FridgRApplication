@@ -37,12 +37,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textSize="22sp"
+        android:maxLines="3"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imgFavourite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgFavourite"
-        app:layout_constraintTop_toTopOf="@+id/imgFavourite" />
+        app:layout_constraintTop_toTopOf="@+id/imgRecipePicture" />
 
     <TextView
         android:id="@+id/txvRecipeInfo"
@@ -57,6 +57,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgRecipePicture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgRecipePicture"
-        app:layout_constraintTop_toBottomOf="@+id/imgFavourite" />
+        app:layout_constraintTop_toBottomOf="@+id/txvRecipeName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

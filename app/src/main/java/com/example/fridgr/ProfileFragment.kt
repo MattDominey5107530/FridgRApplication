@@ -64,7 +64,8 @@ class ProfileFragment : Fragment() {
 
         recyclerViewDiets = v.findViewById<RecyclerView>(R.id.rcvDietaryRequirements).apply {
             recyclerViewDietsAdapter = DietAdapter(emptyList())
-            recyclerViewDietsLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL)
+            recyclerViewDietsLayoutManager =
+                StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL)
             setHasFixedSize(true)
             layoutManager = recyclerViewDietsLayoutManager
             adapter = recyclerViewDietsAdapter
@@ -72,7 +73,8 @@ class ProfileFragment : Fragment() {
 
         recyclerViewCuisines = v.findViewById<RecyclerView>(R.id.rcvFavouriteCuisines).apply {
             recyclerViewCuisinesAdapter = CuisineAdapter(emptyList())
-            recyclerViewCuisinesLayoutManager = GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false)
+            recyclerViewCuisinesLayoutManager =
+                StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL)
             setHasFixedSize(true)
             layoutManager = recyclerViewCuisinesLayoutManager
             adapter = recyclerViewCuisinesAdapter
@@ -123,7 +125,8 @@ class ProfileFragment : Fragment() {
                     ContextCompat.getDrawable(context!!, R.drawable.ic_profile)!!
                         .toBitmap(
                             profilePictureImageView.layoutParams.width,
-                            profilePictureImageView.layoutParams.height)
+                            profilePictureImageView.layoutParams.height
+                        )
                         .getCircularDrawable(resources)
                 )
             }
@@ -132,7 +135,7 @@ class ProfileFragment : Fragment() {
 
     private fun updateDiets() {
         val userPreferences = getUserPreferences(context!!)
-        val adapterPairs =  arrayListOf<Pair<Diet?, Intolerance?>>()
+        val adapterPairs = arrayListOf<Pair<Diet?, Intolerance?>>()
 
         if (userPreferences != null) {
             if (userPreferences.diet != null) {
@@ -182,43 +185,46 @@ class ProfileFragment : Fragment() {
 
             return DietViewHolder(userPreferenceIcon)
         }
+
         override fun onBindViewHolder(holder: DietViewHolder, position: Int) {
             with(holder.view) {
-                val imageDrawable = ContextCompat.getDrawable(context, if (myDataset[position].first != null) {
-                    when (myDataset[position].first!!) {
-                        Diet.GLUTEN_FREE -> R.drawable.gluten_free
-                        Diet.KETOGENIC -> R.drawable.ketogenic
-                        Diet.VEGETARIAN -> R.drawable.vegetarian
-                        Diet.LACTO_VEGETARIAN -> R.drawable.lacto_vegetarian
-                        Diet.OVO_VEGETARIAN -> R.drawable.ovo_vegetarian
-                        Diet.VEGAN -> R.drawable.vegan
-                        Diet.PESCETARIAN -> R.drawable.pescetarian
-                        Diet.PALEO -> R.drawable.paleo
-                        Diet.PRIMAL -> R.drawable.primal
-                        Diet.WHOLE30 -> R.drawable.whole30
+                val imageDrawable = ContextCompat.getDrawable(
+                    context, if (myDataset[position].first != null) {
+                        when (myDataset[position].first!!) {
+                            Diet.GLUTEN_FREE -> R.drawable.gluten_free
+                            Diet.KETOGENIC -> R.drawable.ketogenic
+                            Diet.VEGETARIAN -> R.drawable.vegetarian
+                            Diet.LACTO_VEGETARIAN -> R.drawable.lacto_vegetarian
+                            Diet.OVO_VEGETARIAN -> R.drawable.ovo_vegetarian
+                            Diet.VEGAN -> R.drawable.vegan
+                            Diet.PESCETARIAN -> R.drawable.pescetarian
+                            Diet.PALEO -> R.drawable.paleo
+                            Diet.PRIMAL -> R.drawable.primal
+                            Diet.WHOLE30 -> R.drawable.whole30
+                        }
+                    } else {
+                        when (myDataset[position].second) {
+                            Intolerance.DAIRY -> R.drawable.dairy_intolerance
+                            Intolerance.EGG -> R.drawable.egg
+                            Intolerance.GLUTEN -> R.drawable.gluten
+                            Intolerance.GRAIN -> R.drawable.grain
+                            Intolerance.PEANUT -> R.drawable.peanut
+                            Intolerance.SEAFOOD -> R.drawable.seafood_intolerance
+                            Intolerance.SESAME -> R.drawable.sesame
+                            Intolerance.SHELLFISH -> R.drawable.shellfish
+                            Intolerance.SOY -> R.drawable.soy
+                            Intolerance.SULFITE -> R.drawable.sulfite
+                            Intolerance.TREE_NUT -> R.drawable.tree_nut
+                            Intolerance.WHEAT -> R.drawable.wheat
+                            else -> R.drawable.wheat //TODO: add more diets/intolerances button
+                        }
                     }
-                } else {
-                    when (myDataset[position].second) {
-                        Intolerance.DAIRY -> R.drawable.dairy_intolerance
-                        Intolerance.EGG -> R.drawable.egg
-                        Intolerance.GLUTEN -> R.drawable.gluten
-                        Intolerance.GRAIN -> R.drawable.grain
-                        Intolerance.PEANUT -> R.drawable.peanut
-                        Intolerance.SEAFOOD -> R.drawable.seafood_intolerance
-                        Intolerance.SESAME -> R.drawable.sesame
-                        Intolerance.SHELLFISH -> R.drawable.shellfish
-                        Intolerance.SOY -> R.drawable.soy
-                        Intolerance.SULFITE -> R.drawable.sulfite
-                        Intolerance.TREE_NUT -> R.drawable.tree_nut
-                        Intolerance.WHEAT -> R.drawable.wheat
-                        else -> R.drawable.wheat //TODO: add more diets/intolerances button
-                    }
-                })
+                )
                 findViewById<ImageView>(R.id.imvIcon).apply {
                     setImageBitmap(
                         imageDrawable!!.toBitmap(
-                            imageDrawable.intrinsicWidth / 6,
-                            imageDrawable.intrinsicHeight / 6
+                            imageDrawable.intrinsicWidth / 5,
+                            imageDrawable.intrinsicHeight / 5
                         )
                     )
                 }
@@ -246,40 +252,46 @@ class ProfileFragment : Fragment() {
 
         override fun onBindViewHolder(holder: CuisineViewHolder, position: Int) {
             with(holder.view) {
-                findViewById<ImageView>(R.id.imvIcon)
-                    .setImageResource(
-                        //TODO: add actual icons
-                        when (myDataset[position]) {
-                            Cuisine.AFRICAN -> R.drawable.ic_vegetables
-                            Cuisine.AMERICAN -> R.drawable.ic_vegetables
-                            Cuisine.BRITISH -> R.drawable.ic_vegetables
-                            Cuisine.CAJUN -> R.drawable.ic_vegetables
-                            Cuisine.CARIBBEAN -> R.drawable.ic_vegetables
-                            Cuisine.CHINESE -> R.drawable.ic_vegetables
-                            Cuisine.EASTERN_EUROPEAN -> R.drawable.ic_vegetables
-                            Cuisine.EUROPEAN -> R.drawable.ic_vegetables
-                            Cuisine.FRENCH -> R.drawable.ic_vegetables
-                            Cuisine.GERMAN -> R.drawable.ic_vegetables
-                            Cuisine.GREEK -> R.drawable.ic_vegetables
-                            Cuisine.INDIAN -> R.drawable.ic_vegetables
-                            Cuisine.IRISH -> R.drawable.ic_vegetables
-                            Cuisine.ITALIAN -> R.drawable.ic_vegetables
-                            Cuisine.JAPANESE -> R.drawable.ic_vegetables
-                            Cuisine.JEWISH -> R.drawable.ic_vegetables
-                            Cuisine.KOREAN -> R.drawable.ic_vegetables
-                            Cuisine.LATIN_AMERICAN -> R.drawable.ic_vegetables
-                            Cuisine.MEDITERRANEAN -> R.drawable.ic_vegetables
-                            Cuisine.MEXICAN -> R.drawable.ic_vegetables
-                            Cuisine.MIDDLE_EASTERN -> R.drawable.ic_vegetables
-                            Cuisine.NORDIC -> R.drawable.ic_vegetables
-                            Cuisine.SOUTHERN -> R.drawable.ic_vegetables
-                            Cuisine.SPANISH -> R.drawable.ic_vegetables
-                            Cuisine.THAI -> R.drawable.ic_vegetables
-                            Cuisine.VIETAMESE -> R.drawable.ic_vegetables
-                            else -> R.drawable.ic_vegetables //TODO: add more cuisines button...
-                        }
-
+                val imageDrawable = ContextCompat.getDrawable(
+                    context,
+                    when (myDataset[position]) {
+                        Cuisine.AFRICAN -> R.drawable.african_cuisine
+                        Cuisine.AMERICAN -> R.drawable.american_cuisine
+                        Cuisine.BRITISH -> R.drawable.british_cuisine
+                        Cuisine.CAJUN -> R.drawable.cajun_cuisine
+                        Cuisine.CARIBBEAN -> R.drawable.caribbean_cuisine
+                        Cuisine.CHINESE -> R.drawable.african_cuisine //TODO: CHINESE CUISINE
+                        Cuisine.EASTERN_EUROPEAN -> R.drawable.eastern_european_cuisine
+                        Cuisine.EUROPEAN -> R.drawable.european_cuisine
+                        Cuisine.FRENCH -> R.drawable.french_cuisine
+                        Cuisine.GERMAN -> R.drawable.german_cuisine
+                        Cuisine.GREEK -> R.drawable.greek_cuisine
+                        Cuisine.INDIAN -> R.drawable.indian_cuisine
+                        Cuisine.IRISH -> R.drawable.irish_cuisine
+                        Cuisine.ITALIAN -> R.drawable.italian_cuisine
+                        Cuisine.JAPANESE -> R.drawable.japanese_cuisine
+                        Cuisine.JEWISH -> R.drawable.jewish_cuisine
+                        Cuisine.KOREAN -> R.drawable.korean_cuisine
+                        Cuisine.LATIN_AMERICAN -> R.drawable.latin_american_cuisine
+                        Cuisine.MEDITERRANEAN -> R.drawable.mediterranean_cuisine
+                        Cuisine.MEXICAN -> R.drawable.mexican_cuisine
+                        Cuisine.MIDDLE_EASTERN -> R.drawable.middle_eastern_cuisine
+                        Cuisine.NORDIC -> R.drawable.nordic_cuisine
+                        Cuisine.SOUTHERN -> R.drawable.african_cuisine //TODO: SOUTHERN CUISINE
+                        Cuisine.SPANISH -> R.drawable.spanish_cuisine
+                        Cuisine.THAI -> R.drawable.thai_cuisine
+                        Cuisine.VIETAMESE -> R.drawable.vietnamese_cuisine
+                        else -> R.drawable.african_cuisine //TODO: add more cuisines button...
+                    }
+                )
+                findViewById<ImageView>(R.id.imvIcon).apply {
+                    setImageBitmap(
+                        imageDrawable!!.toBitmap(
+                            imageDrawable.intrinsicWidth / 5,
+                            imageDrawable.intrinsicHeight / 5
+                        )
                     )
+                }
             }
         }
 

@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.fridgr.R
 import com.example.fridgr.getCircularDrawable
+import com.squareup.picasso.Picasso
 
 open class SearchIcon @JvmOverloads constructor(
     context: Context,
@@ -28,12 +29,9 @@ open class SearchIcon @JvmOverloads constructor(
 
     fun setIconProperties(imageString: String, labelText: String) {
         //this.iconImageView.setImageDrawable(bitmap.getCircularDrawable(resources))
-        //TODO: set image with URL using Picasso?
-        setIconLabel(labelText)
-    }
-
-    fun setIconProperties(drawable: Drawable, labelText: String) {
-        this.iconImageView.setImageDrawable(drawable)
+        Picasso.get()
+            .load(imageString)
+            .into(iconImageView)
         setIconLabel(labelText)
     }
 

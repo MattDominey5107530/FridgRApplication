@@ -305,37 +305,93 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
 
         return autoCompleteIngredientResult.map { it.toIngredient() }
     }
+
+    override suspend fun getAutocompletedRecipeList(
+        recipeSearchText: String
+    ): List<Recipe> {
+
+        var autoCompleteRecipeResult: List<TestSearchRecipe> = emptyList()
+
+        val number = 10
+        val url = "https://api.spoonacular.com/recipes/autocomplete?" +
+                "apiKey=$apiKey" +
+                "&number=$number" +
+                "&query=$recipeSearchText"
+
+        var stillWaitingForResponse = true
+
+        // Get API response and store response as a JSON object.
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println("Json String: $body")
+
+                val gson = GsonBuilder().create()
+
+                autoCompleteRecipeResult =
+                    gson.fromJson(body, Array<TestSearchRecipe>::class.java).toList()
+                println("Recipe List: $autoCompleteRecipeResult")
+                stillWaitingForResponse = false
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to execute")
+                stillWaitingForResponse = false
+            }
+        })
+
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
+
+        return autoCompleteRecipeResult.map { it.toRecipe() }
+    }
+
+    // Takes in a recipe, and returns similar ones.
+    override suspend fun getSimilarRecipeList(
+        id: Int
+    ): List<Recipe> {
+
+        var similarRecipes: List<TestSearchRecipe> = emptyList()
+
+        val recipeCount = 10
+        val limitLicence = true
+
+        val url = "https://api.spoonacular.com/recipes/715538/similar?" +
+                "apiKey=$apiKey" +
+                "&number=$recipeCount" +
+                "&limitLicence=$limitLicence"
+
+        var stillWaitingForResponse = true
+
+        // Get API response and store response as a JSON object.
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object: Callback{
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println("Json String: $body")
+
+                val gson = GsonBuilder().create()
+
+                similarRecipes = gson.fromJson(body, Array<TestSearchRecipe>::class.java).toList()
+                println("Recipe List: $similarRecipes")
+                stillWaitingForResponse = false
+            }
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to execute")
+                stillWaitingForResponse = false
+            }
+        })
+
+        //Waits until a response is received.
+        while (stillWaitingForResponse) {
+            delay(100)
+        }
+
+        return similarRecipes.map { it.toRecipe() }
+    }
 }
-
-
-//
-//    /** LESS IMPORTANT ONES TO-DO */
-//
-//    // Pass in list of ingredients along with other filters, returns list of recipes matching filter.
-//    override fun getRecipeListByIngredientsFiltered(
-//        ingredients: List<Ingredient>,
-//        intolerances: List<Intolerance>,
-//        diets: List<Diet>,
-//        cuisines: List<Cuisine>,
-//        mealTypes: List<MealType>
-//    ): List<TestIngredientSearchRecipe> {
-//
-//        return emptyList()
-//    }
-//
-//    //
-//
-//    override fun getAutocompletedRecipeList(
-//        recipeSearchText: String
-//    ): List<Recipe> {
-//
-//        return emptyList()
-//    }
-//
-//    // Takes in a recipe, and returns similar ones.
-//    override fun getSimilarRecipeList(
-//        recipe: Recipe
-//    ): List<Recipe> {
-//
-//        return emptyList()
-//    }

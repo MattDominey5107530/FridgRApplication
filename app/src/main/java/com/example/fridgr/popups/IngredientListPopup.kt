@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import api.Ingredient
 import com.example.fridgr.R
+import com.squareup.picasso.Picasso
 
 class IngredientListPopup(
     context: Context,
@@ -91,8 +92,9 @@ class IngredientListPopup(
         //Populate the view
         override fun onBindViewHolder(holder: IngredientIconViewHolder, position: Int) {
             with(holder.ingredientComponent) {
-                //findViewById<ImageView>(R.id.imvIngredientIcon).setImageBitmap(myDataset[position].image)
-                //TODO: set image with string using Picasso?
+                Picasso.get()
+                    .load(myDataset[position].imageString)
+                    .into(findViewById<ImageView>(R.id.imvIngredientIcon))
                 findViewById<TextView>(R.id.txvIngredientName)
                     .text = myDataset[position].name
             }

@@ -30,7 +30,7 @@ const val profilePictureFilename = "profile_picture.jpg"
 fun logoutUser(context: Context) {
     context.deleteFile(userPreferencesFileName)
     context.deleteFile(userTokenFileName)
-    context.deleteFile(userFavouritesFilename)
+    context.deleteFile(userCuisineFileName)
     context.deleteFile(profilePictureFilename)
 }
 
@@ -39,7 +39,6 @@ fun logoutUser(context: Context) {
  */
 fun isUserLoggedIn(context: Context): Boolean {
     val deviceTokenFile = context.getFileStreamPath(userTokenFileName)
-    //return true //TODO: temp user is always logged in
     return deviceTokenFile.exists()
 }
 

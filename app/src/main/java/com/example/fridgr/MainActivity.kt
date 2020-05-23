@@ -27,14 +27,6 @@ class MainActivity : AppCompatActivity() {
         openFragment(fridgeFragment)
         bottomNavigation.selectedItemId = R.id.navigation_fridge
 
-        /** TESTING API FUNCTIONS */
-        var response: Any?
-        //response = SpoonacularAPIHandler.getRecipeListBySearch("Curry", listOf("SHELLFISH", "GLUTEN"), "VEGETARIAN", listOf("INDIAN"), "MAIN_COURSE")
-        //response = SpoonacularAPIHandler.getRecipeListByIngredients(listOf(TestIngredient("HEALTH_FOODS", 1F, 1, "", "Apple", "kg")))
-        //response = SpoonacularAPIHandler.getRecipeInfo(1426917)
-        //response = SpoonacularAPIHandler.getRecipeInstructions(1426917)
-
-
 //        CoroutineScope(IO).launch {
 //            val recipeList = SpoonacularAPIHandler.getRecipeListBySearch(
 //                "Curry",
@@ -162,7 +154,6 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         //super.onBackPressed()
     }
-
 }
 
 

@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 @SuppressLint("ViewConstructor")
 class RecipeComponent @JvmOverloads constructor(
@@ -43,8 +44,13 @@ class RecipeComponent @JvmOverloads constructor(
     }
 
     private fun setImageBitmap(imageString: String) {
-        //recipeImageView.setImageBitmap(bitmap)
-        //TODO: set image with string using Picasso?
+        Picasso.get()
+            .load(imageString)
+            .resize(
+                recipeImageView.layoutParams.width,
+                recipeImageView.layoutParams.height)
+            .centerCrop()
+            .into(recipeImageView)
     }
 
     private fun setFavouriteState(isFavourite: Boolean) {
