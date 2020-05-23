@@ -156,7 +156,7 @@ val cuisineMapToString = listOf(
     Pair(Cuisine.SOUTHERN, "Southern"),
     Pair(Cuisine.SPANISH, "Spanish"),
     Pair(Cuisine.THAI, "Thai"),
-    Pair(Cuisine.VIETAMESE, "Vietnamese")
+    Pair(Cuisine.VIETNAMESE, "Vietnamese")
 )
 
 /**

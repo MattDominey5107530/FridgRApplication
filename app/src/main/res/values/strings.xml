@@ -15,6 +15,7 @@
     <string name="profile_acc_profilepicture">Profile picture</string>
     <string name="profile_intolerances">Intolerances</string>
     <string name="profile_diets">Diets</string>
+
     <string name="profile_intolerances__dairy">Dairy</string>
     <string name="profile_intolerances__egg">Egg</string>
     <string name="profile_intolerances__gluten">Gluten</string>
@@ -27,6 +28,7 @@
     <string name="profile_intolerances__sulfite">Sulfite</string>
     <string name="profile_intolerances__tree_nut">Tree nut</string>
     <string name="profile_intolerances__wheat">Wheat</string>
+
     <string name="profile_diets__gluten_free">Gluten-free</string>
     <string name="profile_diets__ketogenic">Ketogenic</string>
     <string name="profile_diets__vegetarian">Vegetarian</string>
@@ -37,6 +39,33 @@
     <string name="profile_diets__paleo">Paleo</string>
     <string name="profile_diets__primal">Primal</string>
     <string name="profile_diets__whole30">Whole30</string>
+
+    <string name="profile_cuisines__african">African</string>
+    <string name="profile_cuisines__american">American</string>
+    <string name="profile_cuisines__british">British</string>
+    <string name="profile_cuisines__cajun">Cajun</string>
+    <string name="profile_cuisines__caribbean">Caribbean</string>
+    <string name="profile_cuisines__chinese">Chinese</string>
+    <string name="profile_cuisines__eastern_european">Eastern-european</string>
+    <string name="profile_cuisines__european">European</string>
+    <string name="profile_cuisines__french">French</string>
+    <string name="profile_cuisines__german">German</string>
+    <string name="profile_cuisines__greek">Greek</string>
+    <string name="profile_cuisines__indian">Indian</string>
+    <string name="profile_cuisines__irish">Irish</string>
+    <string name="profile_cuisines__italian">Italian</string>
+    <string name="profile_cuisines__japanese">Japanese</string>
+    <string name="profile_cuisines__jewish">Jewish</string>
+    <string name="profile_cuisines__korean">Korean</string>
+    <string name="profile_cuisines__latin_american">Latin American</string>
+    <string name="profile_cuisines__mediterranean">Mediterranean</string>
+    <string name="profile_cuisines__mexican">Mexican</string>
+    <string name="profile_cuisines__middle_eastern">Middle-eastern</string>
+    <string name="profile_cuisines__nordic">Nordic</string>
+    <string name="profile_cuisines__southern">Southern</string>
+    <string name="profile_cuisines__spanish">Spanish</string>
+    <string name="profile_cuisines__thai">Thai</string>
+    <string name="profile_cuisines__vietnamese">Vietnamese</string>
 
     <string name="favourites_searchfavourites">Search favourites</string>
     <string name="favourites_filter">Filter</string>

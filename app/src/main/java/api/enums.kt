@@ -88,7 +88,7 @@ enum class Cuisine {
     SOUTHERN,
     SPANISH,
     THAI,
-    VIETAMESE
+    VIETNAMESE
 }
 
 enum class MealType {

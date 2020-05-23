@@ -57,12 +57,6 @@ data class IngredientSearchRecipe(val recipe: Recipe,
                                   val unusedIngredients: List<Ingredient>)
 
 /**
- * Recipe class which includes the steps involved in actually creating the dish.
- */
-data class RecipeMethod(val recipe: Recipe,
-                        val stepList: List<String>)
-
-/**
  *  New Data Classes
  */
 

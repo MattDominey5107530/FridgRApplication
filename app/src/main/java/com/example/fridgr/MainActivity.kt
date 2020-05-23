@@ -86,6 +86,20 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
+//        CoroutineScope(IO).launch {
+//            val response = SpoonacularAPIHandler.getAutocompletedRecipeList("Chick")
+//
+//            withContext(Main) {
+//                for (recipe in response) {
+//                    with(recipe) {
+//                        Log.v("Recipe", "Id: $id")
+//                        Log.v("Recipe", "Name: $title")
+//                        Log.v("Recipe", "Image URL: $image")
+//                    }
+//                }
+//            }
+//        }
+
 
         //response = SpoonacularAPIHandler.getRecipeInfo(1426917)
         //response = SpoonacularAPIHandler.getRecipeInstructions(1426917)
@@ -114,7 +128,8 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_recipesearch -> {
-                    val recipeSearchFragment = RecipeSearchFragment.newInstance(::switchToFragment)
+                    val recipeSearchFragment =
+                        RecipeSearchFragment.newInstance(::switchToFragment)
                     openFragment(recipeSearchFragment)
                     return@OnNavigationItemSelectedListener true
                 }

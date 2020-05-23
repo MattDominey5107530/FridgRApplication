@@ -1,5 +1,7 @@
 package api
 
+import com.example.fridgr.RecipeSearchFragment
+
 interface ISpoonacularAPIHandler {
 
     /**
@@ -19,9 +21,10 @@ interface ISpoonacularAPIHandler {
     suspend fun getRecipeListBySearch(
         recipeSearchText: String,
         intolerances: List<Intolerance>,
-        diet: Diet,
+        diet: Diet?,
         cuisines: List<Cuisine>,
-        mealType: MealType
+        mealType: MealType?,
+        nutritionFilters: RecipeSearchFragment.NutritionFilters?
     ): List<Recipe>
 
     suspend fun getRecipeInfo(
@@ -58,7 +61,7 @@ interface ISpoonacularAPIHandler {
 
     suspend fun getAutocompletedRecipeList(
         recipeSearchText: String
-    ): List<Recipe>
+    ): List<TestSearchRecipe>
 
 
     /**

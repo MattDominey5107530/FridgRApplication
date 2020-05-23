@@ -1,7 +1,5 @@
 package com.example.fridgr
 
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -74,7 +70,7 @@ class ProfileFragment : Fragment() {
         recyclerViewCuisines = v.findViewById<RecyclerView>(R.id.rcvFavouriteCuisines).apply {
             recyclerViewCuisinesAdapter = CuisineAdapter(emptyList())
             recyclerViewCuisinesLayoutManager =
-                StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL)
+                StaggeredGridLayoutManager(3, LinearLayoutManager.HORIZONTAL)
             setHasFixedSize(true)
             layoutManager = recyclerViewCuisinesLayoutManager
             adapter = recyclerViewCuisinesAdapter
@@ -280,7 +276,7 @@ class ProfileFragment : Fragment() {
                         Cuisine.SOUTHERN -> R.drawable.african_cuisine //TODO: SOUTHERN CUISINE
                         Cuisine.SPANISH -> R.drawable.spanish_cuisine
                         Cuisine.THAI -> R.drawable.thai_cuisine
-                        Cuisine.VIETAMESE -> R.drawable.vietnamese_cuisine
+                        Cuisine.VIETNAMESE -> R.drawable.vietnamese_cuisine
                         else -> R.drawable.african_cuisine //TODO: add more cuisines button...
                     }
                 )

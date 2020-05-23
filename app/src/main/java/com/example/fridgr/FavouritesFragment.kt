@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,8 +26,10 @@ class FavouritesFragment : Fragment() {
     private var myParentFragment: Fragment? = null
 
     companion object {
-        fun newInstance(switchToFragment: (Fragment, Fragment) -> Unit,
-                        parentFragment: Fragment? = null): FavouritesFragment =
+        fun newInstance(
+            switchToFragment: (Fragment, Fragment) -> Unit,
+            parentFragment: Fragment? = null
+        ): FavouritesFragment =
             FavouritesFragment().apply {
                 this.switchToFragment = switchToFragment
                 this.myParentFragment = parentFragment
@@ -36,8 +39,11 @@ class FavouritesFragment : Fragment() {
     private var isActive: Boolean = false
 
     private lateinit var recyclerViewFavouriteRecipeList: RecyclerView
-    private lateinit var recyclerViewFavouriteRecipeListAdapter: RecyclerView.Adapter<*>
+    private lateinit var recyclerViewFavouriteRecipeListAdapter: RecipeListAdapter
     private lateinit var recyclerViewFavouriteRecipeListLayoutManager: RecyclerView.LayoutManager
+    private lateinit var noFavouriteRecipesTextView: TextView
+
+    private var fullFavouriteRecipes: List<Recipe>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,47 +52,64 @@ class FavouritesFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_favourites, container, false)
 
-        v.findViewById<ImageButton>(R.id.imbFilter)
-            .setOnClickListener {
-                onClickFilter()
-            }
+        val favouriteSearchEditText = v.findViewById<EditText>(R.id.edtFavouritesSearch)
 
-        v.findViewById<EditText>(R.id.edtFavouritesSearch)
-            .addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) { onChangeSearchText() }
+        favouriteSearchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                onChangeSearchText(favouriteSearchEditText.text.toString())
+            }
 
             //Redundant but necessary functions to satisfy abstractTextWatcher
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        val favouriteRecipes = getFavouriteRecipes(context!!)
-        if (favouriteRecipes != null) {
+        noFavouriteRecipesTextView = v.findViewById<TextView>(R.id.txvNoFavouriteRecipes)
+
+        fullFavouriteRecipes = getFavouriteRecipes(context!!)
+        if (fullFavouriteRecipes != null) {
             isActive = true
-            recyclerViewFavouriteRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
-                recyclerViewFavouriteRecipeListAdapter =
-                    RecipeListAdapter(context, favouriteRecipes, this, favouriteRecipes)
-                recyclerViewFavouriteRecipeListLayoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                setHasFixedSize(true)
-                layoutManager = recyclerViewFavouriteRecipeListLayoutManager
-                adapter = recyclerViewFavouriteRecipeListAdapter
-                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            }
+            recyclerViewFavouriteRecipeList =
+                v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
+                    recyclerViewFavouriteRecipeListAdapter =
+                        RecipeListAdapter(context, fullFavouriteRecipes, this, fullFavouriteRecipes!!)
+                    recyclerViewFavouriteRecipeListLayoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    setHasFixedSize(true)
+                    layoutManager = recyclerViewFavouriteRecipeListLayoutManager
+                    adapter = recyclerViewFavouriteRecipeListAdapter
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            context,
+                            DividerItemDecoration.VERTICAL
+                        )
+                    )
+                }
         } else {
-            //TODO: show something saying that you have no favourites or you're not logged in
+            noFavouriteRecipesTextView.visibility = View.VISIBLE
         }
 
         return v
     }
 
-    fun onChangeSearchText() {
-        if (isActive) {}
-        //TODO: actually search through the list of recipes
-    }
+    /**
+     * Function to search through and display the user's favourite recipes according to the
+     *  search text.
+     */
+    fun onChangeSearchText(searchText: String) {
+        if (isActive && fullFavouriteRecipes != null) {
+            val filteredFavouriteRecipe: List<Recipe>? =
+                fullFavouriteRecipes?.filter { it.name.contains(searchText, true) } ?: emptyList()
 
-    fun onClickFilter() {
-        //TODO: add functionality of filtering the list
-        // potentially a popup window with filtering criteria
+            if (filteredFavouriteRecipe != null && filteredFavouriteRecipe.isNotEmpty()) {
+                with (recyclerViewFavouriteRecipeListAdapter) {
+                    myDataset = filteredFavouriteRecipe
+                    notifyDataSetChanged()
+                }
+                noFavouriteRecipesTextView.visibility = View.VISIBLE
+            } else {
+                noFavouriteRecipesTextView.visibility = View.GONE
+            }
+        }
     }
 }

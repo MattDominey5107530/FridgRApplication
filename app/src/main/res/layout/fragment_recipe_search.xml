@@ -7,6 +7,20 @@
     android:background="@color/background"
     tools:context=".RecipeSearchFragment">
 
+    <TextView
+        android:id="@+id/txvNoRecipesMatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No recipes match your search."
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998"
+        tools:visibility="gone" />
+
     <ImageButton
         android:id="@+id/imbFilter"
         android:layout_width="35dp"
@@ -24,19 +38,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvRecipeList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:background="@color/background"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtRecipeSearch" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/edtRecipeSearch"
         android:layout_width="0dp"
         android:layout_height="35dp"
@@ -51,6 +64,7 @@
         android:elevation="5dp"
         android:ems="10"
         android:hint="Search for recipes"
+        android:imeOptions="actionSearch"
         android:inputType="textPersonName"
         android:paddingLeft="8dp"
         app:layout_constraintEnd_toStartOf="@+id/imbFilter"

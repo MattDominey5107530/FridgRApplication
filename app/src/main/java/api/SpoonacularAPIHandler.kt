@@ -1,5 +1,6 @@
 package api
 
+import com.example.fridgr.RecipeSearchFragment
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.delay
 import okhttp3.*
@@ -50,19 +51,16 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 recipeTestIngredients =
                     gson.fromJson(body, Array<TestIngredientSearchRecipe>::class.java).toList()
 
-                println("Recipe List: $recipeTestIngredients")
                 stillWaitingForResponse = false
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })
@@ -80,22 +78,28 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
     override suspend fun getRecipeListBySearch(
         recipeSearchText: String,
         intolerances: List<Intolerance>,
-        diet: Diet,
+        diet: Diet?,
         cuisines: List<Cuisine>,
-        mealType: MealType
+        mealType: MealType?,
+        nutritionFilters: RecipeSearchFragment.NutritionFilters?
     ): List<Recipe> {
 
         var search: TestSearch
         var recipeList: List<TestSearchRecipe> = emptyList()
 
         // Default Values
-        val recipeCount = 10
+        val recipeCount = 20
         val licensing = true
         val instructionsRequired = true
-        val minCarbs = 0
-        val minProtein = 0
-        val minFat = 0
-        val minCalories = 0
+
+        val carbRange = nutritionFilters?.carbRange
+        val proteinRange = nutritionFilters?.proteinRange
+        val fatRange = nutritionFilters?.fatRange
+        val caloryRange = nutritionFilters?.caloryRange
+
+        val dietString = if (diet != null) "&diet=${getDietStringFromDiet(diet)}" else ""
+        val mealTypeString =
+            if (mealType != null) "&type=${getMealTypeStringFromMealType(mealType)}" else ""
 
         var cuisinesString = ""
         var intolerancesString = ""
@@ -121,17 +125,30 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
 
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
                 "apiKey=$apiKey" +
-                "&query=$recipeSearchText" +
+                "&query=${recipeSearchText.replace(" ", "-")}" +
                 "&cuisine=$cuisinesString" +
                 "&intolerances=$intolerancesString" +
-                "&diet=${getDietStringFromDiet(diet)}" +
-                "&minCarbs=$minCarbs" +
-                "&minProtein=$minProtein" +
-                "&minFat=$minFat" +
-                "&minCalories=$minCalories" +
-                "&type=${getMealTypeStringFromMealType(mealType)}" +
+                dietString +
+                (if (carbRange != null) "&minCarbs=${carbRange.min()
+                    .toString()}" else "&minCarbs=0") +
+                (if (proteinRange != null) "&minProtein=${proteinRange.min()
+                    .toString()}" else "&minCarbs=0") +
+                (if (fatRange != null) "&minFat=${fatRange.min()
+                    .toString()}" else "&minCarbs=0") +
+                (if (caloryRange != null) "&minCalories=${caloryRange.min()
+                    .toString()}" else "&minCarbs=0") +
+                (if (carbRange != null) "&maxCarbs=${carbRange.max()
+                    .toString()}" else "") +
+                (if (proteinRange != null) "&maxProtein=${proteinRange.max()
+                    .toString()}" else "") +
+                (if (fatRange != null) "&maxFat=${fatRange.max()
+                    .toString()}" else "") +
+                (if (caloryRange != null) "&maxCalories=${caloryRange.max()
+                    .toString()}" else "") +
+                mealTypeString +
                 "&number=$recipeCount" +
                 "&limitLicense=$licensing" +
+                "&sort=popularity" +
                 "&instructionRequired=$instructionsRequired"
 
         var stillWaitingForResponse = true
@@ -142,18 +159,16 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 search = gson.fromJson(body, TestSearch::class.java)
                 recipeList = search.results
-                println("Recipe List: $recipeList")
+
                 stillWaitingForResponse = false
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })
@@ -185,17 +200,15 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 moreInfo = gson.fromJson(body, RecipeInfo::class.java)
-                println("Recipe List: $moreInfo")
+
                 stillWaitingForResponse = false
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })
@@ -225,18 +238,16 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 recipeInstructions =
                     gson.fromJson(body, Array<RecipeInstructions>::class.java).toList()
-                println("Recipe List: $recipeInstructions")
+
                 stillWaitingForResponse = false
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })
@@ -256,8 +267,7 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
 
         var autoCompleteIngredientResult: List<TestIngredient> = emptyList()
 
-        val ingredientCount = 5
-
+        val ingredientCount = 15
         var intolerancesString = ""
 
         for (intolerance in intolerances) {
@@ -282,18 +292,16 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 autoCompleteIngredientResult =
                     gson.fromJson(body, Array<TestIngredient>::class.java).toList()
-                println("Recipe List: $autoCompleteIngredientResult")
+
                 stillWaitingForResponse = false
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })
@@ -308,11 +316,11 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
 
     override suspend fun getAutocompletedRecipeList(
         recipeSearchText: String
-    ): List<Recipe> {
+    ): List<TestSearchRecipe> {
 
         var autoCompleteRecipeResult: List<TestSearchRecipe> = emptyList()
 
-        val number = 10
+        val number = 5
         val url = "https://api.spoonacular.com/recipes/autocomplete?" +
                 "apiKey=$apiKey" +
                 "&number=$number" +
@@ -326,18 +334,16 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 autoCompleteRecipeResult =
                     gson.fromJson(body, Array<TestSearchRecipe>::class.java).toList()
-                println("Recipe List: $autoCompleteRecipeResult")
+
                 stillWaitingForResponse = false
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })
@@ -347,7 +353,7 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
             delay(100)
         }
 
-        return autoCompleteRecipeResult.map { it.toRecipe() }
+        return autoCompleteRecipeResult
     }
 
     // Takes in a recipe, and returns similar ones.
@@ -370,19 +376,18 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         // Get API response and store response as a JSON object.
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
-        client.newCall(request).enqueue(object: Callback{
+        client.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println("Json String: $body")
-
                 val gson = GsonBuilder().create()
 
                 similarRecipes = gson.fromJson(body, Array<TestSearchRecipe>::class.java).toList()
-                println("Recipe List: $similarRecipes")
+
                 stillWaitingForResponse = false
             }
+
             override fun onFailure(call: Call, e: IOException) {
-                println("Failed to execute")
+                e.printStackTrace()
                 stillWaitingForResponse = false
             }
         })

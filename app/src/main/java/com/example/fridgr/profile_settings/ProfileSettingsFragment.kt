@@ -44,6 +44,7 @@ class ProfileSettingsFragment : Fragment() {
         v.findViewById<ImageButton>(R.id.imbBack).setOnClickListener {
             (myParentFragment as ProfileFragment).updateFields()
             switchToFragment(this, myParentFragment!!)
+            //TODO: write changes to database
         }
 
         v.findViewById<Button>(R.id.btnDietaryRequirements).setOnClickListener {
