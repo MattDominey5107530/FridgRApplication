@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.fridgr.local_storage.getUserPreferences
 import com.example.fridgr.local_storage.logoutUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import user_database.UserDatabaseHandler
 import java.net.HttpURLConnection
 import java.net.URL
@@ -23,7 +26,17 @@ class MainActivity : AppCompatActivity() {
 
         //TODO: any database tests
 
-
+        CoroutineScope(IO).launch {
+            val userPreferences =
+                UserDatabaseHandler.getUserPreferences("e2f424c8-5af3-4f4a-ba24-52194ad3bc2f")
+            withContext(Main) {
+                println(userPreferences)
+            }
+            val cuisine = UserDatabaseHandler.getUserCuisines("e2f424c8-5af3-4f4a-ba24-52194ad3bc2f")
+            withContext(Main){
+                println(cuisine)
+            }
+        }
 
         setContentView(R.layout.activity_main)
 
