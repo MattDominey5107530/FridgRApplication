@@ -186,7 +186,7 @@ class ProfileFragment : Fragment() {
                     when (myDataset[position].first!!) {
                         Diet.GLUTEN_FREE -> R.drawable.gluten_free
                         Diet.KETOGENIC -> R.drawable.ketogenic
-                        Diet.VEGETARIAN -> R.drawable.sweet_snacks //TODO: vegetarian
+                        Diet.VEGETARIAN -> R.drawable.vegetarian
                         Diet.LACTO_VEGETARIAN -> R.drawable.lacto_vegetarian
                         Diet.OVO_VEGETARIAN -> R.drawable.ovo_vegetarian
                         Diet.VEGAN -> R.drawable.vegan
@@ -204,12 +204,12 @@ class ProfileFragment : Fragment() {
                         Intolerance.PEANUT -> R.drawable.peanut
                         Intolerance.SEAFOOD -> R.drawable.seafood_intolerance
                         Intolerance.SESAME -> R.drawable.sesame
-                        Intolerance.SHELLFISH -> R.drawable.wheat //TODO: shellfish
+                        Intolerance.SHELLFISH -> R.drawable.shellfish
                         Intolerance.SOY -> R.drawable.soy
                         Intolerance.SULFITE -> R.drawable.sulfite
                         Intolerance.TREE_NUT -> R.drawable.tree_nut
                         Intolerance.WHEAT -> R.drawable.wheat
-                        else -> R.drawable.wheat //TODO: add more diets/intolerances button
+                        else -> R.drawable.plus_button
                     }
                 })
                 findViewById<ImageView>(R.id.imvIcon)
@@ -273,7 +273,7 @@ class ProfileFragment : Fragment() {
                             Cuisine.SPANISH -> R.drawable.ic_vegetables
                             Cuisine.THAI -> R.drawable.ic_vegetables
                             Cuisine.VIETAMESE -> R.drawable.ic_vegetables
-                            else -> R.drawable.ic_vegetables //TODO: add more cuisines button...
+                            else -> R.drawable.plus_button
                         }
 
                     )
