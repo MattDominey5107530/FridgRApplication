@@ -156,37 +156,37 @@ class IngredientSearchComponent(
                 val backgroundId = when (myDataset[position]) {
                     "Relevant" -> R.drawable.relevant_button
                     "Baking" -> R.drawable.baking_button
-                    "Health Foods" -> R.drawable.baking_button //TODO
+                    "Health Foods" -> R.drawable.health_foods_button
                     "Spices and Seasonings" -> R.drawable.spices_button
                     "Pasta & Rice" -> R.drawable.rice_pasta_button
                     "Bakery/Bread" -> R.drawable.baking_button
-                    "Refrigerated" -> R.drawable.baking_button //TODO
+                    "Refrigerated" -> R.drawable.refrigerated_button
                     "Canned and Jarred" -> R.drawable.canned_and_jarred_button
-                    "Frozen" -> R.drawable.baking_button //TODO
+                    "Frozen" -> R.drawable.frozen_button
                     "Nut butters, Jams, and Honey" -> R.drawable.butter_jam_button
                     "Oil, Vinegar, Salad Dressing" -> R.drawable.oil_vinegar_button
                     "Condiments" -> R.drawable.condiments_button
                     "Savory Snacks" -> R.drawable.savory_snacks_button
                     "Milk, Eggs, Other Dairy" -> R.drawable.dairy_button
-                    "Ethnic Foods" -> R.drawable.baking_button //TODO
+                    "Ethnic Foods" -> R.drawable.ethnic_food
                     "Tea and Coffee" -> R.drawable.tea_coffee_button
                     "Meat" -> R.drawable.meat_button
-                    "Gourmet" -> R.drawable.baking_button //TODO
+                    "Gourmet" -> R.drawable.gourmet_button
                     "Sweet Snacks" -> R.drawable.sweet_snacks_button
                     "Gluten Free" -> R.drawable.gluten_free_button
                     "Alcoholic Beverages" -> R.drawable.alcoholic_beverages_button
                     "Cereal" -> R.drawable.cereal_button
                     "Nuts" -> R.drawable.nuts_button
                     "Beverages" -> R.drawable.beverages_button
-                    "Produce" -> R.drawable.baking_button //TODO
-                    "Not in Grocery Store/Homemade" -> R.drawable.baking_button //TODO
+                    "Produce" -> R.drawable.produce_button
+                    "Not in Grocery Store/Homemade" -> R.drawable.homemade_button
                     "Seafood" -> R.drawable.seafood_button
                     "Cheese" -> R.drawable.cheese_button
                     "Dried Fruits" -> R.drawable.dried_fruits_button
-                    "Online" -> R.drawable.baking_button //TODO
-                    "Grilling Supplies" -> R.drawable.baking_button //TODO
+                    "Online" -> R.drawable.online_button
+                    "Grilling Supplies" -> R.drawable.grilling_supplies_button
                     "Bread" -> R.drawable.bread__button
-                    else -> R.drawable.baking_button //TODO
+                    else -> R.drawable.plus_button
                 }
                 background = ContextCompat.getDrawable(context, backgroundId)
                 val density = context.resources.displayMetrics.density
