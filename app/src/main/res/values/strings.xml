@@ -74,5 +74,6 @@
     <string name="fridge_searchforingredients">Search for ingredients</string>
     <string name="fridge_search">Search</string>
     <string name="recipe_picture_desc">Picture to hold the recipe pictures</string>
+    <string name="minimum_carbohidrates">Minimum carbs</string>
 
 </resources>

@@ -17,37 +17,261 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnDietaryRequirements"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/txtMealTypes"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
         android:background="@color/background"
-        android:drawableRight="@drawable/ic_right_arrow"
         android:gravity="left|center_vertical"
         android:paddingLeft="40dp"
         android:paddingRight="16dp"
-        android:text="Dietary Requirements"
-        android:textAllCaps="false"
-        android:textColor="@color/textLightPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imbBack" />
-
-    <Button
-        android:id="@+id/btnFavouriteCuisines"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:drawableRight="@drawable/ic_right_arrow"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="40dp"
-        android:paddingRight="16dp"
-        android:text="Favourite Cuisines"
+        android:text="Meal type"
         android:textAllCaps="false"
         android:textColor="@color/textLightPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDietaryRequirements" />
+        app:layout_constraintTop_toBottomOf="@+id/imbBack" />
+
+    <TextView
+        android:id="@+id/txtMinCal"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="Minimum calories"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMealTypes" />
+
+    <TextView
+        android:id="@+id/txtMaxCal"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="Maximum calories"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMinCal" />
+
+    <TextView
+        android:id="@+id/txtMinCarbs"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text="@string/minimum_carbohidrates"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxCal"
+        android:paddingEnd="16dp"
+        android:paddingStart="40dp" />
+
+    <TextView
+        android:id="@+id/txtMaxCarbs"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text= "Maximum carbs"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMinCarbs" />
+
+    <TextView
+        android:id="@+id/txtMinFats"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text= "Minimum fats"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxCarbs" />
+
+    <TextView
+        android:id="@+id/txtMaxFats"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text= "Maximum fats"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMinFats" />
+
+    <TextView
+        android:id="@+id/txtMinProtein"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text= "Minimum protein"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxFats" />
+
+    <TextView
+        android:id="@+id/txtMaxProtein"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:background="@color/background"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="16dp"
+        android:text= "Maximum protein"
+        android:textAllCaps="false"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMinProtein" />
+
+    <Spinner
+        android:id="@+id/spnMealTypes"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        app:layout_constraintLeft_toRightOf="@+id/txtMealTypes"
+        app:layout_constraintTop_toTopOf="@+id/txtMealTypes" />
+
+    <EditText
+        android:id="@+id/edtxtMinCal"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input min calories"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMinCal"
+        app:layout_constraintTop_toTopOf="@id/txtMinCal" />
+
+    <EditText
+        android:id="@+id/edtxtMaxCal"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input max calories"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMaxCal"
+        app:layout_constraintTop_toTopOf="@id/txtMaxCal" />
+
+    <EditText
+        android:id="@+id/edtxtMinCarbs"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input min carbs"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMinCarbs"
+        app:layout_constraintTop_toTopOf="@id/txtMinCarbs" />
+
+    <EditText
+        android:id="@+id/edtxtMaxCarbs"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input max carbs"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMaxCarbs"
+        app:layout_constraintTop_toTopOf="@id/txtMaxCarbs" />
+
+    <EditText
+        android:id="@+id/edtxtMinFats"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input min fats"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMinFats"
+        app:layout_constraintTop_toTopOf="@id/txtMinFats" />
+
+    <EditText
+        android:id="@+id/edtxtMinProtein"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input min protein"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMinProtein"
+        app:layout_constraintTop_toTopOf="@id/txtMinProtein" />
+
+    <EditText
+        android:id="@+id/edtxtMaxProtein"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input max protein"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMaxProtein"
+        app:layout_constraintTop_toTopOf="@id/txtMaxProtein" />
+
+    <EditText
+        android:id="@+id/edtxtMaxFats"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Input max fats"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtMaxFats"
+        app:layout_constraintTop_toTopOf="@id/txtMaxFats" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
