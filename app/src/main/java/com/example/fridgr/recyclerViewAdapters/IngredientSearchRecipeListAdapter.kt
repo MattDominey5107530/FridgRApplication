@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import api.IngredientSearchRecipe
 import api.Recipe
-import com.example.fridgr.RecipeComponent
 
 class IngredientSearchRecipeListAdapter(
     private val context: Context,
@@ -18,7 +17,12 @@ class IngredientSearchRecipeListAdapter(
         RecyclerView.ViewHolder(recipeComponent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientSearchRecipeViewHolder {
-        return IngredientSearchRecipeViewHolder(RecipeComponent(context, parentView))
+        return IngredientSearchRecipeViewHolder(
+            RecipeComponent(
+                context,
+                parentView
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: IngredientSearchRecipeViewHolder, position: Int) {
@@ -31,13 +35,16 @@ class IngredientSearchRecipeListAdapter(
 
             //Set the properties of the component
             setRecipe(
+                myDataset[position].recipe,
                 myDataset[position].recipe.name,
                 recipeInfo,
                 isFavouriteRecipe,
                 myDataset[position].recipe.imageString
             )
 
-            //TODO: set the onclick listener to show the recipe fragment
+            clickableAreaFrameLayout.setOnClickListener {
+                //TODO: goto recipe view ting
+            }
         }
     }
 

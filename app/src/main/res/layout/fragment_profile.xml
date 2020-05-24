@@ -15,9 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/imvProfilePicture"
@@ -49,7 +47,6 @@
         android:layout_height="0dp"
         android:maxLines="3"
         android:singleLine="false"
-        android:text="Yasmina Abaou"
         android:textColor="@color/textLightPrimary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

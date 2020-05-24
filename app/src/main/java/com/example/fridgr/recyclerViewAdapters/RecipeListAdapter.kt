@@ -1,11 +1,9 @@
 package com.example.fridgr.recyclerViewAdapters
 
 import android.content.Context
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import api.Recipe
-import com.example.fridgr.RecipeComponent
 
 class RecipeListAdapter(private val context: Context,
                         private val favouriteRecipes: List<Recipe>?,
@@ -17,7 +15,12 @@ class RecipeListAdapter(private val context: Context,
         RecyclerView.ViewHolder(recipeComponent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        return RecipeViewHolder(RecipeComponent(context, parentView))
+        return RecipeViewHolder(
+            RecipeComponent(
+                context,
+                parentView
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
@@ -30,17 +33,20 @@ class RecipeListAdapter(private val context: Context,
             val recipeInfo = recipeInfoList.joinToString("\n")
 
             val isFavouriteRecipe =
-                if (favouriteRecipes != null) myDataset[position] in favouriteRecipes else false
+                favouriteRecipes?.any { it.id == myDataset[position].id } ?: false
 
             //Set the properties of the component
             setRecipe(
+                myDataset[position],
                 myDataset[position].name,
                 recipeInfo,
                 isFavouriteRecipe,
                 myDataset[position].imageString
             )
 
-            //TODO: set the onclick listener to show the recipe tab
+            clickableAreaFrameLayout.setOnClickListener {
+                //TODO: goto recipe view ting
+            }
         }
     }
 

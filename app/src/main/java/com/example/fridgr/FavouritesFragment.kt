@@ -3,14 +3,11 @@ package com.example.fridgr
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,13 +61,13 @@ class FavouritesFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        noFavouriteRecipesTextView = v.findViewById<TextView>(R.id.txvNoFavouriteRecipes)
+        noFavouriteRecipesTextView = v.findViewById(R.id.txvNoFavouriteRecipes)
 
         fullFavouriteRecipes = getFavouriteRecipes(context!!)
         if (fullFavouriteRecipes != null) {
             isActive = true
             recyclerViewFavouriteRecipeList =
-                v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
+                v.findViewById<RecyclerView>(R.id.rcvFavouriteRecipeList).apply {
                     recyclerViewFavouriteRecipeListAdapter =
                         RecipeListAdapter(context, fullFavouriteRecipes, this, fullFavouriteRecipes!!)
                     recyclerViewFavouriteRecipeListLayoutManager =
@@ -85,6 +82,7 @@ class FavouritesFragment : Fragment() {
                         )
                     )
                 }
+            noFavouriteRecipesTextView.visibility = View.GONE
         } else {
             noFavouriteRecipesTextView.visibility = View.VISIBLE
         }

@@ -8,8 +8,6 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import api.Cuisine
-import api.Diet
-import api.Intolerance
 import com.example.fridgr.R
 import com.example.fridgr.local_storage.*
 

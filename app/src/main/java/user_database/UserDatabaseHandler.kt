@@ -8,20 +8,17 @@ import java.security.MessageDigest
 import java.sql.*
 import java.util.*
 
-const val DATABASE_USERNAME = "app_user"
-const val DATABASE_PASSWORD = "KJDjfkJKDL29Km8FK,"
-
 object UserDatabaseHandler : IUserDatabaseHandler {
-    internal var conn: Connection? = null
-    internal val username: String = DATABASE_USERNAME
-    internal val password: String = DATABASE_PASSWORD
-    internal val host: String = "fridgrinstance.c3qjm5y8runj.eu-west-2.rds.amazonaws.com"
-    internal val port: String = "3306"
+    private var conn: Connection? = null
+    private const val username: String = "app_user"
+    private const val password: String = "KJDjfkJKDL29Km8FK,"
+    private const val host: String = "fridgrinstance.c3qjm5y8runj.eu-west-2.rds.amazonaws.com"
+    private const val port: String = "3306"
 
     /**
      * Helper function to establish a connection to the database.
      */
-    fun connect() {
+    private fun connect() {
         val connectionProps = Properties()
         connectionProps["user"] = username
         connectionProps["password"] = password
@@ -77,7 +74,6 @@ object UserDatabaseHandler : IUserDatabaseHandler {
 
     /**
      * Function to hash & salt the password before passing it to the database.
-     * TODO: Actually do it x)
      */
     private fun hashPassword(password: String): String {
         val algorithm = "SHA-256"
@@ -119,7 +115,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     override fun getUserPreferences(user_token: String): UserPreferences? {
         this.connect()
 
-        var intolerances: MutableList<Intolerance> = emptyList<Intolerance>().toMutableList()
+        val intolerances: MutableList<Intolerance> = emptyList<Intolerance>().toMutableList()
         var diet: Diet? = null
 
         //Select user based on stored user_token
@@ -135,7 +131,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
             resultSet = getResultSet(query)
             if (resultSet != null && resultSet.next()) {
                 for (i in 0 until 10) {
-                    if (resultSet.getBoolean(i+2)) {
+                    if (resultSet.getBoolean(i + 2)) {
                         diet = Diet.values()[i]
                     }
                 }
@@ -145,7 +141,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
             resultSet = getResultSet(query)
             if (resultSet != null && resultSet.next()) {
                 for (i in 0 until 12) {
-                    if(resultSet.getBoolean(i+2)) {
+                    if (resultSet.getBoolean(i + 2)) {
                         intolerances.add(Intolerance.values()[i])
                     }
                 }
@@ -163,15 +159,15 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         //Select user based on stored user_token
         var query =
             "SELECT user_id FROM Users WHERE user_token='$user_token';"
-        var resultSet = getResultSet(query)
+        val resultSet = getResultSet(query)
 
         if (resultSet != null && resultSet.next()) {
             val userId = resultSet.getString("user_id")
 
             //update diet table
-            if (diet != null){
+            if (diet != null) {
 
-                query=
+                query =
                     "UPDATE diets SET gluten_free = false, ketogenic = false, vegetarian = false," +
                             "lacto_vegetarian = false, ovo_vegetarian = false, vegan = false," +
                             "pescetarian = false, paleo = false, primal = false, whole30 = false WHERE user_id=$userId;"
@@ -183,17 +179,17 @@ object UserDatabaseHandler : IUserDatabaseHandler {
             }
 
             //update intolerances table
-            if (intolerances.isNotEmpty()){
+            if (intolerances.isNotEmpty()) {
 
-                query=
+                query =
                     "UPDATE Intolerances SET dairy = false, egg = false, gluten = false, grain = false," +
                             "peanut = false, seafood = false, sesame = false, shellfish = false, soy = false," +
                             "sulfite = false, tree_nut = false, wheat = false WHERE user_id=$userId;"
                 updateQuery(query)
 
 
-                for (intolerance in intolerances){
-                    query=
+                for (intolerance in intolerances) {
+                    query =
                         "UPDATE Intolerances SET $intolerance = true WHERE user_id=$userId;"
                     updateQuery(query)
                 }
@@ -203,10 +199,11 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         }
 
     }
+
     override fun getUserCuisines(user_token: String): List<Cuisine> {
         this.connect()
 
-        var cuisine: MutableList<Cuisine> = emptyList<Cuisine>().toMutableList()
+        val cuisine: MutableList<Cuisine> = emptyList<Cuisine>().toMutableList()
 
         //Select user based on stored user_token
         var query =
@@ -221,7 +218,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
             resultSet = getResultSet(query)
             if (resultSet != null && resultSet.next()) {
                 for (i in 0 until 23) {
-                    if(resultSet.getBoolean(i+2)) {
+                    if (resultSet.getBoolean(i + 2)) {
                         cuisine.add(Cuisine.values()[i])
                     }
                 }
@@ -236,29 +233,65 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         //Select user based on stored user_token
         var query =
             "SELECT user_id FROM Users WHERE user_token='$user_token';"
-        var resultSet = getResultSet(query)
+        val resultSet = getResultSet(query)
 
         if (resultSet != null && resultSet.next()) {
             val userId = resultSet.getString("user_id")
 
             //update cuisines table
-            if (userCuisines.isNotEmpty()){
-                query=
+            if (userCuisines.isNotEmpty()) {
+                query =
                     "UPDATE cuisines SET african = false, american=false, british=false, cajun=false," +
-                            "caribbean = false, chinese = false, eastern_european = false, european = false" +
-                            "french = false, german = false, greek = false, indian = false, irish = false" +
+                            "caribbean = false, chinese = false, eastern_european = false, european = false," +
+                            "french = false, german = false, greek = false, indian = false, irish = false," +
                             "italian = false, japanese = false, jewish = false, korean = false," +
-                            "latin_american = false, middle_eastern = false, nordic = false, southern = false" +
+                            "latin_american = false, middle_eastern = false, nordic = false, southern = false," +
                             "spanish = false, thai = false, vietamese = false;"
                 updateQuery(query)
 
-                for (cuisine in userCuisines){
-                    query=
+                for (cuisine in userCuisines) {
+                    query =
                         "UPDATE cuisines SET $cuisine = true WHERE user_id=$userId;"
                     updateQuery(query)
                 }
             }
         }
+    }
 
+    override fun getUserNickname(userToken: String): String {
+        this.connect()
+
+        val userNickname: String
+
+        //Select user based on stored user_token
+        val query =
+            "SELECT nickname FROM Users WHERE user_token='$userToken';"
+        val resultSet = getResultSet(query)
+
+        //select all data from Cuisines stored on user
+        if (resultSet != null && resultSet.next()) {
+            userNickname = resultSet.getString("nickname")
+        } else {
+            userNickname = "INVALID"
+        }
+
+        return userNickname
+    }
+
+    override fun writeUserNickname(userToken: String, newNickname: String) {
+        this.connect()
+
+        //Select user based on stored user_token
+        var query =
+            "SELECT user_id FROM Users WHERE user_token='$userToken';"
+        val resultSet = getResultSet(query)
+
+        if (resultSet != null && resultSet.next()) {
+            val userId = resultSet.getString("user_id")
+
+            query =
+                "UPDATE Users SET nickname='$newNickname' WHERE user_id=$userId;"
+            updateQuery(query)
+        }
     }
 }

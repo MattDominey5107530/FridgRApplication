@@ -75,6 +75,7 @@ class RecipeListFragment : Fragment() {
                 adapter = recyclerViewRecipeListAdapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
+            v.findViewById<TextView>(R.id.txvNoRecipesMatch).visibility = View.GONE
         } else {
             v.findViewById<TextView>(R.id.txvNoRecipesMatch).visibility = View.VISIBLE
         }

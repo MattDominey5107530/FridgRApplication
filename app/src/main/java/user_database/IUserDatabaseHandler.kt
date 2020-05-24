@@ -46,6 +46,16 @@ interface IUserDatabaseHandler {
      */
     fun writeUserCuisines(user_token: String, userCuisines: List<Cuisine>)
 
+    /**
+     * Function to get the nickname of the user.
+     */
+    fun getUserNickname(userToken: String): String
+
+    /**
+     * Function to write the nickname of the user.
+     */
+    fun writeUserNickname(userToken: String, newNickname: String)
+
 
 
 }

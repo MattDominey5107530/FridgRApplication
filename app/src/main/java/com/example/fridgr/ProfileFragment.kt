@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,7 @@ class ProfileFragment : Fragment() {
     }
 
     private lateinit var profilePictureImageView: ImageView
+    private lateinit var nicknameTextView: TextView
 
     private lateinit var recyclerViewDiets: RecyclerView
     private lateinit var recyclerViewDietsAdapter: DietAdapter
@@ -57,6 +59,7 @@ class ProfileFragment : Fragment() {
 
         //Get reference to all components
         profilePictureImageView = v.findViewById(R.id.imvProfilePicture)
+        nicknameTextView = v.findViewById(R.id.txvName)
 
         recyclerViewDiets = v.findViewById<RecyclerView>(R.id.rcvDietaryRequirements).apply {
             recyclerViewDietsAdapter = DietAdapter(emptyList())
@@ -91,8 +94,6 @@ class ProfileFragment : Fragment() {
                 switchToFragment(this, profileSettingsFragment)
             }
 
-        //TODO: Add edit button for name and profile picture (perhaps use Google profile picture as default if we allow them to login via Google)
-
         return v
     }
 
@@ -100,13 +101,21 @@ class ProfileFragment : Fragment() {
      * Function which sets all the information to be displayed in all fields
      */
     fun updateFields() {
+        updateNickname()
         updateProfilePicture()
         updateDiets()
         updateCuisines()
     }
 
     /**
-     * Function which gets the profile picture from local storage and adds it to the fragment.
+     * Function which gets the user's nickname from local storage and adds it to the fragment.
+     */
+    private fun updateNickname() {
+        nicknameTextView.text = getUserNickname(context!!)
+    }
+
+    /**
+     * Function which gets the user'sprofile picture from local storage and adds it to the fragment.
      */
     private fun updateProfilePicture() {
         //Get the profile picture, if there is one
@@ -256,7 +265,7 @@ class ProfileFragment : Fragment() {
                         Cuisine.BRITISH -> R.drawable.british_cuisine
                         Cuisine.CAJUN -> R.drawable.cajun_cuisine
                         Cuisine.CARIBBEAN -> R.drawable.caribbean_cuisine
-                        Cuisine.CHINESE -> R.drawable.african_cuisine //TODO: CHINESE CUISINE
+                        Cuisine.CHINESE -> R.drawable.chinese_cuisine
                         Cuisine.EASTERN_EUROPEAN -> R.drawable.eastern_european_cuisine
                         Cuisine.EUROPEAN -> R.drawable.european_cuisine
                         Cuisine.FRENCH -> R.drawable.french_cuisine
@@ -273,7 +282,7 @@ class ProfileFragment : Fragment() {
                         Cuisine.MEXICAN -> R.drawable.mexican_cuisine
                         Cuisine.MIDDLE_EASTERN -> R.drawable.middle_eastern_cuisine
                         Cuisine.NORDIC -> R.drawable.nordic_cuisine
-                        Cuisine.SOUTHERN -> R.drawable.african_cuisine //TODO: SOUTHERN CUISINE
+                        Cuisine.SOUTHERN -> R.drawable.southern_cuisine
                         Cuisine.SPANISH -> R.drawable.spanish_cuisine
                         Cuisine.THAI -> R.drawable.thai_cuisine
                         Cuisine.VIETNAMESE -> R.drawable.vietnamese_cuisine

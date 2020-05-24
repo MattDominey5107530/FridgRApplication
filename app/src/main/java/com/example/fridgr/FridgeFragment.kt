@@ -74,7 +74,6 @@ class FridgeFragment : Fragment() {
     private fun onClickSearch() {
         if (ingredientSearchComponent.checkedIngredients.isNotEmpty()) {
             CoroutineScope(IO).launch {
-                //TODO: buffering animation?
                 val recipesFromApi =
                     SpoonacularAPIHandler.getRecipeListByIngredients(ingredientSearchComponent.checkedIngredients)
 
@@ -82,14 +81,14 @@ class FridgeFragment : Fragment() {
                     if (recipesFromApi.isNotEmpty()) {
                         switchToRecipeList(recipesFromApi)
                     } else {
-                        //Technically, should never happen if the Api is okay.
+                        //Technically, should never happen if the Api is running.
                         Toast.makeText(context, "No recipes can be found!", Toast.LENGTH_SHORT)
                             .show()
                     }
                 }
             }
         } else {
-            //Technically, should never happen if the Api is okay.
+            //Technically, should never happen if the Api is running.
             Toast.makeText(context, "Pick some ingredients first.", Toast.LENGTH_SHORT).show()
         }
     }

@@ -160,30 +160,31 @@ class RecipeSearchFragment : Fragment() {
     }
 
     private fun searchForRecipes(text: String) {
-        CoroutineScope(IO).launch {
-            val recipesFromSearch = SpoonacularAPIHandler.getRecipeListBySearch(
-                text,
-                userPreferences?.intolerances ?: emptyList(),
-                userPreferences?.diet,
-                userCuisines,
-                filters?.mealType,
-                filters?.nutritionFilters
-            )
+        if (text != "") {
+            CoroutineScope(IO).launch {
+                val recipesFromSearch = SpoonacularAPIHandler.getRecipeListBySearch(
+                    text,
+                    userPreferences?.intolerances ?: emptyList(),
+                    userPreferences?.diet,
+                    userCuisines,
+                    filters?.mealType,
+                    filters?.nutritionFilters
+                )
 
-            withContext(Main) {
-                if (recipesFromSearch.isNotEmpty()) {
-                    with(recyclerViewRecipeListAdapter) {
-                        myDataset = recipesFromSearch
-                        notifyDataSetChanged()
+                withContext(Main) {
+                    if (recipesFromSearch.isNotEmpty()) {
+                        with(recyclerViewRecipeListAdapter) {
+                            myDataset = recipesFromSearch
+                            notifyDataSetChanged()
+                        }
+                        noRecipesMatchTextView.visibility = View.GONE
+                    } else {
+                        noRecipesMatchTextView.visibility = View.VISIBLE
                     }
-                    noRecipesMatchTextView.visibility = View.GONE
-                } else {
-                    noRecipesMatchTextView.visibility = View.VISIBLE
                 }
             }
-
-
+        } else {
+            Toast.makeText(context, "You must have some search text.", Toast.LENGTH_SHORT).show()
         }
     }
-
 }
