@@ -33,6 +33,12 @@ fun logoutUser(context: Context) {
     context.deleteFile(userNicknameFilename)
 }
 
+fun deleteAllUserData(context: Context) {
+    logoutUser(context)
+    context.deleteFile(userFavouritesFilename)
+    context.deleteFile(profilePictureFilename)
+}
+
 /**
  * Checks whether the user is logged in by checking whether the deviceTokenFile exists.
  */
@@ -95,8 +101,6 @@ private fun saveBitmapToFile(context: Context, bitmap: Bitmap, filename: String)
         wrapper.getDir("Images", Context.MODE_PRIVATE),
         filename
     )
-
-    println(bitmapFile.absolutePath)
 
     try {
         val fileOutputStream = FileOutputStream(bitmapFile)
@@ -206,7 +210,6 @@ fun writeUserCuisines(context: Context, cuisines: List<Cuisine>) {
  */
 fun getFavouriteRecipes(context: Context): List<Recipe>? {
     val userFavouritesFileStrings = getTextFromFile(context, userFavouritesFilename)
-    println(userFavouritesFileStrings)
     if (userFavouritesFileStrings != null) {
         val favouriteRecipeStringList = userFavouritesFileStrings.split("\n")
 
@@ -243,8 +246,6 @@ fun getFavouriteRecipes(context: Context): List<Recipe>? {
                 )
             )
         }
-
-        println(recipeList.joinToString("\n"))
 
         return recipeList.toList()
     } else {

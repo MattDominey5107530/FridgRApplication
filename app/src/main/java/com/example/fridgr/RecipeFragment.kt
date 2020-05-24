@@ -11,15 +11,18 @@ class RecipeFragment: Fragment() {
     //KFunction to switch between fragments
     private lateinit var switchToFragment: (Fragment, Fragment) -> Unit
     private var myParentFragment: Fragment? = null
+    private var recipeId: Int = -1
 
     companion object {
         fun newInstance(
             switchToFragment: (Fragment, Fragment) -> Unit,
-            parentFragment: Fragment? = null
+            parentFragment: Fragment? = null,
+            recipeId: Int
         ): RecipeFragment =
             RecipeFragment().apply {
                 this.switchToFragment = switchToFragment
                 this.myParentFragment = parentFragment
+                this.recipeId = recipeId
             }
     }
 
@@ -31,9 +34,9 @@ class RecipeFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v: View = inflater.inflate(R.layout.fragment_login, container, false)
+        val v: View = inflater.inflate(R.layout.fragment_login, container, false) //TODO: fragment layout
 
-
+        //TODO: fetch using recipeId
 
         return v
     }

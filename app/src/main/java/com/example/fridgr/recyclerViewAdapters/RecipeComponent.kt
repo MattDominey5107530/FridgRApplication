@@ -27,7 +27,7 @@ class RecipeComponent @JvmOverloads constructor(
     private val recipeImageView: ImageView
     private val favouriteButton: ImageView
     private val recipeTextView: TextView
-    private val recipeInfoTextView: TextView
+    val recipeInfoTextView: TextView
 
     val clickableAreaFrameLayout: FrameLayout
 

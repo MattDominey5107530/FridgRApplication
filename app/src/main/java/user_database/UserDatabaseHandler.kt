@@ -18,7 +18,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     /**
      * Helper function to establish a connection to the database.
      */
-    private fun connect() {
+    fun connect() {
         val connectionProps = Properties()
         connectionProps["user"] = username
         connectionProps["password"] = password
@@ -41,7 +41,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     /**
      * Helper function to use with SELECT and any GET queries.
      */
-    private fun getResultSet(query: String): ResultSet? {
+    fun getResultSet(query: String): ResultSet? {
         requireNotNull(conn)
 
         val stmt: Statement?
@@ -59,7 +59,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     /**
      * Helper function to use with UPDATE/INSERT and any POST queries.
      */
-    private fun updateQuery(query: String) {
+    fun updateQuery(query: String) {
         requireNotNull(conn)
 
         val stmt: Statement?
@@ -162,7 +162,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         val resultSet = getResultSet(query)
 
         if (resultSet != null && resultSet.next()) {
-            val userId = resultSet.getString("user_id")
+                val userId = resultSet.getString("user_id")
 
             //update diet table
             if (diet != null) {

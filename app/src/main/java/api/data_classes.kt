@@ -13,7 +13,8 @@ import android.graphics.Bitmap
 data class Nutrition(val name: String,
                      val value: Double,
                      val unit: String) {
-    override fun toString(): String = "$name: $value $unit"
+    //Rounds value to 1 dp
+    override fun toString(): String = "$name: ${(value*10).toInt()/10} $unit"
 }
 
 /**

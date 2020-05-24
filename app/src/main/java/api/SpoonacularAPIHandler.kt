@@ -1,15 +1,20 @@
 package api
 
+import android.content.Context
 import com.example.fridgr.RecipeSearchFragment
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.delay
 import okhttp3.*
+import user_database.UserDatabaseHandler
+import user_database.writeCurrentUserQuery
 import java.io.IOException
 
 
 object SpoonacularAPIHandler : ISpoonacularAPIHandler {
 
     private const val apiKey = "161c30243b094154ad28c32033413409"
+
+    lateinit var localStorageContext: Context
 
     // Pass in list of ingredients, return a list of recipes including those ingredients.
     override suspend fun getRecipeListByIngredients(
@@ -42,6 +47,8 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
                 "&ranking=$ranking" +
                 "&ignorePantry=$ignorePantry" +
                 "&limitLicense=$licensing"
+
+        UserDatabaseHandler.writeCurrentUserQuery(localStorageContext, url.replace(apiKey, "<ApiKeyOmitted>"))
 
         var stillWaitingForResponse = true
 
@@ -132,11 +139,11 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
                 (if (carbRange != null) "&minCarbs=${carbRange.min()
                     .toString()}" else "&minCarbs=0") +
                 (if (proteinRange != null) "&minProtein=${proteinRange.min()
-                    .toString()}" else "&minCarbs=0") +
+                    .toString()}" else "&minProtein=0") +
                 (if (fatRange != null) "&minFat=${fatRange.min()
-                    .toString()}" else "&minCarbs=0") +
+                    .toString()}" else "&minFat=0") +
                 (if (caloryRange != null) "&minCalories=${caloryRange.min()
-                    .toString()}" else "&minCarbs=0") +
+                    .toString()}" else "&minCalories=0") +
                 (if (carbRange != null) "&maxCarbs=${carbRange.max()
                     .toString()}" else "") +
                 (if (proteinRange != null) "&maxProtein=${proteinRange.max()
@@ -150,6 +157,8 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
                 "&limitLicense=$licensing" +
                 "&sort=popularity" +
                 "&instructionRequired=$instructionsRequired"
+
+        UserDatabaseHandler.writeCurrentUserQuery(localStorageContext, url.replace(apiKey, "<ApiKeyOmitted>"))
 
         var stillWaitingForResponse = true
 
@@ -366,10 +375,12 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         val recipeCount = 10
         val limitLicence = true
 
-        val url = "https://api.spoonacular.com/recipes/715538/similar?" +
+        val url = "https://api.spoonacular.com/recipes/$id/similar?" +
                 "apiKey=$apiKey" +
                 "&number=$recipeCount" +
                 "&limitLicence=$limitLicence"
+
+        UserDatabaseHandler.writeCurrentUserQuery(localStorageContext, url.replace(apiKey, "<ApiKeyOmitted>"))
 
         var stillWaitingForResponse = true
 

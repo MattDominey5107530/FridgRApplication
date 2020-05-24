@@ -67,7 +67,7 @@ class RecipeListFragment : Fragment() {
         if (ingredientSearchRecipes.isNotEmpty()) {
             recyclerViewRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
                 recyclerViewRecipeListAdapter =
-                    IngredientSearchRecipeListAdapter(context, favouriteRecipes, this, ingredientSearchRecipes)
+                    IngredientSearchRecipeListAdapter(context, favouriteRecipes, this, ::showRecipeFragment, ingredientSearchRecipes)
                 recyclerViewRecipeListLayoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 setHasFixedSize(true)
@@ -82,5 +82,10 @@ class RecipeListFragment : Fragment() {
 
 
         return v
+    }
+
+    private fun showRecipeFragment(recipeId: Int) {
+        val recipeFragment = RecipeFragment.newInstance(switchToFragment, this, recipeId)
+        switchToFragment(this, recipeFragment)
     }
 }

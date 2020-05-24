@@ -132,7 +132,7 @@ class RecipeSearchFragment : Fragment() {
 
         recyclerViewRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
             recyclerViewRecipeListAdapter =
-                RecipeListAdapter(context, favouriteRecipes, this, emptyList())
+                RecipeListAdapter(context, favouriteRecipes, this, ::showRecipeFragment, emptyList())
             recyclerViewRecipeListLayoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
@@ -186,5 +186,10 @@ class RecipeSearchFragment : Fragment() {
         } else {
             Toast.makeText(context, "You must have some search text.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showRecipeFragment(recipeId: Int) {
+        val recipeFragment = RecipeFragment.newInstance(switchToFragment, this, recipeId)
+        switchToFragment(this, recipeFragment)
     }
 }

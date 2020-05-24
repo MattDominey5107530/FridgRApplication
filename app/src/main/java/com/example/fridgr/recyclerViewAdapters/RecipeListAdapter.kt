@@ -8,6 +8,7 @@ import api.Recipe
 class RecipeListAdapter(private val context: Context,
                         private val favouriteRecipes: List<Recipe>?,
                         private val parentView: RecyclerView,
+                        private val showRecipeFragment: (Int) -> Unit,
                         var myDataset: List<Recipe>) :
     RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder>() {
 
@@ -32,6 +33,8 @@ class RecipeListAdapter(private val context: Context,
             }
             val recipeInfo = recipeInfoList.joinToString("\n")
 
+            println(recipeInfo)
+
             val isFavouriteRecipe =
                 favouriteRecipes?.any { it.id == myDataset[position].id } ?: false
 
@@ -45,7 +48,7 @@ class RecipeListAdapter(private val context: Context,
             )
 
             clickableAreaFrameLayout.setOnClickListener {
-                //TODO: goto recipe view ting
+                showRecipeFragment.invoke(myDataset[position].id)
             }
         }
     }

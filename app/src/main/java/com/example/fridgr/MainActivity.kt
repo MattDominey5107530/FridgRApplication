@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val fridgeFragment = FridgeFragment.newInstance(::switchToFragment)
         openFragment(fridgeFragment)
         bottomNavigation.selectedItemId = R.id.navigation_fridge
+
+        SpoonacularAPIHandler.localStorageContext = applicationContext
     }
 
     /**
