@@ -294,4 +294,14 @@ object UserDatabaseHandler : IUserDatabaseHandler {
             updateQuery(query)
         }
     }
+
+    /**
+     * Function which returns whether a string is valid to be passed into the database
+     * ***UPON FEEDBACK FROM FORENSIC***
+     */
+    fun isTextLegal(): Boolean {
+        //TODO: if it contains anything dodgy then return false
+        return true
+    }
+
 }

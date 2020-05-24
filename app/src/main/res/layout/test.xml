@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="112"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toEndOf="@+id/imvTimeIcon"
+        app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+    <TextView
+        android:id="@+id/txtCarbs"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="12"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toEndOf="@+id/imvCarbsIcon"
+        app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+    <ImageView
+        android:id="@+id/imvCarbsIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintStart_toEndOf="@+id/txtFats"
+        app:layout_constraintTop_toTopOf="@id/txtTime"
+        app:srcCompat="@drawable/C" />
+
+    <TextView
+        android:id="@+id/txtFats"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="12"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toEndOf="@+id/imvFatsIcon"
+        app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+    <ImageView
+        android:id="@+id/imvFatsIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintStart_toEndOf="@+id/txtCalories"
+        app:layout_constraintTop_toTopOf="@id/txtTime"
+        app:srcCompat="@drawable/F" />
+
+    <TextView
+        android:id="@+id/txtProtein"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="12"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toEndOf="@+id/imvProteinIcon"
+        app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+    <ImageView
+        android:id="@+id/imvProteinIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintStart_toEndOf="@+id/txtCarbs"
+        app:layout_constraintTop_toTopOf="@id/txtTime"
+        app:srcCompat="@drawable/P" />
+
+    <TextView
+        android:id="@+id/txtCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="112"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toEndOf="@+id/imvCaloriesIcon"
+        app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+    <ImageView
+        android:id="@+id/imvCaloriesIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintStart_toEndOf="@+id/txtTime"
+        app:layout_constraintTop_toTopOf="@id/txtTime"
+        app:srcCompat="@drawable/ic_calories" />
+
+    <ImageView
+        android:id="@+id/imvTimeIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvName"
+        app:srcCompat="@drawable/ic_time" />
+</androidx.constraintlayout.widget.ConstraintLayout>

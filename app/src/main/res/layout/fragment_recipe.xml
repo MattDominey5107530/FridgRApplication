@@ -1,6 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ProfileFragment">
+
+    <FrameLayout
+        android:id="@+id/profileBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/backgroundAccent"
+        app:layout_constraintBottom_toTopOf="@+id/ingredientsHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" >
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imvRecipePicture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/recipe_picture_desc"
+        android:scaleType="centerInside"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/profileBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvName">
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="112"
+            android:textColor="@color/textLightPrimary"
+            app:layout_constraintStart_toEndOf="@+id/imvTimeIcon"
+            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+        <TextView
+            android:id="@+id/txtCarbs"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="12"
+            android:textColor="@color/textLightPrimary"
+            app:layout_constraintStart_toEndOf="@+id/imvCarbsIcon"
+            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+        <ImageView
+            android:id="@+id/imvCarbsIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            app:layout_constraintStart_toEndOf="@+id/txtFats"
+            app:layout_constraintTop_toTopOf="@id/txtTime"
+            app:srcCompat="@drawable/C" />
+
+        <TextView
+            android:id="@+id/txtFats"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="12"
+            android:textColor="@color/textLightPrimary"
+            app:layout_constraintStart_toEndOf="@+id/imvFatsIcon"
+            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+        <ImageView
+            android:id="@+id/imvFatsIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            app:layout_constraintStart_toEndOf="@+id/txtCalories"
+            app:layout_constraintTop_toTopOf="@id/txtTime"
+            app:srcCompat="@drawable/F" />
+
+        <TextView
+            android:id="@+id/txtProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="12"
+            android:textColor="@color/textLightPrimary"
+            app:layout_constraintStart_toEndOf="@+id/imvProteinIcon"
+            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+        <ImageView
+            android:id="@+id/imvProteinIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            app:layout_constraintStart_toEndOf="@+id/txtCarbs"
+            app:layout_constraintTop_toTopOf="@id/txtTime"
+            app:srcCompat="@drawable/P" />
+
+        <TextView
+            android:id="@+id/txtCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="112"
+            android:textColor="@color/textLightPrimary"
+            app:layout_constraintStart_toEndOf="@+id/imvCaloriesIcon"
+            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+
+        <ImageView
+            android:id="@+id/imvCaloriesIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            app:layout_constraintStart_toEndOf="@+id/txtTime"
+            app:layout_constraintTop_toTopOf="@id/txtTime"
+            app:srcCompat="@drawable/ic_calories" />
+
+        <ImageView
+            android:id="@+id/imvTimeIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvName"
+            app:srcCompat="@drawable/ic_time" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/imbProfileSettings"
+        android:layout_width="25dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:background="@color/backgroundAccent"
+        app:srcCompat="@drawable/ic_left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txvName"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:text="Carbonara"
+        android:textColor="@color/textLightPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipePicture" />
+
+    <TextView
+        android:id="@+id/ingredientsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="32dp"
+        android:text="Ingredients"
+        android:textColor="@color/textLightPrimary"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvName" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Steps"
+        android:textColor="@color/textLightPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ingredientsHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
