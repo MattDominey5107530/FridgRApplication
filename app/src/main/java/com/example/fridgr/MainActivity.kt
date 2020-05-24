@@ -5,12 +5,15 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import api.*
+import com.example.fridgr.local_storage.UserPreferences
+import com.example.fridgr.local_storage.getUserPreferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import user_database.UserDatabaseHandler
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,69 +30,7 @@ class MainActivity : AppCompatActivity() {
         openFragment(fridgeFragment)
         bottomNavigation.selectedItemId = R.id.navigation_fridge
 
-//        CoroutineScope(IO).launch {
-//            val recipeList = SpoonacularAPIHandler.getRecipeListBySearch(
-//                "Curry",
-//                listOf(Intolerance.SHELLFISH, Intolerance.GLUTEN),
-//                Diet.VEGETARIAN,
-//                listOf(Cuisine.INDIAN),
-//                MealType.MAIN_COURSE
-//            )
-//
-//            withContext(Main) {
-//                for (recipe in recipeList) {
-//                    with (recipe) {
-//                        Log.v("Recipe", "Id: $id")
-//                        Log.v("Recipe","Name: $name")
-//                        Log.v("Recipe","NutritionList: ${nutritionList.joinToString(", ") { it.toString() }}")
-//                        Log.v("Recipe","ImageURL: $imageString")
-//                        Log.v("Recipe","=-=--=-=-=-=-=-=-=-=-=-===-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-==-=-==--=")
-//                    }
-//                }
-//            }
-//        }
-
-//        CoroutineScope(IO).launch {
-//            val ingredientSearchRecipeList = SpoonacularAPIHandler.getRecipeListByIngredients(
-//                listOf(
-//                    Ingredient(
-//                        1,
-//                        "Apple",
-//                        listOf(Aisle.HEALTH_FOODS),
-//                        "XXX.jpg"
-//                    )
-//                )
-//            )
-//
-//            withContext(Main) {
-//                for (ingredientSearchRecipe in ingredientSearchRecipeList) {
-//                    with(ingredientSearchRecipe) {
-//                        Log.v("IngredientSearchRecipe", "Id: ${recipe.id}")
-//                        Log.v("IngredientSearchRecipe", "Name: ${recipe.name}")
-//                        Log.v(
-//                            "IngredientSearchRecipe",
-//                            "NutritionList: ${recipe.nutritionList.joinToString(", ") { it.toString() }}"
-//                        )
-//                        Log.v("IngredientSearchRecipe", "ImageURL: ${recipe.imageString}")
-//                        Log.v("IngredientSearchRecipe", "Missed ingredients:")
-//                        Log.v("IngredientSearchRecipe", "    ${missedIngredients.joinToString("\n\t") { "${it.name}: ${it.aisle}" }}")
-//                        Log.v("IngredientSearchRecipe", "Used ingredients:")
-//                        Log.v("IngredientSearchRecipe", "    ${usedIngredients.joinToString("\n\t") { "${it.name}: ${it.aisle}" }}")
-//                        Log.v("IngredientSearchRecipe", "Unused ingredients:")
-//                        Log.v("IngredientSearchRecipe", "    ${unusedIngredients.joinToString("\n\t") { "${it.name}: ${it.aisle}" }}")
-//                        Log.v(
-//                            "IngredientSearchRecipe",
-//                            "=-=--=-=-=-=-=-=-=-=-=-===-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-==-=-==--="
-//                        )
-//                    }
-//                }
-//            }
-//        }
-
-
-        //response = SpoonacularAPIHandler.getRecipeInfo(1426917)
-        //response = SpoonacularAPIHandler.getRecipeInstructions(1426917)
-        //response = SpoonacularAPIHandler.getAutocompletedIngredientList("App", listOf(Intolerance.GLUTEN, Intolerance.EGG))
+        SpoonacularAPIHandler.localStorageContext = applicationContext
     }
 
     /**
@@ -114,7 +55,8 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_recipesearch -> {
-                    val recipeSearchFragment = RecipeSearchFragment.newInstance(::switchToFragment)
+                    val recipeSearchFragment =
+                        RecipeSearchFragment.newInstance(::switchToFragment)
                     openFragment(recipeSearchFragment)
                     return@OnNavigationItemSelectedListener true
                 }

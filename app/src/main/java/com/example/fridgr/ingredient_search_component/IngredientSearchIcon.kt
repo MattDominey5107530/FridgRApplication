@@ -36,7 +36,7 @@ class IngredientSearchIcon @JvmOverloads constructor(
         this.isChecked = checkedState
         iconImageView.apply {
             if (isChecked) {
-                iconImageView.setColorFilter(Color.argb(127, 0, 0, 255))
+                iconImageView.setColorFilter(Color.argb(127, 250, 250, 250))
                 tickImageView.visibility = View.VISIBLE
                 tickImageView.setColorFilter(Color.argb(127, 41, 255, 163))
             } else {

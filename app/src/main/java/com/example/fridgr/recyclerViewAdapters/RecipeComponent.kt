@@ -1,16 +1,19 @@
-package com.example.fridgr
+package com.example.fridgr.recyclerViewAdapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageButton
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import api.Recipe
+import com.example.fridgr.R
+import com.example.fridgr.local_storage.addRecipeToFavourites
+import com.example.fridgr.local_storage.removeRecipeFromFavourites
 import com.squareup.picasso.Picasso
 
 @SuppressLint("ViewConstructor")
@@ -21,12 +24,16 @@ class RecipeComponent @JvmOverloads constructor(
     defStyle: Int = 0
 ) : ConstraintLayout(context, attrs, defStyle) {
 
-    private var recipeImageView: ImageView
-    private var favouriteButton: ImageView
-    private var recipeTextView: TextView
-    private var recipeInfoTextView: TextView
+    private val recipeImageView: ImageView
+    private val favouriteButton: ImageView
+    private val recipeTextView: TextView
+    val recipeInfoTextView: TextView
+
+    val clickableAreaFrameLayout: FrameLayout
 
     private var isRecipeFavourite: Boolean = false
+
+    private lateinit var recipe: Recipe
 
     init {
         LayoutInflater.from(context).inflate(R.layout.recipe_component, this, true).apply {
@@ -38,6 +45,7 @@ class RecipeComponent @JvmOverloads constructor(
         favouriteButton = findViewById(R.id.imgFavourite)
         recipeTextView = findViewById(R.id.txvRecipeName)
         recipeInfoTextView = findViewById(R.id.txvRecipeInfo)
+        clickableAreaFrameLayout = findViewById(R.id.fmlClickableArea)
 
         favouriteButton.setOnClickListener { onClickFavourite() }
 
@@ -58,7 +66,9 @@ class RecipeComponent @JvmOverloads constructor(
         favouriteButton.apply {
             if (isFavourite) {
                 setImageResource(R.drawable.ic_favourite)
-                setColorFilter(ContextCompat.getColor(context, R.color.design_default_color_error))
+                setColorFilter(ContextCompat.getColor(context,
+                    R.color.design_default_color_error
+                ))
             } else {
                 setImageResource(R.drawable.ic_favourite)
                 colorFilter = null
@@ -75,11 +85,13 @@ class RecipeComponent @JvmOverloads constructor(
     }
 
     fun setRecipe(
+        recipe: Recipe,
         recipeName: String,
         recipeInfo: String,
         isFavourite: Boolean,
         recipeImageString: String
     ) {
+        this.recipe = recipe
         setRecipeName(recipeName)
         setRecipeInfo(recipeInfo)
         setFavouriteState(isFavourite)
@@ -92,7 +104,11 @@ class RecipeComponent @JvmOverloads constructor(
     private fun onClickFavourite() {
         isRecipeFavourite = !isRecipeFavourite
         setFavouriteState(isRecipeFavourite)
-        //TODO: Add functionality to actually ADD the recipe to your favourites
+        if (isRecipeFavourite) {
+            addRecipeToFavourites(context, recipe)
+        } else {
+            removeRecipeFromFavourites(context, recipe)
+        }
     }
 
 

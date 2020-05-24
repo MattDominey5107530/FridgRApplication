@@ -12,10 +12,7 @@ import android.widget.Toast
 import api.Cuisine
 import api.Diet
 import api.Intolerance
-import com.example.fridgr.local_storage.UserPreferences
-import com.example.fridgr.local_storage.writeUserCuisines
-import com.example.fridgr.local_storage.writeUserPreferences
-import com.example.fridgr.local_storage.writeUserToken
+import com.example.fridgr.local_storage.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -65,8 +62,6 @@ class LoginFragment: Fragment() {
         usernameEditText = v.findViewById(R.id.edtUsername)
         passwordEditText = v.findViewById(R.id.edtPassword)
 
-        //TODO: Use as guest?
-
         return v
     }
 
@@ -88,11 +83,13 @@ class LoginFragment: Fragment() {
                             writeUserPreferences(context!!, userPreferences)
                         }
                         val cuisines = UserDatabaseHandler.getUserCuisines(userToken)
-                        if (cuisines != null) {
+                        if (cuisines.isNotEmpty()) {
                             writeUserCuisines(context!!, cuisines)
                         }
+                        val nickname = UserDatabaseHandler.getUserNickname(userToken)
+                        writeUserNickname(context!!, nickname)
                         withContext(Main) {
-                            updateFieldsAndSwitchBackToParent()
+                            updateFieldsAndSwitchBackToProfile()
                         }
                     } else {
                         withContext(Main) {
@@ -108,9 +105,10 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private fun updateFieldsAndSwitchBackToParent() {
-        (myParentFragment!! as ProfileFragment).updateFields()
-        switchToFragment(this, myParentFragment!!)
+    private fun updateFieldsAndSwitchBackToProfile() {
+        val profileFragment = ProfileFragment.newInstance(switchToFragment, this)
+        //(myParentFragment!! as ProfileFragment).updateFields()
+        switchToFragment(this, profileFragment)
     }
 
     private fun onClickRegisterButton() {

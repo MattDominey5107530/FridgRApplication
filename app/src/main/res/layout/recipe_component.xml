@@ -7,7 +7,7 @@
     android:layout_height="150dp"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".RecipeComponent">
+    tools:context=".recyclerViewAdapters.RecipeComponent">
 
     <ImageView
         android:id="@+id/imgRecipePicture"
@@ -20,15 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgFavourite"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="@+id/txvRecipeInfo"
-        app:layout_constraintTop_toTopOf="@+id/imgRecipePicture"
-        app:srcCompat="@drawable/ic_favourite" />
-
     <TextView
         android:id="@+id/txvRecipeName"
         android:layout_width="0dp"
@@ -37,8 +28,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:maxLines="3"
-        android:textSize="20sp"
+        android:maxLines="2"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgFavourite"
@@ -47,10 +38,10 @@
     <TextView
         android:id="@+id/txvRecipeInfo"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:textSize="18sp"
@@ -58,5 +49,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgRecipePicture"
         app:layout_constraintTop_toBottomOf="@+id/txvRecipeName" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txvRecipeInfo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fmlClickableArea"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imgFavourite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="@+id/txvRecipeInfo"
+        app:layout_constraintTop_toTopOf="@+id/imgRecipePicture"
+        app:srcCompat="@drawable/ic_favourite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

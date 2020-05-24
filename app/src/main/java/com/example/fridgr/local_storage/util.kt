@@ -4,14 +4,12 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Environment
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import api.*
 import com.example.fridgr.R
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStreamReader
+import java.io.*
 
 data class UserPreferences(
     val intolerances: List<Intolerance>,
@@ -23,14 +21,21 @@ const val userCuisineFileName = "user_cuisines.txt"
 const val userTokenFileName = "device_token.txt"
 const val userFavouritesFilename = "user_favourites.txt"
 const val profilePictureFilename = "profile_picture.jpg"
+const val userNicknameFilename = "user_nickname.txt"
 
 /**
- * TODO temp: Called every time the app runs so that there are no files left over.
+ * Logs out the user by removing all user files.
  */
 fun logoutUser(context: Context) {
     context.deleteFile(userPreferencesFileName)
     context.deleteFile(userTokenFileName)
     context.deleteFile(userCuisineFileName)
+    context.deleteFile(userNicknameFilename)
+}
+
+fun deleteAllUserData(context: Context) {
+    logoutUser(context)
+    context.deleteFile(userFavouritesFilename)
     context.deleteFile(profilePictureFilename)
 }
 
@@ -53,9 +58,9 @@ private fun getTextFromFile(context: Context, fileName: String): String? {
         val stringBuilder = StringBuilder()
         var text: String? = null
         while ({ text = bufferedReader.readLine(); text }() != null) {
-            stringBuilder.append(text)
+            stringBuilder.append("$text\n")
         }
-        stringBuilder.toString()
+        stringBuilder.toString().trimEnd()
     } catch (e: Exception) {
         //e.printStackTrace()
         null
@@ -77,10 +82,14 @@ private fun writeTextToFile(context: Context, fileName: String, text: String) {
 
 private fun getBitmapFromFile(context: Context, filename: String): Bitmap? {
     return try {
-        val fileInputStream = context.openFileInput(filename)
-        BitmapFactory.decodeStream(fileInputStream)
+        val wrapper = ContextWrapper(context)
+        val bitmapFile = File(
+            wrapper.getDir("Images", Context.MODE_PRIVATE),
+            filename
+        )
+        BitmapFactory.decodeStream(FileInputStream(bitmapFile))
     } catch (e: Exception) {
-        //e.printStackTrace()
+        e.printStackTrace()
         null
     }
 }
@@ -96,10 +105,10 @@ private fun saveBitmapToFile(context: Context, bitmap: Bitmap, filename: String)
     try {
         val fileOutputStream = FileOutputStream(bitmapFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
-        fileOutputStream.flush()
+        //fileOutputStream.flush()
         fileOutputStream.close()
     } catch (e: Exception) {
-        //e.printStackTrace()
+        e.printStackTrace()
     }
 }
 
@@ -164,14 +173,10 @@ fun writeUserPreferences(context: Context, userPreferences: UserPreferences) {
     writeTextToFile(context, userPreferencesFileName, userPreferencesString)
 }
 
-fun writeUserPreferences(
-    context: Context,
-    intolerances: List<Intolerance>,
-    diet: Diet?
-) {
-    writeUserPreferences(context, UserPreferences(intolerances, diet))
-}
-
+/**
+ * Gets the user's cuisines from the local storage in the format:
+ *  CUISINE,CUISINE,CUISINE,CUISINE etc.
+ */
 fun getUserCuisines(context: Context): List<Cuisine>? {
     val userCuisineString = getTextFromFile(context, userCuisineFileName)
     return if (userCuisineString != null) {
@@ -200,8 +205,8 @@ fun writeUserCuisines(context: Context, cuisines: List<Cuisine>) {
 
 /**
  * Gets the user's favourite recipes from the local storage in the format:
- *  ID,NAME,NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT,IMAGE_STRING
- *  ID,NAME,NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT,IMAGE_STRING etc.
+ *  ID$$$NAME$$$NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT$$$IMAGE_STRING
+ *  ID$$$NAME$$$NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT;NUTRITION_NAME~NUTRITION_VALUE~NUTRITION_UNIT$$$IMAGE_STRING etc.
  */
 fun getFavouriteRecipes(context: Context): List<Recipe>? {
     val userFavouritesFileStrings = getTextFromFile(context, userFavouritesFilename)
@@ -211,20 +216,26 @@ fun getFavouriteRecipes(context: Context): List<Recipe>? {
         val recipeList = arrayListOf<Recipe>()
         for (favouriteRecipeString in favouriteRecipeStringList) {
             val (idString, nameString, nutritionsString, imageString) =
-                favouriteRecipeString.split(",")
+                favouriteRecipeString.split("\$\$\$")
 
-            val nutritionStringList = nutritionsString.split(';')
-            val nutritionList = arrayListOf<Nutrition>()
-            for (nutritionString in nutritionStringList) {
-                val splitNutritionString = nutritionString.split("~")
-                nutritionList.add(
-                    Nutrition(
-                        splitNutritionString[0],
-                        splitNutritionString[1].toDouble(),
-                        splitNutritionString[2]
+            val nutritionList: ArrayList<Nutrition>
+            if (nutritionsString != "") {
+                val nutritionStringList = nutritionsString.split(';')
+                nutritionList = arrayListOf<Nutrition>()
+                for (nutritionString in nutritionStringList) {
+                    val splitNutritionString = nutritionString.split("~")
+                    nutritionList.add(
+                        Nutrition(
+                            splitNutritionString[0],
+                            splitNutritionString[1].toDouble(),
+                            splitNutritionString[2]
+                        )
                     )
-                )
+                }
+            } else {
+                nutritionList = arrayListOf()
             }
+
 
             recipeList.add(
                 Recipe(
@@ -235,6 +246,7 @@ fun getFavouriteRecipes(context: Context): List<Recipe>? {
                 )
             )
         }
+
         return recipeList.toList()
     } else {
         return null
@@ -244,20 +256,66 @@ fun getFavouriteRecipes(context: Context): List<Recipe>? {
 /**
  * Writes the user's favourite recipes to file
  */
-fun writeFavouriteRecipes(context: Context, recipeList: List<Recipe>) {
+private fun writeFavouriteRecipes(context: Context, recipeList: List<Recipe>) {
     fun getNutritionString(nutrition: Nutrition) =
         "${nutrition.name}~${nutrition.value}~${nutrition.unit}"
 
     val recipeStrings: List<String> = recipeList.map { recipe ->
-        "${recipe.id.toString()},${recipe.name},${recipe.nutritionList.joinToString(";") {
+        "${recipe.id}\$\$\$${recipe.name}\$\$\$${recipe.nutritionList.joinToString(";") {
             getNutritionString(it)
-        }},${recipe.imageString}"
+        }}\$\$\$${recipe.imageString}"
     }
     val recipesString = recipeStrings.joinToString("\n")
 
     writeTextToFile(context, userFavouritesFilename, recipesString)
 }
 
+/**
+ * Adds a new favourite recipe to the file.
+ */
+fun addRecipeToFavourites(context: Context, recipe: Recipe) {
+    val currFavourites = getFavouriteRecipes(context)
+    if (currFavourites != null) {
+        val newFavourites = ArrayList(currFavourites).apply {
+            add(recipe)
+        }
+        writeFavouriteRecipes(context, newFavourites)
+    } else {
+        //File doesn't exist, so we'll create it and write this recipe to it.
+        writeFavouriteRecipes(context, listOf(recipe))
+    }
+}
+
+/**
+ * Removes a favourite recipe from the file (if it exists).
+ */
+fun removeRecipeFromFavourites(context: Context, recipe: Recipe) {
+    val currFavourites = getFavouriteRecipes(context)
+    if (currFavourites != null) {
+        val newFavourites = ArrayList(currFavourites).apply {
+            removeAll { it.id == recipe.id }
+        }
+        writeFavouriteRecipes(context, newFavourites)
+    }
+}
+
+
+/**
+ * Gets the user's nickname from the local storage in the format:
+ *  NICKNAME etc.
+ */
+fun getUserNickname(context: Context): String {
+    val userNickname = getTextFromFile(context, userNicknameFilename)
+    return userNickname ?: "Default User"
+}
+
+fun writeUserNickname(context: Context, userNickname: String) {
+    writeTextToFile(context, userNicknameFilename, userNickname)
+}
+
+/**
+ * Gets the user's profile picture from the local storage
+ */
 fun getProfilePicture(context: Context): Bitmap? {
     return getBitmapFromFile(context, profilePictureFilename)
 }

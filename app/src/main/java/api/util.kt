@@ -156,7 +156,7 @@ val cuisineMapToString = listOf(
     Pair(Cuisine.SOUTHERN, "Southern"),
     Pair(Cuisine.SPANISH, "Spanish"),
     Pair(Cuisine.THAI, "Thai"),
-    Pair(Cuisine.VIETAMESE, "Vietnamese")
+    Pair(Cuisine.VIETNAMESE, "Vietnamese")
 )
 
 /**
@@ -221,7 +221,12 @@ val ingredientImageStringPrefix = "https://spoonacular.com/cdn/ingredients_100x1
  * Conversion functions for the data classes
  */
 fun TestIngredient.toIngredient(): Ingredient {
-    val aisleList: List<Aisle> = this.aisle.split(";").map { getAisleFromAisleString(it) }
+    val aisleList: List<Aisle> =
+        try {
+            this.aisle.split(";").map { getAisleFromAisleString(it) }
+        } catch (e: Exception) {
+            emptyList()
+        }
     //Add the prefix 100x100 URL to the image URL
     val imageString =
         (if (this.image.startsWith(ingredientImageStringPrefix)) "" else ingredientImageStringPrefix) + this.image

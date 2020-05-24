@@ -42,6 +42,240 @@
                 android:text="Cuisines"
                 android:textSize="30sp" />
 
+            <CheckBox
+                android:id="@+id/chbCuisine0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__african"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__american"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__british"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__cajun"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__caribbean"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__chinese"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__eastern_european"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__european"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__french"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__german"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__greek"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__indian"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__irish"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__italian"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__japanese"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__jewish"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__korean"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__latin_american"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__mediterranean"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__mexican"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__middle_eastern"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__nordic"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__southern"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__spanish"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__thai"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
+            <CheckBox
+                android:id="@+id/chbCuisine25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:text="@string/profile_cuisines__vietnamese"
+                android:textSize="24sp"
+                app:buttonTint="@color/colorPrimaryDark" />
+
         </LinearLayout>
     </ScrollView>
 
