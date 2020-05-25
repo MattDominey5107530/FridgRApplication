@@ -68,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvFats"
             app:layout_constraintTop_toTopOf="@id/txvTime"
-            app:srcCompat="@drawable/c" />
+            app:srcCompat="@drawable/carbs" />
 
         <TextView
             android:id="@+id/txvFats"
@@ -88,7 +88,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvCalories"
             app:layout_constraintTop_toTopOf="@id/txvTime"
-            app:srcCompat="@drawable/f" />
+            app:srcCompat="@drawable/fats" />
 
         <TextView
             android:id="@+id/txvProtein"
@@ -108,7 +108,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvCarbs"
             app:layout_constraintTop_toTopOf="@id/txvTime"
-            app:srcCompat="@drawable/p" />
+            app:srcCompat="@drawable/protein" />
 
         <TextView
             android:id="@+id/txvCalories"
@@ -138,7 +138,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txvName"
-            app:srcCompat="@drawable/ic_time" />
+            app:srcCompat="@drawable/ic_time"
+            tools:ignore="NotSibling" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
@@ -181,8 +182,8 @@
                 android:id="@+id/txvIngredientsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
                 android:text="Ingredients"
                 android:textColor="@color/textLightPrimary"
                 android:textSize="24sp"
@@ -204,8 +205,8 @@
                 android:id="@+id/txvStepHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginTop="16dp"
                 android:text="Steps"
                 android:textColor="@color/textLightPrimary"
