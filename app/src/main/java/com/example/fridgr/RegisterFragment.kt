@@ -72,20 +72,25 @@ class RegisterFragment : Fragment() {
             if (username != "") {
                 if (UserDatabaseHandler.isTextLegal(username)) {
                     if (password != "") {
-                        if (password == password2) {
-                            CoroutineScope(IO).launch {
-                                UserDatabaseHandler.register(username, password)
-                                withContext(Main) {
-                                    Toast.makeText(context!!, "Successfully registered.", Toast.LENGTH_SHORT).show()
-                                    switchToFragment(this@RegisterFragment, myParentFragment!!)
+                        if (UserDatabaseHandler.isPasswordSufficient(password)) {
+                            if (password == password2) {
+                                CoroutineScope(IO).launch {
+                                    UserDatabaseHandler.register(username, password)
+                                    withContext(Main) {
+                                        Toast.makeText(context!!, "Successfully registered.", Toast.LENGTH_SHORT).show()
+                                        switchToFragment(this@RegisterFragment, myParentFragment!!)
+                                    }
                                 }
+                            } else {
+                                Toast.makeText(
+                                    context!!,
+                                    "Your passwords do not match!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         } else {
-                            Toast.makeText(
-                                context!!,
-                                "Your passwords do not match!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(context!!, "Your password must contain:\nA capital\nA number\nA symbol\nand be 6+ characters long.", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     } else {
                         Toast.makeText(context!!, "Your password is not valid.", Toast.LENGTH_SHORT)

@@ -303,4 +303,18 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         return !text.contains(Regex("""[\\;%"'$\-]"""))
     }
 
+    /**
+     * Function which returns whether a password is sufficient:
+     *  6+ characters
+     *  contains a symbol
+     *  contains a number
+     *  contains a capital
+     */
+    fun isPasswordSufficient(text: String): Boolean {
+        return text.length >= 6 &&
+                text.contains(Regex("^[A-Za-z0-9]")) &&
+                text.contains(Regex("[0-9]")) &&
+                text.contains(Regex("[A-Z]"))
+    }
+
 }
