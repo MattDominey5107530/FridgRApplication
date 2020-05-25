@@ -210,7 +210,7 @@ fun writeUserCuisines(context: Context, cuisines: List<Cuisine>) {
  */
 fun getFavouriteRecipes(context: Context): List<Recipe>? {
     val userFavouritesFileStrings = getTextFromFile(context, userFavouritesFilename)
-    if (userFavouritesFileStrings != null) {
+    if (userFavouritesFileStrings != null && userFavouritesFileStrings != "") {
         val favouriteRecipeStringList = userFavouritesFileStrings.split("\n")
 
         val recipeList = arrayListOf<Recipe>()
