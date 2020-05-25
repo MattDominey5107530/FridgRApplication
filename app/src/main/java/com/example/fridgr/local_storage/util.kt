@@ -260,14 +260,19 @@ private fun writeFavouriteRecipes(context: Context, recipeList: List<Recipe>) {
     fun getNutritionString(nutrition: Nutrition) =
         "${nutrition.name}~${nutrition.value}~${nutrition.unit}"
 
-    val recipeStrings: List<String> = recipeList.map { recipe ->
-        "${recipe.id}\$\$\$${recipe.name}\$\$\$${recipe.nutritionList.joinToString(";") {
-            getNutritionString(it)
-        }}\$\$\$${recipe.imageString}"
-    }
-    val recipesString = recipeStrings.joinToString("\n")
+    if (recipeList.isNotEmpty()) {
+        val recipeStrings: List<String> = recipeList.map { recipe ->
+            "${recipe.id}\$\$\$${recipe.name}\$\$\$${recipe.nutritionList.joinToString(";") {
+                getNutritionString(it)
+            }}\$\$\$${recipe.imageString}"
+        }
+        val recipesString = recipeStrings.joinToString("\n")
 
-    writeTextToFile(context, userFavouritesFilename, recipesString)
+        writeTextToFile(context, userFavouritesFilename, recipesString)
+    } else {
+        context.deleteFile(userFavouritesFilename)
+    }
+
 }
 
 /**
