@@ -71,10 +71,14 @@ class FilterPopup(
 
         val caloryRange: IntRange? =
             try {
-                val min = minCaloriesEditText.text.toString().toInt()
-                val max = maxCaloriesEditText.text.toString().toInt()
-                if (min < max) {
-                    IntRange(min, max)
+                val minString = minCaloriesEditText.text.toString()
+                val maxString = maxCaloriesEditText.text.toString()
+                if (minString != "" && maxString != "") {
+                    IntRange(minString.toInt(), maxString.toInt())
+                } else if (minString != "") {
+                    IntRange(minString.toInt(), 1000)
+                } else if (maxString != "") {
+                    IntRange(0, maxString.toInt())
                 } else {
                     null
                 }
@@ -83,43 +87,55 @@ class FilterPopup(
             }
 
         val carbsRange: IntRange? =
-            try {
-                val min = minCarbsEditText.text.toString().toInt()
-                val max = maxCarbsEditText.text.toString().toInt()
-                if (min < max) {
-                    IntRange(min, max)
-                } else {
-                    null
-                }
-            } catch (e: Exception) {
+        try {
+            val minString = minCarbsEditText.text.toString()
+            val maxString = maxCarbsEditText.text.toString()
+            if (minString != "" && maxString != "") {
+                IntRange(minString.toInt(), maxString.toInt())
+            } else if (minString != "") {
+                IntRange(minString.toInt(), 1000)
+            } else if (maxString != "") {
+                IntRange(0, maxString.toInt())
+            } else {
                 null
             }
+        } catch (e: Exception) {
+            null
+        }
 
         val fatsRange: IntRange? =
-            try {
-                val min = minFatsEditText.text.toString().toInt()
-                val max = maxFatsEditText.text.toString().toInt()
-                if (min < max) {
-                    IntRange(min, max)
-                } else {
-                    null
-                }
-            } catch (e: Exception) {
+        try {
+            val minString = minFatsEditText.text.toString()
+            val maxString = maxFatsEditText.text.toString()
+            if (minString != "" && maxString != "") {
+                IntRange(minString.toInt(), maxString.toInt())
+            } else if (minString != "") {
+                IntRange(minString.toInt(), 1000)
+            } else if (maxString != "") {
+                IntRange(0, maxString.toInt())
+            } else {
                 null
             }
+        } catch (e: Exception) {
+            null
+        }
 
         val proteinsRange: IntRange? =
-            try {
-                val min = minProteinsEditText.text.toString().toInt()
-                val max = maxProteinsEditText.text.toString().toInt()
-                if (min < max) {
-                    IntRange(min, max)
-                } else {
-                    null
-                }
-            } catch (e: Exception) {
+        try {
+            val minString = minProteinsEditText.text.toString()
+            val maxString = maxProteinsEditText.text.toString()
+            if (minString != "" && maxString != "") {
+                IntRange(minString.toInt(), maxString.toInt())
+            } else if (minString != "") {
+                IntRange(minString.toInt(), 1000)
+            } else if (maxString != "") {
+                IntRange(0, maxString.toInt())
+            } else {
                 null
             }
+        } catch (e: Exception) {
+            null
+        }
 
         filters = Filters(
             diet,
