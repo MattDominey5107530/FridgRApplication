@@ -214,7 +214,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
         if (resultSet != null && resultSet.next()) {
             val userId = resultSet.getInt("user_id")
             query =
-                "SELECT * FROM cuisines WHERE user_id=$userId;"
+                "SELECT * FROM Cuisines WHERE user_id=$userId;"
             resultSet = getResultSet(query)
             if (resultSet != null && resultSet.next()) {
                 for (i in 0 until 23) {
@@ -241,7 +241,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
             //update cuisines table
             if (userCuisines.isNotEmpty()) {
                 query =
-                    "UPDATE cuisines SET african = false, american=false, british=false, cajun=false," +
+                    "UPDATE Cuisines SET african = false, american=false, british=false, cajun=false," +
                             "caribbean = false, chinese = false, eastern_european = false, european = false," +
                             "french = false, german = false, greek = false, indian = false, irish = false," +
                             "italian = false, japanese = false, jewish = false, korean = false," +
@@ -251,7 +251,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
 
                 for (cuisine in userCuisines) {
                     query =
-                        "UPDATE cuisines SET $cuisine = true WHERE user_id=$userId;"
+                        "UPDATE Cuisines SET $cuisine = true WHERE user_id=$userId;"
                     updateQuery(query)
                 }
             }

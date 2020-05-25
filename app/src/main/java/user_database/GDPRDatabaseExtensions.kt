@@ -129,7 +129,7 @@ fun UserDatabaseHandler.deleteAllUserData(userToken: String) {
         val userId = resultSet.getInt("user_id")
         val tableNamesToDeleteFrom = listOf(
             "diets",
-            "cuisines",
+            "Cuisines",
             "Intolerances",
             "UserSearchQueries",
             "Users"
@@ -161,7 +161,7 @@ fun UserDatabaseHandler.register(username: String, password: String): Boolean {
     if (resultSet != null && resultSet.next()) {
         val userId = resultSet.getInt("user_id")
         val queryList = listOf(
-            "INSERT INTO cuisines VALUES ($userId, false, false, false, false, false, false, " +
+            "INSERT INTO Cuisines VALUES ($userId, false, false, false, false, false, false, " +
                     "false, false, false, false, false, false, false, false, false, " +
                     "false, false, false, false, false, false, false, false, false);",
             "INSERT INTO diets VALUES ($userId, false, false, false, false, false, false, " +
