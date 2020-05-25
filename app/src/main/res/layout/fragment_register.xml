@@ -7,6 +7,19 @@
     android:background="@color/background"
     tools:context=".LoginFragment">
 
+    <ImageButton
+        android:id="@+id/imbBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/background"
+        android:contentDescription="Go back to ingredient search."
+        android:padding="10dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_left_arrow"
+        android:tint="@color/textLightPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txvRegister"
         android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package api
 
 import com.example.fridgr.RecipeSearchFragment
+import com.example.fridgr.popups.NutritionFilters
 
 interface ISpoonacularAPIHandler {
 
@@ -24,7 +25,7 @@ interface ISpoonacularAPIHandler {
         diet: Diet?,
         cuisines: List<Cuisine>,
         mealType: MealType?,
-        nutritionFilters: RecipeSearchFragment.NutritionFilters?
+        nutritionFilters: NutritionFilters?
     ): List<Recipe>
 
     suspend fun getRecipeInfo(
@@ -37,7 +38,7 @@ interface ISpoonacularAPIHandler {
      */
     suspend fun getRecipeInstructions(
         recipeId: Int
-    ): List<RecipeInstructions>
+    ): List<RecipeInstructions>?
 
     /** (Docs: https://spoonacular.com/food-api/docs#Autocomplete-Ingredient-Search)
      * Will take the string text the user has typed in order to find an ingredient and

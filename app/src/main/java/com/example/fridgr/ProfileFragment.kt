@@ -87,7 +87,7 @@ class ProfileFragment : Fragment() {
             switchToFragment(this, loginFragment)
         }
 
-        v.findViewById<ImageButton>(R.id.imbProfileSettings)
+        v.findViewById<ImageButton>(R.id.imbBack)
             .setOnClickListener {
                 val profileSettingsFragment =
                     ProfileSettingsFragment.newInstance(switchToFragment, this)

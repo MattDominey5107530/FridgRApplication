@@ -17,6 +17,8 @@ import com.example.fridgr.local_storage.UserPreferences
 import com.example.fridgr.local_storage.getFavouriteRecipes
 import com.example.fridgr.local_storage.getUserCuisines
 import com.example.fridgr.local_storage.getUserPreferences
+import com.example.fridgr.popups.FilterPopup
+import com.example.fridgr.popups.Filters
 import com.example.fridgr.recyclerViewAdapters.RecipeListAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -52,18 +54,6 @@ class RecipeSearchFragment : Fragment() {
     private var userPreferences: UserPreferences? = null
     private lateinit var userCuisines: List<Cuisine>
     private var filters: Filters? = null
-
-    data class Filters(
-        val mealType: MealType,
-        val nutritionFilters: NutritionFilters
-    )
-
-    data class NutritionFilters(
-        val caloryRange: IntRange?,
-        val fatRange: IntRange?,
-        val proteinRange: IntRange?,
-        val carbRange: IntRange?
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -118,7 +108,15 @@ class RecipeSearchFragment : Fragment() {
         }
 
         v.findViewById<ImageButton>(R.id.imbFilter).setOnClickListener {
-            //TODO: onClick filter
+            val filterPopupWindow = FilterPopup(context!!) {
+                this.filters = (it as FilterPopup).filters
+            }
+            filterPopupWindow.showAtLocation(
+                view!!,
+                Gravity.CENTER,
+                0,
+                0
+            )
         }
 
         noRecipesMatchTextView = v.findViewById<TextView>(R.id.txvNoRecipesMatch).apply {
@@ -132,7 +130,13 @@ class RecipeSearchFragment : Fragment() {
 
         recyclerViewRecipeList = v.findViewById<RecyclerView>(R.id.rcvRecipeList).apply {
             recyclerViewRecipeListAdapter =
-                RecipeListAdapter(context, favouriteRecipes, this, ::showRecipeFragment, emptyList())
+                RecipeListAdapter(
+                    context,
+                    favouriteRecipes,
+                    this,
+                    ::showRecipeFragment,
+                    emptyList()
+                )
             recyclerViewRecipeListLayoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)

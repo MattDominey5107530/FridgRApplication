@@ -2,6 +2,7 @@ package api
 
 import android.content.Context
 import com.example.fridgr.RecipeSearchFragment
+import com.example.fridgr.popups.NutritionFilters
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.delay
 import okhttp3.*
@@ -88,7 +89,7 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
         diet: Diet?,
         cuisines: List<Cuisine>,
         mealType: MealType?,
-        nutritionFilters: RecipeSearchFragment.NutritionFilters?
+        nutritionFilters: NutritionFilters?
     ): List<Recipe> {
 
         var search: TestSearch
@@ -196,7 +197,7 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
     ): RecipeInfo? {
         var moreInfo: RecipeInfo? = null
 
-        val includeNutrition = false
+        val includeNutrition = true
         val url = "https://api.spoonacular.com/recipes/$recipeId/information?" +
                 "apiKey=$apiKey" +
                 "&includeNutrition=$includeNutrition"
@@ -233,8 +234,8 @@ object SpoonacularAPIHandler : ISpoonacularAPIHandler {
     // Takes in a recipe and returns its method.
     override suspend fun getRecipeInstructions(
         recipeId: Int
-    ): List<RecipeInstructions> {
-        var recipeInstructions: List<RecipeInstructions> = emptyList()
+    ): List<RecipeInstructions>? {
+        var recipeInstructions: List<RecipeInstructions>? = null
 
         val url = "https://api.spoonacular.com/recipes/$recipeId/analyzedInstructions?" +
                 "apiKey=$apiKey"

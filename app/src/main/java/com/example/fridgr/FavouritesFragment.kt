@@ -69,7 +69,7 @@ class FavouritesFragment : Fragment() {
             recyclerViewFavouriteRecipeList =
                 v.findViewById<RecyclerView>(R.id.rcvFavouriteRecipeList).apply {
                     recyclerViewFavouriteRecipeListAdapter =
-                        RecipeListAdapter(context, fullFavouriteRecipes, this, fullFavouriteRecipes!!)
+                        RecipeListAdapter(context, fullFavouriteRecipes, this, ::showRecipeFragment, fullFavouriteRecipes!!)
                     recyclerViewFavouriteRecipeListLayoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     setHasFixedSize(true)
@@ -109,5 +109,10 @@ class FavouritesFragment : Fragment() {
                 noFavouriteRecipesTextView.visibility = View.GONE
             }
         }
+    }
+
+    private fun showRecipeFragment(recipeId: Int) {
+        val recipeFragment = RecipeFragment.newInstance(switchToFragment, this, recipeId)
+        switchToFragment(this, recipeFragment)
     }
 }

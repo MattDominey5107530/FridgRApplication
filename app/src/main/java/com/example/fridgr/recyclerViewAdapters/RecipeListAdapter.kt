@@ -49,6 +49,7 @@ class RecipeListAdapter(private val context: Context,
 
             clickableAreaFrameLayout.setOnClickListener {
                 showRecipeFragment.invoke(myDataset[position].id)
+                println(myDataset[position].id)
             }
         }
     }

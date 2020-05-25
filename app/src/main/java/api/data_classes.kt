@@ -114,9 +114,14 @@ data class RecipeInfo(
     val image: String,
     val servings: Int,
     val readyInMinutes: Int,
+    val nutrition: Nutrients,
     val sourceUrl: String,
     val extendedIngredients: List<ExtendedIngredients>,
     val summary: String
+)
+
+data class Nutrients(
+    val nutrients: List<TestNutrition>
 )
 
 data class ExtendedIngredients(
@@ -126,7 +131,8 @@ data class ExtendedIngredients(
     val image: String,
     val measures: Measures,
     val name: String,
-    val unit: String
+    val unit: String,
+    val originalString: String
 )
 
 data class Measures(
