@@ -17,6 +17,7 @@ import api.Cuisine
 import api.Diet
 import api.Intolerance
 import com.example.fridgr.local_storage.*
+import com.example.fridgr.profile_settings.CuisinesFragment
 import com.example.fridgr.profile_settings.ProfileSettingsFragment
 
 class ProfileFragment : Fragment() {
@@ -221,7 +222,7 @@ class ProfileFragment : Fragment() {
                             Intolerance.SULFITE -> R.drawable.sulfite
                             Intolerance.TREE_NUT -> R.drawable.tree_nut
                             Intolerance.WHEAT -> R.drawable.wheat
-                            else -> R.drawable.wheat //TODO: add more diets/intolerances button
+                            else -> R.drawable.plus_button
                         }
                     }
                 )
@@ -286,7 +287,7 @@ class ProfileFragment : Fragment() {
                         Cuisine.SPANISH -> R.drawable.spanish_cuisine
                         Cuisine.THAI -> R.drawable.thai_cuisine
                         Cuisine.VIETNAMESE -> R.drawable.vietnamese_cuisine
-                        else -> R.drawable.african_cuisine //TODO: add more cuisines button...
+                        else -> R.drawable.plus_button
                     }
                 )
                 findViewById<ImageView>(R.id.imvIcon).apply {
@@ -296,6 +297,10 @@ class ProfileFragment : Fragment() {
                             imageDrawable.intrinsicHeight / 5
                         )
                     )
+                    setOnClickListener {
+                        val cuisineFragment = CuisinesFragment.newInstance(switchToFragment, this@ProfileFragment)
+                        switchToFragment(this@ProfileFragment, cuisineFragment)
+                    }
                 }
             }
         }
