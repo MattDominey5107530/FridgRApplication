@@ -18,6 +18,7 @@ import api.Diet
 import api.Intolerance
 import com.example.fridgr.local_storage.*
 import com.example.fridgr.profile_settings.CuisinesFragment
+import com.example.fridgr.profile_settings.DietsFragment
 import com.example.fridgr.profile_settings.ProfileSettingsFragment
 
 class ProfileFragment : Fragment() {
@@ -233,6 +234,10 @@ class ProfileFragment : Fragment() {
                             imageDrawable.intrinsicHeight / 5
                         )
                     )
+                }
+                setOnClickListener {
+                    val dietaryFragment = DietsFragment.newInstance(switchToFragment, this@ProfileFragment)
+                    switchToFragment(this@ProfileFragment, dietaryFragment)
                 }
             }
         }
