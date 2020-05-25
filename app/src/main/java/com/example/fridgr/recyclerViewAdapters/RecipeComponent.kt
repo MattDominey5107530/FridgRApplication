@@ -2,6 +2,7 @@ package com.example.fridgr.recyclerViewAdapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -65,12 +66,10 @@ class RecipeComponent @JvmOverloads constructor(
         isRecipeFavourite = isFavourite
         favouriteButton.apply {
             if (isFavourite) {
-                setImageResource(R.drawable.ic_favourite)
-                setColorFilter(ContextCompat.getColor(context,
-                    R.color.design_default_color_error
-                ))
+                setImageResource(R.drawable.ic_black_heart)
+                setColorFilter(Color.argb(255, 244, 67, 54))
             } else {
-                setImageResource(R.drawable.ic_favourite)
+                setImageResource(R.drawable.ic_stroke_heart)
                 colorFilter = null
             }
         }

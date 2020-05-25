@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/profileBackground"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:background="@color/backgroundAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,12 +21,12 @@
 
     <ImageView
         android:id="@+id/imvRecipePicture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="16dp"
         android:contentDescription="@string/recipe_picture_desc"
-        android:scaleType="centerInside"
         android:elevation="5dp"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,82 +42,82 @@
         <TextView
             android:id="@+id/txvTime"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
             android:textColor="@color/textLightPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imvTimeIcon"
-            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txvCarbs"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/textLightPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imvCarbsIcon"
-            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imvCarbsIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvFats"
-            app:layout_constraintTop_toTopOf="@id/txvTime"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/carbs" />
 
         <TextView
             android:id="@+id/txvFats"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/textLightPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imvFatsIcon"
-            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imvFatsIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvCalories"
-            app:layout_constraintTop_toTopOf="@id/txvTime"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/fats" />
 
         <TextView
             android:id="@+id/txvProtein"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/textLightPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imvProteinIcon"
-            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imvProteinIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvCarbs"
-            app:layout_constraintTop_toTopOf="@id/txvTime"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/protein" />
 
         <TextView
             android:id="@+id/txvCalories"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/textLightPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imvCaloriesIcon"
-            app:layout_constraintTop_toTopOf="@id/imvTimeIcon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imvCaloriesIcon"
@@ -127,17 +127,16 @@
             android:layout_marginLeft="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txvTime"
-            app:layout_constraintTop_toTopOf="@id/txvTime"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_calories" />
 
         <ImageView
             android:id="@+id/imvTimeIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txvName"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_time"
             tools:ignore="NotSibling" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -160,7 +159,7 @@
         android:maxLines="3"
         android:singleLine="false"
         android:textColor="@color/textLightPrimary"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imvRecipePicture" />
@@ -186,18 +185,25 @@
                 android:layout_marginLeft="12dp"
                 android:text="Ingredients"
                 android:textColor="@color/textLightPrimary"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txvStepList"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="left"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/txvStepHeader"
                 app:layout_constraintTop_toBottomOf="@+id/txvStepHeader" />
 
@@ -210,18 +216,23 @@
                 android:layout_marginTop="16dp"
                 android:text="Steps"
                 android:textColor="@color/textLightPrimary"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvIngredientList" />
 
             <TextView
                 android:id="@+id/txvIngredientList"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:gravity="left"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/txvIngredientsHeader"
                 app:layout_constraintTop_toBottomOf="@+id/txvIngredientsHeader" />
         </androidx.constraintlayout.widget.ConstraintLayout>
