@@ -9,16 +9,16 @@ import java.sql.*
 import java.util.*
 
 object UserDatabaseHandler : IUserDatabaseHandler {
-    private var conn: Connection? = null
-    private const val username: String = "app_user"
-    private const val password: String = "KJDjfkJKDL29Km8FK,"
-    private const val host: String = "fridgrinstance.c3qjm5y8runj.eu-west-2.rds.amazonaws.com"
-    private const val port: String = "3306"
+    internal var conn: Connection? = null
+    internal const val username: String = "app_user"
+    internal const val password: String = "KJDjfkJKDL29Km8FK,"
+    internal const val host: String = "fridgrinstance.c3qjm5y8runj.eu-west-2.rds.amazonaws.com"
+    internal const val port: String = "3306"
 
     /**
      * Helper function to establish a connection to the database.
      */
-    fun connect() {
+    internal fun connect() {
         val connectionProps = Properties()
         connectionProps["user"] = username
         connectionProps["password"] = password
@@ -41,7 +41,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     /**
      * Helper function to use with SELECT and any GET queries.
      */
-    fun getResultSet(query: String): ResultSet? {
+    internal fun getResultSet(query: String): ResultSet? {
         requireNotNull(conn)
 
         val stmt: Statement?
@@ -59,7 +59,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     /**
      * Helper function to use with UPDATE/INSERT and any POST queries.
      */
-    fun updateQuery(query: String) {
+    internal fun updateQuery(query: String) {
         requireNotNull(conn)
 
         val stmt: Statement?
@@ -75,7 +75,7 @@ object UserDatabaseHandler : IUserDatabaseHandler {
     /**
      * Function to hash & salt the password before passing it to the database.
      */
-    private fun hashPassword(password: String): String {
+    internal fun hashPassword(password: String): String {
         val algorithm = "SHA-256"
         return MessageDigest.getInstance(algorithm).digest(password.toByteArray()).fold("",
             { str, it -> str + "%02x".format(it) })
@@ -299,9 +299,8 @@ object UserDatabaseHandler : IUserDatabaseHandler {
      * Function which returns whether a string is valid to be passed into the database
      * ***UPON FEEDBACK FROM FORENSIC***
      */
-    fun isTextLegal(): Boolean {
-        //TODO: if it contains anything dodgy then return false
-        return true
+    fun isTextLegal(text: String): Boolean {
+        return !text.contains(Regex("""[\\;%"'$\-]"""))
     }
 
 }

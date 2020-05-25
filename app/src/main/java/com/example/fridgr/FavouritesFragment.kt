@@ -104,10 +104,20 @@ class FavouritesFragment : Fragment() {
                     myDataset = filteredFavouriteRecipe
                     notifyDataSetChanged()
                 }
-                noFavouriteRecipesTextView.visibility = View.VISIBLE
-            } else {
                 noFavouriteRecipesTextView.visibility = View.GONE
+            } else {
+                with (recyclerViewFavouriteRecipeListAdapter) {
+                    myDataset = emptyList()
+                    notifyDataSetChanged()
+                }
+                noFavouriteRecipesTextView.visibility = View.VISIBLE
             }
+        } else {
+            with (recyclerViewFavouriteRecipeListAdapter) {
+                myDataset = emptyList()
+                notifyDataSetChanged()
+            }
+            noFavouriteRecipesTextView.visibility = View.VISIBLE
         }
     }
 

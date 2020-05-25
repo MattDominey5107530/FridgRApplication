@@ -72,7 +72,7 @@ class LoginFragment: Fragment() {
         hideKeyboard()
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
-        if (username != "") {
+        if (username != "" && UserDatabaseHandler.isTextLegal(username)) {
             if (password != "") {
                 CoroutineScope(IO).launch {
                     val userToken: String? = UserDatabaseHandler.authenticate(username, password)

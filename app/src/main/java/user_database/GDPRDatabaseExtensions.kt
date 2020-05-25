@@ -2,9 +2,6 @@ package user_database
 
 import android.content.Context
 import com.example.fridgr.local_storage.getUserToken
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.coroutineContext
 
 /**
  * Extension functions to comply with GDPR data erasure.
@@ -34,7 +31,7 @@ private fun UserDatabaseHandler.getUserQueries(userId: Int): List<String> {
 /**
  * Extension function to write a user's query string to the database.
  */
-suspend fun UserDatabaseHandler.writeCurrentUserQuery(context: Context, queryString: String) {
+fun UserDatabaseHandler.writeCurrentUserQuery(context: Context, queryString: String) {
     this.connect()
     val userToken = getUserToken(context)
 
@@ -71,7 +68,7 @@ suspend fun UserDatabaseHandler.writeCurrentUserQuery(context: Context, queryStr
  *          <>
  *          <>
  */
-suspend fun UserDatabaseHandler.requestAllUserData(userToken: String): String? {
+fun UserDatabaseHandler.requestAllUserData(userToken: String): String? {
     this.connect()
     var userDataString = ""
 
@@ -122,7 +119,7 @@ suspend fun UserDatabaseHandler.requestAllUserData(userToken: String): String? {
  * Extension function which deletes a user's account and all data stored on them from the user
  *  database.
  */
-suspend fun UserDatabaseHandler.deleteAllUserData(userToken: String) {
+fun UserDatabaseHandler.deleteAllUserData(userToken: String) {
     this.connect()
     val query =
         "SELECT user_id FROM Users WHERE user_token='$userToken';"
@@ -144,4 +141,42 @@ suspend fun UserDatabaseHandler.deleteAllUserData(userToken: String) {
             updateQuery(deleteQuery)
         }
     }
+}
+
+/**
+ * Extension function which registers a user to the user database
+ */
+fun UserDatabaseHandler.register(username: String, password: String): Boolean {
+    this.connect()
+    val passwordHash = hashPassword(password)
+    var query =
+        "INSERT INTO Users (username, password, nickname) VALUES ('$username', '$passwordHash', '$username');"
+    updateQuery(query)
+
+    val userToken = authenticate(username, password)
+
+    query =
+        "SELECT user_id FROM Users WHERE user_token='$userToken';"
+    val resultSet = getResultSet(query)
+    if (resultSet != null && resultSet.next()) {
+        val userId = resultSet.getInt("user_id")
+        val queryList = listOf(
+            "INSERT INTO cuisines VALUES ($userId, false, false, false, false, false, false, " +
+                    "false, false, false, false, false, false, false, false, false, " +
+                    "false, false, false, false, false, false, false, false, false);",
+            "INSERT INTO diets VALUES ($userId, false, false, false, false, false, false, " +
+                    "false, false, false, false);",
+            "INSERT INTO Intolerances VALUES ($userId, false, false, false, false, false, " +
+                    "false, false, false, false, false, false, false);"
+        )
+        for (insertQuery in queryList) {
+            updateQuery(insertQuery)
+        }
+        this.conn?.close()
+        return true
+    } else {
+        this.conn?.close()
+        return false
+    }
+
 }
